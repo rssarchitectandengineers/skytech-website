@@ -1,5 +1,5 @@
 /**
- * SkyTech Structural Consultant - Main Interactive Logic
+ * THESKYTECH Structural Consultant - Main Interactive Logic
  * Quality Matters | Jaipur, Rajasthan
  */
 
@@ -288,7 +288,7 @@ function initConsultationForms() {
 
       // 1. WhatsApp Message Text for immediate notification on Phone (+91-7737243812)
       const waMessage = 
-`*🏗️ NEW CONSULTATION ENQUIRY - SKYTECH STRUCTURAL*
+`*🏗️ NEW CONSULTATION ENQUIRY - THESKYTECH STRUCTURAL*
 ---------------------------------------
 👤 *Client Name:* ${fullName}
 📞 *Phone Number:* ${fullPhoneNumber}
@@ -296,7 +296,7 @@ function initConsultationForms() {
 ⚙️ *Service Required:* ${serviceName}
 📍 *Project Details:* ${details}
 ---------------------------------------
-_Sent via SkyTech Consultant Website_`;
+_Sent via THESKYTECH Consultant Website_`;
 
       const waUrl = `https://wa.me/917737243812?text=${encodeURIComponent(waMessage)}`;
       const mailtoUrl = `mailto:skytechjpr@gmail.com?subject=${encodeURIComponent(`New Structural Lead: ${fullName} (${serviceName})`)}&body=${encodeURIComponent(waMessage)}`;
@@ -356,14 +356,14 @@ _Sent via SkyTech Consultant Website_`;
           </div>
           <h3 style="font-size: 1.4rem; color: #0b1523; font-weight: 800; margin-bottom: 0.5rem;">Enquiry Submitted Successfully!</h3>
           <p style="font-size: 0.92rem; color: #475569; margin-bottom: 1.5rem; line-height: 1.6;">
-            Thank you <strong>${fullName}</strong>. Your structural consultation request has been submitted directly to SkyTech Structural Engineers. Our senior team will review your requirements and connect with you shortly.
+            Thank you <strong>${fullName}</strong>. Your structural consultation request has been submitted directly to THESKYTECH Structural Engineers. Our senior team will review your requirements and connect with you shortly.
           </p>
 
           <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1rem 1.25rem; margin-bottom: 1.5rem; text-align: left; font-size: 0.85rem;">
             <div style="margin-bottom: 6px; color: #64748b;"><strong>Client:</strong> <span style="color: #0f172a; font-weight: 600;">${fullName}</span></div>
             <div style="margin-bottom: 6px; color: #64748b;"><strong>Phone:</strong> <span style="color: #0284c7; font-weight: 700;">${fullPhoneNumber}</span></div>
             <div style="margin-bottom: 6px; color: #64748b;"><strong>Service:</strong> <span style="color: #0f172a; font-weight: 600;">${serviceName}</span></div>
-            <div style="color: #64748b;"><strong>Status:</strong> <span style="color: #16a34a; font-weight: 700;">● Dispatched to SkyTech Engineering Team</span></div>
+            <div style="color: #64748b;"><strong>Status:</strong> <span style="color: #16a34a; font-weight: 700;">● Dispatched to THESKYTECH Engineering Team</span></div>
           </div>
 
           <button type="button" class="btn-consultation-primary close-parent-modal-btn" style="width: 100%; justify-content: center; padding: 0.85rem 1.5rem; font-size: 0.95rem; font-weight: 700; border-radius: 8px;">
@@ -382,7 +382,7 @@ _Sent via SkyTech Consultant Website_`;
       }
 
       sessionStorage.setItem('skytech_consultation_dismissed', 'true');
-      showToast('Enquiry received! Sent directly to SkyTech team.');
+      showToast('Enquiry received! Sent directly to THESKYTECH team.');
     });
   });
 }
@@ -531,7 +531,7 @@ function renderProjects(projects) {
       <div class="project-card-image">
         <picture>
           <source srcset="${p.image.replace('.jpg', '.webp')}" type="image/webp">
-          <img src="${p.image}" alt="${p.title} - Structural Design by SkyTech" loading="lazy" width="400" height="200" decoding="async">
+          <img src="${p.image}" alt="${p.title} - Structural Design by THESKYTECH" loading="lazy" width="400" height="200" decoding="async">
         </picture>
         <span class="project-category-tag">${p.categoryName}</span>
       </div>
@@ -622,7 +622,7 @@ function showProjectModalDetails(project) {
         <button type="button" class="btn-consultation-primary" data-open-consultation style="flex-grow: 1; justify-content: center;">
           Inquire Similar Structural Project →
         </button>
-        <a href="https://wa.me/917737243812?text=${encodeURIComponent(`Hello SkyTech, I am interested in your project: ${project.title}`)}" target="_blank" rel="noopener noreferrer" class="btn-portfolio-outline" style="color: #25d366; border-color: #25d366;">
+        <a href="https://wa.me/917737243812?text=${encodeURIComponent(`Hello THESKYTECH, I am interested in your project: ${project.title}`)}" target="_blank" rel="noopener noreferrer" class="btn-portfolio-outline" style="color: #25d366; border-color: #25d366;">
           Chat on WhatsApp
         </a>
       </div>
@@ -678,7 +678,7 @@ const SERVICES_DATA = {
     title: 'Building Cost Reduction (Approved Drawings)',
     icon: `<path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>`,
     tagline: 'Trim 15% to 25% Steel & Concrete Costs Without Compromising Safety',
-    overview: 'Have existing approved drawings that appear over-designed or heavily reinforced? SkyTech specializes in value engineering and re-analysis of approved drawings to streamline reinforcement and eliminate unnecessary structural tonnage.',
+    overview: 'Have existing approved drawings that appear over-designed or heavily reinforced? THESKYTECH specializes in value engineering and re-analysis of approved drawings to streamline reinforcement and eliminate unnecessary structural tonnage.',
     deliverables: [
       'Independent Peer Review and Over-Design Diagnostic Audit',
       'Re-Analysis of Spans, Column Axial Load Distribution & Slab Thicknesses',
@@ -706,7 +706,7 @@ const SERVICES_DATA = {
     title: 'Structural Audit and Assessment',
     icon: `<path d="M9 11l3 3L22 4M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>`,
     tagline: 'Comprehensive Structural Health & Integrity Certification',
-    overview: 'Periodic structural audits are vital for aging buildings, commercial complexes, and industrial plants. SkyTech conducts rigorous site inspections, Non-Destructive Testing (NDT), and structural health reports.',
+    overview: 'Periodic structural audits are vital for aging buildings, commercial complexes, and industrial plants. THESKYTECH conducts rigorous site inspections, Non-Destructive Testing (NDT), and structural health reports.',
     deliverables: [
       'Rebound Hammer Testing for Concrete Surface Hardness & Uniformity',
       'Ultrasonic Pulse Velocity (UPV) Testing to Detect Internal Voids & Cracks',
@@ -734,7 +734,7 @@ const SERVICES_DATA = {
     title: 'Retrofitting and Structural Strengthening',
     icon: `<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>`,
     tagline: 'Extending Life & Load Capacity of Existing Concrete & Steel',
-    overview: 'When structures need to bear higher loads or have suffered distress, demolition is not the answer. SkyTech delivers state-of-the-art structural retrofitting and seismic rehabilitation solutions.',
+    overview: 'When structures need to bear higher loads or have suffered distress, demolition is not the answer. THESKYTECH delivers state-of-the-art structural retrofitting and seismic rehabilitation solutions.',
     deliverables: [
       'RCC Column & Beam Jacketing with Micro-Concrete',
       'Carbon Fiber Reinforced Polymer (CFRP) Composite Wrapping',
@@ -748,7 +748,7 @@ const SERVICES_DATA = {
     title: 'Project Management Consultancy (PMC)',
     icon: `<path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 7a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>`,
     tagline: 'End-to-End On-Site Engineering Supervision & Quality Control',
-    overview: 'A brilliant structural design requires flawless site execution. SkyTech PMC ensures that the contractor adheres precisely to engineering drawings, bar schedules, and concrete pouring standards.',
+    overview: 'A brilliant structural design requires flawless site execution. THESKYTECH PMC ensures that the contractor adheres precisely to engineering drawings, bar schedules, and concrete pouring standards.',
     deliverables: [
       'Pre-Pour Reinforcement Inspection and Checksheet Sign-Off',
       'Verification of Bar Diameters, Spacing, Clear Cover, and Lap Splices',
@@ -776,7 +776,7 @@ const SERVICES_DATA = {
     title: 'Soil Investigation & Geotechnical Consultancy',
     icon: `<path d="M2 17l10 5 10-5M2 12l10 5 10-5M2 7l10 5 10-5"/>`,
     tagline: 'Safe, Economical Foundations Built on Verified Ground Data',
-    overview: 'A building is only as strong as the ground beneath it. SkyTech provides complete geotechnical investigations, bore hole drilling, soil testing, and Safe Bearing Capacity (SBC) recommendations.',
+    overview: 'A building is only as strong as the ground beneath it. THESKYTECH provides complete geotechnical investigations, bore hole drilling, soil testing, and Safe Bearing Capacity (SBC) recommendations.',
     deliverables: [
       'Rotary & Percussion Borehole Drilling with Core Recovery',
       'Standard Penetration Tests (SPT) & Dynamic Cone Penetration Tests',
@@ -823,7 +823,7 @@ function showServiceModalDetails(service) {
           </svg>
         </div>
         <div>
-          <span style="font-size: 0.75rem; text-transform: uppercase; color: #38bdf8; font-weight: 700; letter-spacing: 1.5px;">SkyTech Service Excellence</span>
+          <span style="font-size: 0.75rem; text-transform: uppercase; color: #38bdf8; font-weight: 700; letter-spacing: 1.5px;">THESKYTECH Service Excellence</span>
           <h3 style="font-size: 1.6rem; font-weight: 800; color: #fff;">${service.title}</h3>
         </div>
       </div>
@@ -854,7 +854,7 @@ function showServiceModalDetails(service) {
         <button type="button" class="btn-consultation-primary" data-open-consultation style="flex-grow: 1; justify-content: center;">
           Request Consultation for ${service.title} →
         </button>
-        <a href="https://wa.me/917737243812?text=${encodeURIComponent(`Hello SkyTech, I want to consult about: ${service.title}`)}" target="_blank" rel="noopener noreferrer" class="btn-portfolio-outline" style="color: #25d366; border-color: #25d366;">
+        <a href="https://wa.me/917737243812?text=${encodeURIComponent(`Hello THESKYTECH, I want to consult about: ${service.title}`)}" target="_blank" rel="noopener noreferrer" class="btn-portfolio-outline" style="color: #25d366; border-color: #25d366;">
           WhatsApp Quick Chat
         </a>
       </div>
@@ -1024,10 +1024,10 @@ function openDesktopActionModal(type, value) {
             <path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 0 0-1.01.24l-2.2 2.2a15.053 15.053 0 0 1-6.59-6.59l2.2-2.21a.96.96 0 0 0 .25-1.01A11.36 11.36 0 0 1 8.5 3.99c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.5c0-.55-.45-1-1-1z"/>
           </svg>
         </div>
-        <h3 class="desktop-action-title">SkyTech Structural Engineer</h3>
+        <h3 class="desktop-action-title">THESKYTECH Structural Engineer</h3>
         <p class="desktop-action-value">+91-7737243812</p>
         <div class="desktop-action-buttons">
-          <a href="https://web.whatsapp.com/send?phone=917737243812&text=Hello%20SkyTech%2C%20I%20would%20like%20to%20enquire%20about%20your%20structural%20consultancy%20services." target="_blank" rel="noopener noreferrer" class="btn-desktop-act primary-wa">
+          <a href="https://web.whatsapp.com/send?phone=917737243812&text=Hello%20THESKYTECH%2C%20I%20would%20like%20to%20enquire%20about%20your%20structural%20consultancy%20services." target="_blank" rel="noopener noreferrer" class="btn-desktop-act primary-wa">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm5.79 14.07c-.24.67-1.4 1.24-1.92 1.28-.48.04-1.07.06-3.48-.94-2.88-1.2-4.75-4.14-4.89-4.33-.14-.19-1.18-1.57-1.18-2.99 0-1.42.74-2.12 1.01-2.41.27-.29.59-.36.79-.36.2 0 .4 0 .57.01.19.01.44-.07.69.52.25.6.86 2.1.94 2.25.07.16.12.35.02.55-.1.2-.15.32-.3.5-.15.17-.32.39-.46.52-.15.15-.31.31-.13.62.17.3 1.09 1.79 2.34 2.91 1.61 1.43 2.97 1.87 3.39 2.08.42.2.66.18.91-.11.25-.28 1.07-1.25 1.36-1.68.29-.42.57-.35.96-.21.39.14 2.47 1.17 2.89 1.38.42.21.7.31.81.49.1.18.1.96-.14 1.63z"/></svg>
             <span>Chat on WhatsApp Web</span>
           </a>
@@ -1053,7 +1053,7 @@ function openDesktopActionModal(type, value) {
             <polyline points="22,6 12,13 2,6"/>
           </svg>
         </div>
-        <h3 class="desktop-action-title">Email SkyTech Engineering</h3>
+        <h3 class="desktop-action-title">Email THESKYTECH Engineering</h3>
         <p class="desktop-action-value">skytechjpr@gmail.com</p>
         <div class="desktop-action-buttons">
           <a href="https://mail.google.com/mail/?view=cm&fs=1&to=skytechjpr@gmail.com&su=Structural%20Engineering%20Consultancy%20Enquiry" target="_blank" rel="noopener noreferrer" class="btn-desktop-act primary-gmail">
@@ -1082,7 +1082,7 @@ function openDesktopActionModal(type, value) {
  * ------------------------------------------------------------- */
 const TELEGRAM_ALERT_CONFIG = {
   enabled: true,
-  // SkyTech Official Telegram Bot API Token & Chat ID
+  // THESKYTECH Official Telegram Bot API Token & Chat ID
   botToken: '9115205736:AAH6xdmfePDFdJeEp9rDz1AqMP-fYz-Fug8', 
   chatId: '5018364349'
 };
@@ -1107,7 +1107,7 @@ function sendMobileLeadNotification(lead) {
     `📍 <b>Project:</b> ${lead.details}\n` +
     `━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
     `🕒 <i>Time: ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}</i>\n` +
-    `🌐 <i>Website: SkyTech Structural Consultant</i>`;
+    `🌐 <i>Website: THESKYTECH Structural Consultant</i>`;
 
   fetch(`https://api.telegram.org/bot${TELEGRAM_ALERT_CONFIG.botToken}/sendMessage`, {
     method: 'POST',

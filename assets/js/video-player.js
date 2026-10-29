@@ -1,5 +1,5 @@
 /**
- * SkyTech Structural Consultant - Brand Introduction Video Player
+ * THESKYTECH Structural Consultant - Brand Introduction Video Player
  * High-precision canvas engineering visualization & video controller
  */
 
@@ -220,10 +220,10 @@ function initBrandVideoPlayer() {
       ctx.stroke();
     }
 
-    // SkyTech Brand Video Watermark & Telemetry
+    // THESKYTECH Brand Video Watermark & Telemetry
     ctx.fillStyle = '#38bdf8';
     ctx.font = 'bold 12px "Space Grotesk", sans-serif';
-    ctx.fillText('SKYTECH STRUCTURAL CONSULTANT  •  FEA SIMULATION ENGINE', 25, 30);
+    ctx.fillText('THESKYTECH STRUCTURAL CONSULTANT  •  FEA SIMULATION ENGINE', 25, 30);
     ctx.fillStyle = '#94a3b8';
     ctx.font = '10px "Plus Jakarta Sans", sans-serif';
     ctx.fillText(`IS 1893:2016 SEISMIC ANALYSIS  •  LOAD STEP: ${(currentTime * 4.2).toFixed(1)} kN  •  DISP: ${(Math.sin(rot * 2) * 2.4 + 4.1).toFixed(2)} mm`, 25, 48);

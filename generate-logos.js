@@ -72,8 +72,8 @@ function generateLogoSvg(isWhite = false) {
 
   <!-- Official Typography Section (High Legibility & Prominent Tagline) -->
   <g transform="translate(74, 0)">
-    <!-- Main Wordmark: SKYTECH -->
-    <text x="0" y="27" font-family="'Cinzel', 'Playfair Display', 'Times New Roman', 'Georgia', serif" font-size="28" font-weight="900" fill="${textColor}" letter-spacing="2.8">SKYTECH</text>
+    <!-- Main Wordmark: THESKYTECH -->
+    <text x="0" y="27" font-family="'Cinzel', 'Playfair Display', 'Times New Roman', 'Georgia', serif" font-size="24" font-weight="900" fill="${textColor}" letter-spacing="1.6">THESKYTECH</text>
 
     <!-- Subtitle: STRUCTURAL CONSULTANT -->
     <text x="1" y="43" font-family="'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif" font-size="10.5" font-weight="800" fill="${subtitleColor}" letter-spacing="2.0">STRUCTURAL CONSULTANT</text>

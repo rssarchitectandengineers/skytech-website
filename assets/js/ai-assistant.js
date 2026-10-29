@@ -1,5 +1,5 @@
 /**
- * SkyTech AI Assistant - Structural Engineering Knowledge Base & Widget
+ * THESKYTECH AI Assistant - Structural Engineering Knowledge Base & Widget
  * Built with on-device expert rules & structural engineering query parser
  */
 
@@ -119,7 +119,7 @@ function generateAIResponse(query) {
   if (q.includes('cost') || q.includes('save') || q.includes('reduce') || q.includes('steel tonnage') || q.includes('econom')) {
     return `
       <strong>Building Cost Reduction through Value Engineering:</strong><br>
-      SkyTech specializes in optimizing approved architectural and structural drawings. By re-evaluating structural spans, rationalizing bar bending schedules (BBS), and redistributing axial column loads according to IS 456 & IS 13920, we typically achieve:
+      THESKYTECH specializes in optimizing approved architectural and structural drawings. By re-evaluating structural spans, rationalizing bar bending schedules (BBS), and redistributing axial column loads according to IS 456 & IS 13920, we typically achieve:
       <ul style="margin: 6px 0 6px 18px; font-size: 0.8rem;">
         <li><strong>15% to 25% reduction</strong> in total steel tonnage.</li>
         <li>Substantial savings of ₹8 to ₹25 per square foot.</li>
@@ -149,7 +149,7 @@ function generateAIResponse(query) {
   if (q.includes('audit') || q.includes('stability') || q.includes('certificate') || q.includes('crack') || q.includes('old building') || q.includes('ndt')) {
     return `
       <strong>Structural Health Audit & Stability Certification:</strong><br>
-      SkyTech provides certified structural stability assessments required for statutory approvals, bank loans, factory licensing, and school/hospital occupancy:
+      THESKYTECH provides certified structural stability assessments required for statutory approvals, bank loans, factory licensing, and school/hospital occupancy:
       <ul style="margin: 6px 0 6px 18px; font-size: 0.8rem;">
         <li><strong>Rebound Hammer & UPV Testing:</strong> In-situ concrete strength & integrity check.</li>
         <li><strong>Core Extraction:</strong> Laboratory compressive testing.</li>
@@ -164,7 +164,7 @@ function generateAIResponse(query) {
   if (q.includes('rcc') || q.includes('concrete') || q.includes('slab') || q.includes('beam') || q.includes('column') || q.includes('foundation') || q.includes('footing')) {
     return `
       <strong>Reinforced Concrete (RCC) Design Excellence:</strong><br>
-      SkyTech provides complete RCC structural engineering for residential, commercial, and high-rise towers:
+      THESKYTECH provides complete RCC structural engineering for residential, commercial, and high-rise towers:
       <ul style="margin: 6px 0 6px 18px; font-size: 0.8rem;">
         <li>3D finite element analysis for gravity, wind, and seismic loads (IS 1893:2016).</li>
         <li>Isolated footings, combined pads, strap beams, and heavy raft foundations.</li>
@@ -204,17 +204,17 @@ function generateAIResponse(query) {
   // 7. Contact, Location, Pricing
   if (q.includes('contact') || q.includes('phone') || q.includes('address') || q.includes('location') || q.includes('email') || q.includes('office') || q.includes('jaipur')) {
     return `
-      <strong>SkyTech Structural Consultant - Contact Details:</strong><br>
+      <strong>THESKYTECH Structural Consultant - Contact Details:</strong><br>
       📍 <strong>Head Office:</strong> Jaipur, Rajasthan, India<br>
       📞 <strong>Phone:</strong> <a href="tel:+917737243812" style="color:#0284c7; font-weight:700;">+91-7737243812</a><br>
       ✉️ <strong>Email:</strong> <a href="mailto:skytechjpr@gmail.com" style="color:#0284c7; font-weight:700;">skytechjpr@gmail.com</a><br>
-      💬 <strong>WhatsApp:</strong> <a href="https://wa.me/917737243812?text=Hello%20SkyTech%2C%20I%20would%20like%20to%20enquire%20about%20your%20structural%20consultancy%20services." target="_blank" rel="noopener noreferrer" style="color:#25d366; font-weight:700;">Chat Instantly on WhatsApp</a><br>
+      💬 <strong>WhatsApp:</strong> <a href="https://wa.me/917737243812?text=Hello%20THESKYTECH%2C%20I%20would%20like%20to%20enquire%20about%20your%20structural%20consultancy%20services." target="_blank" rel="noopener noreferrer" style="color:#25d366; font-weight:700;">Chat Instantly on WhatsApp</a><br>
       ⏰ <strong>Office Hours:</strong> Mon - Sat: 9:00 AM - 7:30 PM
       <div style="margin-top: 10px; display: flex; flex-direction: column; gap: 6px;">
         <a href="tel:+917737243812" class="quick-chip" style="background:#0284c7; color:#fff; text-decoration:none; text-align:center; padding: 6px 12px; font-weight:700; border-radius: 6px;">
           📞 Call Now: +91-7737243812
         </a>
-        <a href="https://wa.me/917737243812?text=Hello%20SkyTech%2C%20I%20would%20like%20to%20enquire%20about%20your%20structural%20consultancy%20services." target="_blank" rel="noopener noreferrer" class="quick-chip" style="background:#25d366; color:#fff; text-decoration:none; text-align:center; padding: 6px 12px; font-weight:700; border-radius: 6px;">
+        <a href="https://wa.me/917737243812?text=Hello%20THESKYTECH%2C%20I%20would%20like%20to%20enquire%20about%20your%20structural%20consultancy%20services." target="_blank" rel="noopener noreferrer" class="quick-chip" style="background:#25d366; color:#fff; text-decoration:none; text-align:center; padding: 6px 12px; font-weight:700; border-radius: 6px;">
           💬 Chat on WhatsApp
         </a>
         <button type="button" class="quick-chip" data-open-consultation style="background:#0b1523; color:#fff; text-align:center; padding: 6px 12px; font-weight:700; border-radius: 6px; border:none; cursor:pointer;">
@@ -226,7 +226,7 @@ function generateAIResponse(query) {
 
   // 8. General / Fallback
   return `
-    Thank you for consulting <strong>SkyTech Structural Consultant</strong>!<br>
+    Thank you for consulting <strong>THESKYTECH Structural Consultant</strong>!<br>
     We deliver structural design (RCC, Steel, PEB), building cost reduction (15-25% steel savings), stability audits, retrofitting, PMC, and geotechnical solutions across India.<br><br>
     How can we assist your project today?
     <div style="margin-top: 10px; display: flex; flex-direction: column; gap: 6px;">
@@ -236,7 +236,7 @@ function generateAIResponse(query) {
       <a href="tel:+917737243812" class="quick-chip" style="background:#0b1523; color:#fff; text-decoration:none; text-align:center; padding: 6px 12px; font-weight:700; border-radius: 6px;">
         📞 Call Engineer: +91-7737243812
       </a>
-      <a href="https://wa.me/917737243812?text=Hello%20SkyTech%2C%20I%20would%20like%20to%20enquire%20about%20your%20structural%20consultancy%20services." target="_blank" rel="noopener noreferrer" class="quick-chip" style="background:#25d366; color:#fff; text-decoration:none; text-align:center; padding: 6px 12px; font-weight:700; border-radius: 6px;">
+      <a href="https://wa.me/917737243812?text=Hello%20THESKYTECH%2C%20I%20would%20like%20to%20enquire%20about%20your%20structural%20consultancy%20services." target="_blank" rel="noopener noreferrer" class="quick-chip" style="background:#25d366; color:#fff; text-decoration:none; text-align:center; padding: 6px 12px; font-weight:700; border-radius: 6px;">
         💬 Chat on WhatsApp
       </a>
     </div>
