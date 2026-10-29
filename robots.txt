@@ -1,0 +1,67 @@
+# ==============================================================================
+# Robots.txt for SkyTech Structural Consultant
+# Official Website: https://skytech-consultant.com
+# Structural Engineering & Architectural Design Consultancy | Jaipur, Rajasthan
+# ==============================================================================
+
+User-agent: *
+
+# Allow crawling of all public website pages
+Allow: /
+Allow: /index.html
+Allow: /services.html
+Allow: /projects.html
+Allow: /blog.html
+Allow: /contact.html
+Allow: /privacy.html
+Allow: /terms.html
+Allow: /dpdp.html
+Allow: /sitemap.html
+
+# Allow essential styling, script, image, font, and document file types
+Allow: /assets/
+Allow: /*.css$
+Allow: /*.js$
+Allow: /*.png$
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.webp$
+Allow: /*.svg$
+Allow: /*.ico$
+Allow: /*.pdf$
+Allow: /*.woff$
+Allow: /*.woff2$
+
+# Disallow irrelevant, private, system, and backend directories
+Disallow: /node_modules/
+Disallow: /.git/
+Disallow: /admin/
+Disallow: /api/
+Disallow: /backend/
+Disallow: /private/
+Disallow: /scratch/
+Disallow: /temp/
+Disallow: /tmp/
+Disallow: /cgi-bin/
+
+# Disallow irrelevant and non-indexable file types
+Disallow: /*.json$
+Disallow: /*.log$
+Disallow: /*.tmp$
+Disallow: /*.bak$
+Disallow: /*.swp$
+Disallow: /*.sql$
+Disallow: /*.zip$
+Disallow: /*.tar$
+Disallow: /*.gz$
+Disallow: /*.map$
+Disallow: /*.lock$
+
+# Disallow duplicate internal search and query parameters
+Disallow: /*?*
+Allow: /*?v=*
+
+# ==============================================================================
+# XML Sitemap Location
+# ==============================================================================
+Sitemap: https://skytech-consultant.com/sitemap.xml

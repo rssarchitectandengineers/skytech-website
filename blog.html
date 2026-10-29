@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Structural Engineering Insights &amp; Guides | SkyTech Blog</title>
+  <meta name="description" content="Technical structural engineering articles by SkyTech: Value re-engineering, IS 1893:2016 seismic codes, PEB vs conventional steel, and structural audit guides.">
+  <link rel="canonical" href="https://skytech-consultant.com/blog.html">
+
+  <!-- Open Graph / Social Sharing -->
+  <meta property="og:type" content="blog">
+  <meta property="og:url" content="https://skytech-consultant.com/blog.html">
+  <meta property="og:title" content="Structural Engineering Insights &amp; Guides | SkyTech Blog">
+  <meta property="og:description" content="Technical structural engineering articles by SkyTech: Value re-engineering, IS 1893:2016 seismic codes, PEB vs conventional steel, and structural audit guides.">
+  <meta property="og:image" content="assets/images/about-engineers.jpg">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Structural Engineering Insights &amp; Guides | SkyTech Blog">
+  <meta name="twitter:description" content="Technical structural engineering articles by SkyTech: Value re-engineering, IS 1893:2016 seismic codes, and audits.">
+  <meta name="twitter:image" content="assets/images/about-engineers.jpg">
+
+  <!-- Structured Data: BreadcrumbList & Blog -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://skytech-consultant.com/" },
+          { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://skytech-consultant.com/blog.html" }
+        ]
+      },
+      {
+        "@type": "Blog",
+        "name": "SkyTech Structural Engineering Blog",
+        "description": "Technical insights, IS code guides, and value engineering case studies by SkyTech structural engineers."
+      }
+    ]
+  }
+  </script>
+
+  <link rel="icon" type="image/svg+xml" href="assets/images/skytech-logo.svg">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <style>
+    .page-hero {
+      background: linear-gradient(135deg, var(--navy-950) 0%, var(--navy-900) 100%);
+      color: #ffffff;
+      padding: 4.5rem 0 3.5rem;
+      border-bottom: 3px solid var(--sky-blue-600);
+    }
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 2rem;
+    }
+    .blog-card {
+      background: #ffffff;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      transition: all var(--transition-base);
+      display: flex;
+      flex-direction: column;
+    }
+    .blog-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 35px -10px rgba(11,21,35,0.15);
+      border-color: var(--sky-blue-400);
+    }
+    .blog-card-img {
+      height: 200px;
+      overflow: hidden;
+    }
+    .blog-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform var(--transition-slow);
+    }
+    .blog-card:hover .blog-card-img img {
+      transform: scale(1.05);
+    }
+    .blog-card-body {
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+    .blog-date {
+      font-size: 0.75rem;
+      color: var(--sky-blue-600);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 0.5rem;
+    }
+    .blog-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--navy-950);
+      line-height: 1.35;
+      margin-bottom: 0.75rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Contact Bar -->
+  <aside class="top-contact-bar">
+    <div class="container">
+      <div class="top-bar-left">
+        <div class="top-contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <a href="tel:+917737243812">+91-7737243812</a>
+          <button type="button" class="btn-copy-contact" data-copy="+917737243812" title="Copy Phone Number" aria-label="Copy Phone Number">Copy</button>
+        </div>
+        <div class="top-contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <a href="mailto:skytechjpr@gmail.com">skytechjpr@gmail.com</a>
+          <button type="button" class="btn-copy-contact" data-copy="skytechjpr@gmail.com" title="Copy Email Address" aria-label="Copy Email Address">Copy</button>
+        </div>
+      </div>
+      <div class="top-bar-right">
+        <a href="tel:+917737243812" class="social-circle-link top-call-circle" title="Call SkyTech (+91-7737243812)" aria-label="Call +91-7737243812">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 0 0-1.01.24l-2.2 2.2a15.053 15.053 0 0 1-6.59-6.59l2.2-2.21a.96.96 0 0 0 .25-1.01A11.36 11.36 0 0 1 8.5 3.99c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.5c0-.55-.45-1-1-1z"/>
+          </svg>
+        </a>
+        <a href="https://wa.me/917737243812" target="_blank" rel="noopener noreferrer" class="social-circle-link top-wa-circle" title="WhatsApp (+91-7737243812)" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm5.79 14.07c-.24.67-1.4 1.24-1.92 1.28-.48.04-1.07.06-3.48-.94-2.88-1.2-4.75-4.14-4.89-4.33-.14-.19-1.18-1.57-1.18-2.99 0-1.42.74-2.12 1.01-2.41.27-.29.59-.36.79-.36.2 0 .4 0 .57.01.19.01.44-.07.69.52.25.6.86 2.1.94 2.25.07.16.12.35.02.55-.1.2-.15.32-.3.5-.15.17-.32.39-.46.52-.15.15-.31.31-.13.62.17.3 1.09 1.79 2.34 2.91 1.61 1.43 2.97 1.87 3.39 2.08.42.2.66.18.91-.11.25-.28 1.07-1.25 1.36-1.68.29-.42.57-.35.96-.21.39.14 2.47 1.17 2.89 1.38.42.21.7.31.81.49.1.18.1.96-.14 1.63z"/></svg></a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Sticky Header -->
+  <header class="main-header">
+    <div class="container header-container">
+      <a href="index.html" class="brand-logo-wrap">
+        <img src="assets/images/skytech-logo.svg" alt="SkyTech Structural Consultant — Quality Matters" width="240" height="48">
+      </a>
+      <nav class="main-nav">
+        <ul class="nav-list">
+          <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+          <li class="nav-item has-dropdown">
+            <a href="services.html" class="nav-link" aria-haspopup="true">
+              Services
+              <svg class="dropdown-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </a>
+            <div class="services-dropdown" role="menu">
+              <a href="services.html#rcc-structural-design" class="dropdown-service-item">
+                <div class="dropdown-service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 22h16M4 2v20M20 2v20M8 2v20M12 2v20M16 2v20M4 6h16M4 10h16M4 14h16M4 18h16"/></svg></div>
+                <div class="dropdown-service-text"><h4>RCC Structural Design</h4><span>IS 456 / IS 13920 compliant</span></div>
+              </a>
+              <a href="services.html#steel-structure-design" class="dropdown-service-item">
+                <div class="dropdown-service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 20h20M7 20V4l5 4 5-4v16M2 8h20M2 14h20"/></svg></div>
+                <div class="dropdown-service-text"><h4>Steel Structure Design</h4><span>Heavy industrial frames</span></div>
+              </a>
+              <a href="services.html#building-cost-reduction" class="dropdown-service-item">
+                <div class="dropdown-service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+                <div class="dropdown-service-text"><h4>Building Cost Reduction</h4><span>15-25% steel savings on approved drawings</span></div>
+              </a>
+              <a href="services.html#peb-design" class="dropdown-service-item">
+                <div class="dropdown-service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M3 10l9-7 9 7v11H3V10zM9 21v-6h6v6"/></svg></div>
+                <div class="dropdown-service-text"><h4>PEB Design</h4><span>Pre-Engineered industrial sheds</span></div>
+              </a>
+              <a href="services.html#structural-audit" class="dropdown-service-item">
+                <div class="dropdown-service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+                <div class="dropdown-service-text"><h4>Structural Audit &amp; Assessment</h4><span>NDT, Rebound hammer &amp; UPV</span></div>
+              </a>
+              <a href="services.html#structural-stability" class="dropdown-service-item">
+                <div class="dropdown-service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+                <div class="dropdown-service-text"><h4>Structural Stability Assessment</h4><span>Statutory certificates &amp; peer reviews</span></div>
+              </a>
+              <a href="services.html#retrofitting-strengthening" class="dropdown-service-item">
+                <div class="dropdown-service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
+                <div class="dropdown-service-text"><h4>Retrofitting &amp; Strengthening</h4><span>Jacketing &amp; CFRP composite wrap</span></div>
+              </a>
+              <a href="services.html#project-management-pmc" class="dropdown-service-item">
+                <div class="dropdown-service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 7a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+                <div class="dropdown-service-text"><h4>Project Management (PMC)</h4><span>BBS checks &amp; site quality supervision</span></div>
+              </a>
+              <a href="services.html#quality-control" class="dropdown-service-item">
+                <div class="dropdown-service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10zM9 12l2 2 4-4"/></svg></div>
+                <div class="dropdown-service-text"><h4>Quality Control</h4><span>Concrete testing &amp; material QA</span></div>
+              </a>
+              <a href="services.html#soil-investigation" class="dropdown-service-item">
+                <div class="dropdown-service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 17l10 5 10-5M2 12l10 5 10-5M2 7l10 5 10-5"/></svg></div>
+                <div class="dropdown-service-text"><h4>Soil Investigation / Geo-Tech</h4><span>SBC reports &amp; borehole testing</span></div>
+              </a>
+            </div>
+          </li>
+          <li class="nav-item"><a href="projects.html" class="nav-link">Projects</a></li>
+          <li class="nav-item"><a href="blog.html" class="nav-link active">Blog</a></li>
+          <li class="nav-item"><a href="contact.html" class="nav-link">Contact Us</a></li>
+        </ul>
+        <!-- Mobile Drawer Action Buttons (Visible inside mobile menu) -->
+        <div class="mobile-nav-actions">
+          <a href="SkyTech-Structural-Consultancy-Portfolio.pdf" download="SkyTech-Structural-Consultancy-Portfolio.pdf" class="btn-portfolio-outline" title="Download SkyTech Engineering Portfolio PDF">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            <span>Download Portfolio</span>
+          </a>
+          <button type="button" class="btn-consultation-primary" data-open-consultation title="Get Free Structural Consultation and Services">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 0 0-1.01.24l-2.2 2.2a15.053 15.053 0 0 1-6.59-6.59l2.2-2.21a.96.96 0 0 0 .25-1.01A11.36 11.36 0 0 1 8.5 3.99c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.5c0-.55-.45-1-1-1z"/>
+            </svg>
+            <span>Get Free Consultation and Services</span>
+          </button>
+        </div>
+      </nav>
+      <div class="header-actions">
+        <a href="SkyTech-Structural-Consultancy-Portfolio.pdf" download="SkyTech-Structural-Consultancy-Portfolio.pdf" class="btn-portfolio-outline">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <span>Download Portfolio</span>
+        </a>
+        <button type="button" class="btn-consultation-primary" data-open-consultation id="headerConsultationBtn" title="Get Free Structural Consultation and Services">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 0 0-1.01.24l-2.2 2.2a15.053 15.053 0 0 1-6.59-6.59l2.2-2.21a.96.96 0 0 0 .25-1.01A11.36 11.36 0 0 1 8.5 3.99c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.5c0-.55-.45-1-1-1z"/></svg>
+          <span>Get Free Consultation and Services</span>
+        </button>
+      </div>
+      <!-- Mobile Right Controls (Quick Call + Hamburger) -->
+      <div class="header-mobile-right">
+        <a href="tel:+917737243812" class="btn-mobile-call-header" title="Call SkyTech: +91-7737243812">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 0 0-1.01.24l-2.2 2.2a15.053 15.053 0 0 1-6.59-6.59l2.2-2.21a.96.96 0 0 0 .25-1.01A11.36 11.36 0 0 1 8.5 3.99c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.5c0-.55-.45-1-1-1z"/>
+          </svg>
+          <span>Consult</span>
+        </a>
+        <button type="button" class="mobile-nav-toggle" aria-label="Toggle Navigation Menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Banner -->
+  <section class="page-hero">
+    <div class="container">
+      <span class="hero-badge">TECHNICAL KNOWLEDGE HUB</span>
+      <h1 class="hero-title" style="font-size: 2.75rem; margin-top: 0.5rem;">Engineering Insights &amp; Value Optimization</h1>
+      <p class="hero-description" style="max-width: 720px;">
+        Articles authored by our licensed structural engineers on IS codes compliance, seismic analysis, cost reduction methodology, and advanced construction tech.
+      </p>
+    </div>
+  </section>
+
+  <!-- Articles Grid -->
+  <main class="container" style="padding-top: 4rem; padding-bottom: 5rem;">
+    <div class="blog-grid">
+      <!-- Article 1 -->
+      <article class="blog-card">
+        <div class="blog-card-img">
+          <picture>
+            <source srcset="assets/images/about-engineers.webp" type="image/webp">
+            <img src="assets/images/about-engineers.jpg" alt="Value engineering approved drawings" loading="lazy" width="600" height="350" decoding="async">
+          </picture>
+        </div>
+        <div class="blog-card-body">
+          <div class="blog-date">Cost Optimization • 14 May 2024</div>
+          <h2 class="blog-title">How Re-Engineering Approved Drawings Trims 15-25% Steel Tonnage</h2>
+          <p style="font-size: 0.88rem; color: #64748b; line-height: 1.55; margin-bottom: 1.25rem;">
+            Discover how accurate finite element load re-distribution, standardization of bar cutting lengths, and realistic boundary assumptions eliminate hidden steel wastage without compromising a single code safety margin.
+          </p>
+          <a href="contact.html" style="margin-top: auto; font-size: 0.84rem; font-weight: 700; color: var(--sky-blue-600);">Request Drawing Audit →</a>
+        </div>
+      </article>
+
+      <!-- Article 2 -->
+      <article class="blog-card">
+        <div class="blog-card-img">
+          <picture>
+            <source srcset="assets/images/hero-building.webp" type="image/webp">
+            <img src="assets/images/hero-building.jpg" alt="Seismic design IS 1893:2016" loading="lazy" width="600" height="350" decoding="async">
+          </picture>
+        </div>
+        <div class="blog-card-body">
+          <div class="blog-date">Structural Codes • 28 Apr 2024</div>
+          <h2 class="blog-title">Demystifying IS 1893:2016: Seismic Design Criteria for North India</h2>
+          <p style="font-size: 0.88rem; color: #64748b; line-height: 1.55; margin-bottom: 1.25rem;">
+            A practical guide to seismic zone factors, response reduction coefficients (R), and importance factors (I) for high-rise buildings in Zone II, III, and IV across Rajasthan and neighboring regions.
+          </p>
+          <a href="contact.html" style="margin-top: auto; font-size: 0.84rem; font-weight: 700; color: var(--sky-blue-600);">Consult Structural Engineer →</a>
+        </div>
+      </article>
+
+      <!-- Article 3 -->
+      <article class="blog-card">
+        <div class="blog-card-img">
+          <picture>
+            <source srcset="assets/images/project-industrial.webp" type="image/webp">
+            <img src="assets/images/project-industrial.jpg" alt="PEB vs Conventional Steel" loading="lazy" width="600" height="350" decoding="async">
+          </picture>
+        </div>
+        <div class="blog-card-body">
+          <div class="blog-date">Industrial Design • 12 Mar 2024</div>
+          <h2 class="blog-title">PEB vs Conventional Steel: Comprehensive Cost &amp; Timeline Comparison</h2>
+          <p style="font-size: 0.88rem; color: #64748b; line-height: 1.55; margin-bottom: 1.25rem;">
+            Evaluating tapered plate portal framing versus standard rolled sections for warehouses and logistics parks. Learn why PEB structures achieve 30% faster commissioning and lower foundation weights.
+          </p>
+          <a href="contact.html" style="margin-top: auto; font-size: 0.84rem; font-weight: 700; color: var(--sky-blue-600);">Explore PEB Solutions →</a>
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="main-footer">
+    <div class="container footer-bottom-bar" style="border: none; padding-top: 0;">
+      <div>© 2026 SkyTech Structural Consultant. All Rights Reserved.</div>
+      <div class="footer-bottom-links">
+        <a href="index.html">Home</a>
+        <a href="services.html">Services</a>
+        <a href="contact.html">Contact Us</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms &amp; Conditions</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Consultation Popup Modal -->
+  <div class="modal-overlay" id="consultationPopupModal" role="dialog" aria-modal="true" aria-labelledby="popupModalTitle">
+    <div class="modal-container">
+      <button type="button" class="modal-close-btn close-modal-btn" aria-label="Close Consultation Modal">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+
+      <div class="consultation-card-inner">
+        <!-- Media Sidebar -->
+        <div class="consultation-card-media">
+          <picture>
+            <source srcset="assets/images/consultation-thumb.webp" type="image/webp">
+            <img src="assets/images/consultation-thumb.jpg" alt="Building structural consultation by SkyTech" loading="lazy" width="400" height="400">
+          </picture>
+          <div class="media-overlay-content">
+            <h4 id="popupModalTitle">Get Expert Structural Engineering Consultation</h4>
+            <p>Consult with our licensed civil &amp; structural engineering team in Jaipur for safe, cost-optimized designs.</p>
+            <div style="display: flex; flex-direction: column; gap: 0.5rem; margin-top: 1rem;">
+              <a href="tel:+917737243812" class="btn-play-video" style="text-decoration: none;" title="Call SkyTech Structural Consultant">
+                <span class="play-icon-circle" style="background: #0284c7;">
+                  <svg viewBox="0 0 24 24" fill="currentColor" style="width: 12px; height: 12px; margin-left: 0;"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 0 0-1.01.24l-2.2 2.2a15.053 15.053 0 0 1-6.59-6.59l2.2-2.21a.96.96 0 0 0 .25-1.01A11.36 11.36 0 0 1 8.5 3.99c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.5c0-.55-.45-1-1-1z"/></svg>
+                </span>
+                <span>Call: +91-7737243812</span>
+              </a>
+              <a href="https://wa.me/917737243812?text=Hello%20SkyTech%2C%20I%20would%20like%20to%20enquire%20about%20your%20structural%20consultancy%20services." target="_blank" rel="noopener noreferrer" class="btn-play-video" style="text-decoration: none; border-color: rgba(37,211,102,0.4);" title="Chat with SkyTech on WhatsApp">
+                <span class="play-icon-circle" style="background: #25d366;">
+                  <svg viewBox="0 0 24 24" fill="currentColor" style="width: 12px; height: 12px; margin-left: 0;"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm5.79 14.07c-.24.67-1.4 1.24-1.92 1.28-.48.04-1.07.06-3.48-.94-2.88-1.2-4.75-4.14-4.89-4.33-.14-.19-1.18-1.57-1.18-2.99 0-1.42.74-2.12 1.01-2.41.27-.29.59-.36.79-.36.2 0 .4 0 .57.01.19.01.44-.07.69.52.25.6.86 2.1.94 2.25.07.16.12.35.02.55-.1.2-.15.32-.3.5-.15.17-.32.39-.46.52-.15.15-.31.31-.13.62.17.3 1.09 1.79 2.34 2.91 1.61 1.43 2.97 1.87 3.39 2.08.42.2.66.18.91-.11.25-.28 1.07-1.25 1.36-1.68.29-.42.57-.35.96-.21.39.14 2.47 1.17 2.89 1.38.42.21.7.31.81.49.1.18.1.96-.14 1.63z"/></svg>
+                </span>
+                <span>WhatsApp Quick Chat</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Form Section -->
+        <div class="consultation-form-wrap">
+          <form class="consultation-enquiry-form" id="consultationEnquiryForm">
+            <div class="form-group">
+              <label class="form-label" for="cFullName">Full Name <span class="req">*</span></label>
+              <input type="text" id="cFullName" name="fullName" class="form-control" placeholder="Enter your full name" required autocomplete="name">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="cPhone">Phone Number <span class="req">*</span></label>
+              <div class="phone-input-group">
+                <select name="countryCode" class="form-control country-code-select" aria-label="Country Code">
+                  <option value="+91" selected>+91 (India)</option>
+                  <option value="+1">+1 (USA)</option>
+                  <option value="+971">+971 (UAE)</option>
+                  <option value="+44">+44 (UK)</option>
+                </select>
+                <input type="tel" id="cPhone" name="phone" class="form-control" placeholder="Enter 10-digit number" required autocomplete="tel">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="cEmail">Email Address (Optional)</label>
+              <input type="email" id="cEmail" name="email" class="form-control" placeholder="name@example.com" autocomplete="email">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="cService">Service Required <span class="req">*</span></label>
+              <select id="cService" name="service" class="form-control" required>
+                <option value="" disabled selected>Select required service</option>
+                <option value="RCC Structural Design">RCC Structural Design</option>
+                <option value="Steel Structure Design">Steel Structure Design</option>
+                <option value="PEB Design">PEB Design (Pre-Engineered Buildings)</option>
+                <option value="Structural Audit">Structural Audit</option>
+                <option value="Structural Stability Assessment">Structural Stability Assessment</option>
+                <option value="Retrofitting">Retrofitting &amp; Strengthening</option>
+                <option value="Building Extension Design">Building Extension Design</option>
+                <option value="Project Management Consultancy">Project Management Consultancy (PMC)</option>
+                <option value="Quality Control">Quality Control (QA/QC)</option>
+                <option value="Soil Investigation / SBC Assessment">Soil Investigation / SBC Assessment</option>
+                <option value="Building Cost Reduction">Building Cost Reduction (Approved Drawings)</option>
+                <option value="Other">Other Engineering Services</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="cDetails">Project Details</label>
+              <textarea id="cDetails" name="details" class="form-control" placeholder="Describe plot area, number of floors, building type, location..."></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit-enquiry">
+              <span>Submit Enquiry</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+            </button>
+
+            <div class="privacy-note">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+              <span>We respect your privacy. Details used only for structural engineering evaluation.</span>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Actions Container -->
+  <div class="floating-actions-container">
+    <a href="https://wa.me/917737243812" target="_blank" rel="noopener noreferrer" class="floating-btn floating-whatsapp" title="WhatsApp Us">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm5.79 14.07c-.24.67-1.4 1.24-1.92 1.28-.48.04-1.07.06-3.48-.94-2.88-1.2-4.75-4.14-4.89-4.33-.14-.19-1.18-1.57-1.18-2.99 0-1.42.74-2.12 1.01-2.41.27-.29.59-.36.79-.36.2 0 .4 0 .57.01.19.01.44-.07.69.52.25.6.86 2.1.94 2.25.07.16.12.35.02.55-.1.2-.15.32-.3.5-.15.17-.32.39-.46.52-.15.15-.31.31-.13.62.17.3 1.09 1.79 2.34 2.91 1.61 1.43 2.97 1.87 3.39 2.08.42.2.66.18.91-.11.25-.28 1.07-1.25 1.36-1.68.29-.42.57-.35.96-.21.39.14 2.47 1.17 2.89 1.38.42.21.7.31.81.49.1.18.1.96-.14 1.63z"/></svg>
+      <span class="floating-btn-tooltip">WhatsApp Us</span>
+    </a>
+    <a href="tel:+917737243812" class="floating-btn floating-call" title="Call Us">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 0 0-1.01.24l-2.2 2.2a15.053 15.053 0 0 1-6.59-6.59l2.2-2.21a.96.96 0 0 0 .25-1.01A11.36 11.36 0 0 1 8.5 3.99c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.5c0-.55-.45-1-1-1z"/></svg>
+      <span class="floating-btn-tooltip">Call +91-7737243812</span>
+    </a>
+    <button type="button" class="floating-btn floating-ai" id="openAiWidgetBtn" title="AI Assistant">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="10" rx="2"></rect><circle cx="12" cy="5" r="2"></circle><path d="M12 7v4"></path><line x1="8" y1="16" x2="8" y2="16"></line><line x1="16" y1="16" x2="16" y2="16"></line></svg>
+      <span class="floating-btn-tooltip">SkyTech AI Assistant</span>
+    </button>
+  </div>
+
+  <!-- AI Assistant Widget -->
+  <aside class="ai-assistant-widget" id="aiAssistantWidget">
+    <div class="ai-header">
+      <div class="ai-header-left">
+        <div class="ai-avatar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+        <div class="ai-title"><h4>SkyTech AI Assistant</h4><span class="ai-status"><span class="ai-status-dot"></span> Online • Expert</span></div>
+      </div>
+      <button type="button" class="ai-close-btn" id="closeAiWidgetBtn">×</button>
+    </div>
+    <div class="ai-chat-body" id="aiChatBody">
+      <div class="chat-bubble bot">Hello! Need assistance with structural design, drawing optimization, or scheduling a site visit?</div>
+    </div>
+    <div class="ai-chat-footer">
+      <input type="text" id="aiChatInput" placeholder="Ask about RCC, steel, PEB, cost reduction...">
+      <button type="button" class="btn-send-ai" id="aiSendBtn">➤</button>
+    </div>
+  </aside>
+
+  <script type="module" src="assets/js/main.js"></script>
+  <script type="module" src="assets/js/ai-assistant.js"></script>
+</body>
+</html>

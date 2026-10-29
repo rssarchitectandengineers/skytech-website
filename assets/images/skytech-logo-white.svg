@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 64" fill="none" class="skytech-brand-logo-white">
+  <defs>
+    <filter id="logoShadowW" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="1.5" stdDeviation="2" flood-color="#38bdf8" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Official SkyTech 3D Layered Isometric Building Mark (Exact Match to Official Artwork) -->
+  <g transform="translate(2, 0)" filter="url(#logoShadowW)">
+    <!-- Left Face Layer Bands -->
+    <g id="leftFaceLayersW">
+      
+      <polygon points="6,17.00 32,5.00 32,9.63 6,21.13" fill="#3b5cb8" stroke="#ffffff" stroke-width="0.5"/>
+    
+      <polygon points="6,21.13 32,9.63 32,14.25 6,25.25" fill="#68a0f0" stroke="#ffffff" stroke-width="0.5"/>
+    
+      <polygon points="6,25.25 32,14.25 32,18.88 6,29.38" fill="#3b5cb8" stroke="#ffffff" stroke-width="0.5"/>
+    
+      <polygon points="6,29.38 32,18.88 32,23.50 6,33.50" fill="#68a0f0" stroke="#ffffff" stroke-width="0.5"/>
+    
+      <polygon points="6,33.50 32,23.50 32,28.13 6,37.63" fill="#3b5cb8" stroke="#ffffff" stroke-width="0.5"/>
+    
+      <polygon points="6,37.63 32,28.13 32,32.75 6,41.75" fill="#68a0f0" stroke="#ffffff" stroke-width="0.5"/>
+    
+      <polygon points="6,41.75 32,32.75 32,37.38 6,45.88" fill="#3b5cb8" stroke="#ffffff" stroke-width="0.5"/>
+    
+      <polygon points="6,45.88 32,37.38 32,42.00 6,50.00" fill="#68a0f0" stroke="#ffffff" stroke-width="0.5"/>
+    
+    </g>
+
+    <!-- Right Face Layer Bands -->
+    <g id="rightFaceLayersW">
+      
+      <polygon points="32,5.00 58,17.00 58,21.13 32,9.63" fill="#2642a0" stroke="#ffffff" stroke-width="0.5"/>
+    
+      <polygon points="32,9.63 58,21.13 58,25.25 32,14.25" fill="#4d8ee5" stroke="#ffffff" stroke-width="0.5"/>
+    
+      <polygon points="32,14.25 58,25.25 58,29.38 32,18.88" fill="#2642a0" stroke="#ffffff" stroke-width="0.5"/>
+    
+      <polygon points="32,18.88 58,29.38 58,33.50 32,23.50" fill="#4d8ee5" stroke="#ffffff" stroke-width="0.5"/>
+    
+      <polygon points="32,23.50 58,33.50 58,37.63 32,28.13" fill="#2642a0" stroke="#ffffff" stroke-width="0.5"/>
+    
+      <polygon points="32,28.13 58,37.63 58,41.75 32,32.75" fill="#4d8ee5" stroke="#ffffff" stroke-width="0.5"/>
+    
+      <polygon points="32,32.75 58,41.75 58,45.88 32,37.38" fill="#2642a0" stroke="#ffffff" stroke-width="0.5"/>
+    
+      <polygon points="32,37.38 58,45.88 58,50.00 32,42.00" fill="#4d8ee5" stroke="#ffffff" stroke-width="0.5"/>
+    
+    </g>
+
+    <!-- Center Ridge Highlight Line -->
+    <line x1="32" y1="5" x2="32" y2="42" stroke="#ffffff" stroke-width="1.2" stroke-linecap="round"/>
+
+    <!-- Left Outer Edge Line -->
+    <line x1="6" y1="17" x2="6" y2="50" stroke="#1e3a8a" stroke-width="0.7"/>
+
+    <!-- Right Outer Edge Line -->
+    <line x1="58" y1="17" x2="58" y2="50" stroke="#172554" stroke-width="0.7"/>
+
+    <!-- Bottom Foundation Pedestal / Base Slab -->
+    <polygon points="10,50 32,60 54,50 32,43" fill="#00a8cc" stroke="#38bdf8" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="10,50 32,60 54,50" fill="none" stroke="#67e8f9" stroke-width="0.8"/>
+  </g>
+
+  <!-- Official Typography Section (High Legibility & Prominent Tagline) -->
+  <g transform="translate(74, 0)">
+    <!-- Main Wordmark: SKYTECH -->
+    <text x="0" y="27" font-family="'Cinzel', 'Playfair Display', 'Times New Roman', 'Georgia', serif" font-size="28" font-weight="900" fill="#ffffff" letter-spacing="2.8">SKYTECH</text>
+
+    <!-- Subtitle: STRUCTURAL CONSULTANT -->
+    <text x="1" y="43" font-family="'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif" font-size="10.5" font-weight="800" fill="#93c5fd" letter-spacing="2.0">STRUCTURAL CONSULTANT</text>
+
+    <!-- Prominent Tagline: —— QUALITY MATTERS —— -->
+    <g transform="translate(1, 57)">
+      <line x1="0" y1="-3" x2="24" y2="-3" stroke="#38bdf8" stroke-width="1.5" stroke-linecap="round"/>
+      <text x="32" y="0" font-family="'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif" font-size="10" font-weight="900" fill="#38bdf8" letter-spacing="3.0">QUALITY MATTERS</text>
+      <line x1="195" y1="-3" x2="220" y2="-3" stroke="#38bdf8" stroke-width="1.5" stroke-linecap="round"/>
+    </g>
+  </g>
+</svg>
