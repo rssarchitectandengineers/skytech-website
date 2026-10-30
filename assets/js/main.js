@@ -1027,7 +1027,7 @@ function openDesktopActionModal(type, value) {
         <h3 class="desktop-action-title">The Skytech Structural Engineer</h3>
         <p class="desktop-action-value">+91-7737243812</p>
         <div class="desktop-action-buttons">
-          <a href="https://web.whatsapp.com/send?phone=917737243812&text=Hello%20TheSkyTech%2C%20I%20would%20like%20to%20enquire%20about%20your%20structural%20consultancy%20services." target="_blank" rel="noopener noreferrer" class="btn-desktop-act primary-wa">
+          <a href="https://web.whatsapp.com/send?phone=917737243812&text=Hello%20The%20Skytech%2C%20I%20would%20like%20to%20enquire%20about%20your%20structural%20consultancy%20services." target="_blank" rel="noopener noreferrer" class="btn-desktop-act primary-wa">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm5.79 14.07c-.24.67-1.4 1.24-1.92 1.28-.48.04-1.07.06-3.48-.94-2.88-1.2-4.75-4.14-4.89-4.33-.14-.19-1.18-1.57-1.18-2.99 0-1.42.74-2.12 1.01-2.41.27-.29.59-.36.79-.36.2 0 .4 0 .57.01.19.01.44-.07.69.52.25.6.86 2.1.94 2.25.07.16.12.35.02.55-.1.2-.15.32-.3.5-.15.17-.32.39-.46.52-.15.15-.31.31-.13.62.17.3 1.09 1.79 2.34 2.91 1.61 1.43 2.97 1.87 3.39 2.08.42.2.66.18.91-.11.25-.28 1.07-1.25 1.36-1.68.29-.42.57-.35.96-.21.39.14 2.47 1.17 2.89 1.38.42.21.7.31.81.49.1.18.1.96-.14 1.63z"/></svg>
             <span>Chat on WhatsApp Web</span>
           </a>

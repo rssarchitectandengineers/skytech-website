@@ -1,6 +1,6 @@
 /**
- * The Skytech Structural Consultant - Brand Introduction Video Player
- * High-precision canvas engineering visualization & video controller
+ * The Skytech Structural Consultant - Responsive Video & 3D Walkthrough Player
+ * Optimized for Mobile Phones, Tablets, Laptops & Desktops
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -13,36 +13,47 @@ function initBrandVideoPlayer() {
   if (!videoModal) return;
 
   const closeBtn = videoModal.querySelector('.modal-close-btn');
-  const canvas = document.getElementById('videoCanvasStage');
+  const videoEl = document.getElementById('brandVideoPlayer');
+  const centerPlayOverlay = document.getElementById('videoCenterPlayBtn');
   const playPauseBtn = document.getElementById('videoPlayPauseBtn');
   const muteBtn = document.getElementById('videoMuteBtn');
   const volumeSlider = document.getElementById('videoVolumeSlider');
   const progressBar = document.getElementById('videoProgressBar');
   const progressFill = document.getElementById('videoProgressFill');
   const timeDisplay = document.getElementById('videoTimeDisplay');
+  const fullscreenBtn = document.getElementById('videoFullscreenBtn');
 
-  let isPlaying = false;
-  let isMuted = false;
-  let volume = 0.8;
-  let currentTime = 0;
-  const duration = 75; // 75 seconds video showcase
-  let animationFrameId = null;
+  if (!videoEl) return;
 
-  // Open modal
+  // Track state
+  let isDraggingProgress = false;
+
+  // Open modal & start video
   openButtons.forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
       videoModal.classList.add('active');
       document.body.style.overflow = 'hidden';
-      startVideoPlayback();
+
+      // Attempt to play video
+      const playPromise = videoEl.play();
+      if (playPromise !== undefined) {
+        playPromise.then(() => {
+          updatePlayPauseUI(true);
+        }).catch(() => {
+          // Auto-play was prevented by browser policy (user interaction required)
+          updatePlayPauseUI(false);
+        });
+      }
     });
   });
 
-  // Close modal
+  // Close modal & stop video
   const handleClose = () => {
     videoModal.classList.remove('active');
     document.body.style.overflow = '';
-    stopVideoPlayback();
+    videoEl.pause();
+    updatePlayPauseUI(false);
   };
 
   if (closeBtn) closeBtn.addEventListener('click', handleClose);
@@ -51,51 +62,134 @@ function initBrandVideoPlayer() {
   });
 
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && videoModal.classList.contains('active')) {
+    if (!videoModal.classList.contains('active')) return;
+
+    if (e.key === 'Escape') {
       handleClose();
+    } else if (e.key === ' ' || e.code === 'Space') {
+      e.preventDefault();
+      togglePlay();
+    } else if (e.key === 'm' || e.key === 'M') {
+      toggleMute();
+    } else if (e.key === 'f' || e.key === 'F') {
+      toggleFullscreen();
     }
   });
 
-  // Play / Pause
-  if (playPauseBtn) {
-    playPauseBtn.addEventListener('click', () => {
+  // Toggle play/pause
+  function togglePlay() {
+    if (videoEl.paused || videoEl.ended) {
+      videoEl.play();
+      updatePlayPauseUI(true);
+    } else {
+      videoEl.pause();
+      updatePlayPauseUI(false);
+    }
+  }
+
+  function updatePlayPauseUI(isPlaying) {
+    if (playPauseBtn) {
+      playPauseBtn.innerHTML = isPlaying ? `
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+          <rect x="6" y="4" width="4" height="16" rx="1"></rect>
+          <rect x="14" y="4" width="4" height="16" rx="1"></rect>
+        </svg>
+      ` : `
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+          <polygon points="5 3 19 12 5 21 5 3"></polygon>
+        </svg>
+      `;
+      playPauseBtn.setAttribute('aria-label', isPlaying ? 'Pause Video' : 'Play Video');
+    }
+
+    if (centerPlayOverlay) {
       if (isPlaying) {
-        pauseVideoPlayback();
+        centerPlayOverlay.classList.add('hidden');
       } else {
-        startVideoPlayback();
+        centerPlayOverlay.classList.remove('hidden');
+      }
+    }
+  }
+
+  // Click on video canvas/surface or center button to toggle play
+  videoEl.addEventListener('click', togglePlay);
+  if (centerPlayOverlay) {
+    centerPlayOverlay.addEventListener('click', togglePlay);
+  }
+  if (playPauseBtn) {
+    playPauseBtn.addEventListener('click', togglePlay);
+  }
+
+  // Update progress on timeupdate
+  videoEl.addEventListener('timeupdate', () => {
+    if (isDraggingProgress) return;
+    const current = videoEl.currentTime;
+    const dur = videoEl.duration || 1;
+    const pct = (current / dur) * 100;
+
+    if (progressFill) progressFill.style.width = `${pct}%`;
+    if (timeDisplay) {
+      timeDisplay.textContent = `${formatTime(current)} / ${formatTime(dur)}`;
+    }
+  });
+
+  videoEl.addEventListener('loadedmetadata', () => {
+    if (timeDisplay) {
+      timeDisplay.textContent = `0:00 / ${formatTime(videoEl.duration)}`;
+    }
+  });
+
+  videoEl.addEventListener('ended', () => {
+    updatePlayPauseUI(false);
+  });
+
+  // Progress Bar Seek
+  if (progressBar) {
+    const handleSeek = (e) => {
+      const rect = progressBar.getBoundingClientRect();
+      const clickX = e.clientX - rect.left;
+      const pct = Math.max(0, Math.min(1, clickX / rect.width));
+      if (videoEl.duration) {
+        videoEl.currentTime = pct * videoEl.duration;
+      }
+      if (progressFill) progressFill.style.width = `${pct * 100}%`;
+    };
+
+    progressBar.addEventListener('click', handleSeek);
+
+    // Touch support for mobile seek
+    progressBar.addEventListener('touchstart', (e) => {
+      isDraggingProgress = true;
+    }, { passive: true });
+
+    progressBar.addEventListener('touchmove', (e) => {
+      if (!isDraggingProgress || !e.touches[0]) return;
+      const rect = progressBar.getBoundingClientRect();
+      const touchX = e.touches[0].clientX - rect.left;
+      const pct = Math.max(0, Math.min(1, touchX / rect.width));
+      if (progressFill) progressFill.style.width = `${pct * 100}%`;
+    }, { passive: true });
+
+    progressBar.addEventListener('touchend', (e) => {
+      if (!isDraggingProgress || !e.changedTouches[0]) return;
+      isDraggingProgress = false;
+      const rect = progressBar.getBoundingClientRect();
+      const touchX = e.changedTouches[0].clientX - rect.left;
+      const pct = Math.max(0, Math.min(1, touchX / rect.width));
+      if (videoEl.duration) {
+        videoEl.currentTime = pct * videoEl.duration;
       }
     });
   }
 
-  // Mute
-  if (muteBtn) {
-    muteBtn.addEventListener('click', () => {
-      isMuted = !isMuted;
-      updateAudioState();
-    });
+  // Mute / Unmute
+  function toggleMute() {
+    videoEl.muted = !videoEl.muted;
+    updateAudioUI();
   }
 
-  // Volume
-  if (volumeSlider) {
-    volumeSlider.addEventListener('input', (e) => {
-      volume = parseFloat(e.target.value);
-      isMuted = volume === 0;
-      updateAudioState();
-    });
-  }
-
-  // Progress Bar Seek
-  if (progressBar) {
-    progressBar.addEventListener('click', (e) => {
-      const rect = progressBar.getBoundingClientRect();
-      const clickX = e.clientX - rect.left;
-      const pct = Math.max(0, Math.min(1, clickX / rect.width));
-      currentTime = pct * duration;
-      updateProgressUI();
-    });
-  }
-
-  function updateAudioState() {
+  function updateAudioUI() {
+    const isMuted = videoEl.muted || videoEl.volume === 0;
     if (muteBtn) {
       muteBtn.innerHTML = isMuted ? `
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -112,202 +206,52 @@ function initBrandVideoPlayer() {
         </svg>
       `;
     }
-  }
-
-  function updateProgressUI() {
-    const pct = (currentTime / duration) * 100;
-    if (progressFill) progressFill.style.width = `${pct}%`;
-    if (timeDisplay) {
-      const curM = Math.floor(currentTime / 60);
-      const curS = Math.floor(currentTime % 60);
-      const durM = Math.floor(duration / 60);
-      const durS = Math.floor(duration % 60);
-      timeDisplay.textContent = `${curM}:${curS < 10 ? '0' : ''}${curS} / ${durM}:${durS < 10 ? '0' : ''}${durS}`;
+    if (volumeSlider && !isMuted) {
+      volumeSlider.value = videoEl.volume;
     }
   }
 
-  function startVideoPlayback() {
-    isPlaying = true;
-    if (playPauseBtn) {
-      playPauseBtn.innerHTML = `
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-          <rect x="6" y="4" width="4" height="16" rx="1"></rect>
-          <rect x="14" y="4" width="4" height="16" rx="1"></rect>
-        </svg>
-      `;
-    }
-    renderLoop();
+  if (muteBtn) muteBtn.addEventListener('click', toggleMute);
+
+  // Volume Slider (Laptop / Desktop)
+  if (volumeSlider) {
+    volumeSlider.addEventListener('input', (e) => {
+      const val = parseFloat(e.target.value);
+      videoEl.volume = val;
+      videoEl.muted = val === 0;
+      updateAudioUI();
+    });
   }
 
-  function pauseVideoPlayback() {
-    isPlaying = false;
-    if (playPauseBtn) {
-      playPauseBtn.innerHTML = `
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-          <polygon points="5 3 19 12 5 21 5 3"></polygon>
-        </svg>
-      `;
-    }
-    if (animationFrameId) cancelAnimationFrame(animationFrameId);
-  }
-
-  function stopVideoPlayback() {
-    pauseVideoPlayback();
-    currentTime = 0;
-    updateProgressUI();
-  }
-
-  /* -------------------------------------------------------------
-   * Canvas Dynamic Engineering Simulation
-   * Renders 3D Wireframe Skyscraper, Strain Heatmap, and Blueprint Grid
-   * ------------------------------------------------------------- */
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-
-  function resizeCanvas() {
-    canvas.width = canvas.parentElement.clientWidth || 800;
-    canvas.height = canvas.parentElement.clientHeight || 450;
-  }
-  window.addEventListener('resize', resizeCanvas);
-  resizeCanvas();
-
-  let angle = 0;
-  let lastTimestamp = performance.now();
-
-  function renderLoop(now = performance.now()) {
-    const delta = (now - lastTimestamp) / 1000;
-    lastTimestamp = now;
-
-    if (isPlaying) {
-      currentTime += delta;
-      if (currentTime >= duration) currentTime = 0;
-      angle += delta * 0.45;
-      updateProgressUI();
-    }
-
-    drawScene(angle);
-
-    if (isPlaying) {
-      animationFrameId = requestAnimationFrame(renderLoop);
-    }
-  }
-
-  function drawScene(rot) {
-    const w = canvas.width;
-    const h = canvas.height;
-    ctx.clearRect(0, 0, w, h);
-
-    // Dark engineering background
-    const bgGrad = ctx.createLinearGradient(0, 0, 0, h);
-    bgGrad.addColorStop(0, '#060d17');
-    bgGrad.addColorStop(1, '#0b192c');
-    ctx.fillStyle = bgGrad;
-    ctx.fillRect(0, 0, w, h);
-
-    // Blueprint grid
-    ctx.strokeStyle = 'rgba(14, 165, 233, 0.08)';
-    ctx.lineWidth = 1;
-    for (let x = 0; x < w; x += 30) {
-      ctx.beginPath();
-      ctx.moveTo(x, 0);
-      ctx.lineTo(x, h);
-      ctx.stroke();
-    }
-    for (let y = 0; y < h; y += 30) {
-      ctx.beginPath();
-      ctx.moveTo(0, y);
-      ctx.lineTo(w, y);
-      ctx.stroke();
-    }
-
-    // The Skytech Brand Video Watermark & Telemetry
-    ctx.fillStyle = '#38bdf8';
-    ctx.font = 'bold 12px "Space Grotesk", sans-serif';
-    ctx.fillText('The Skytech STRUCTURAL CONSULTANT  •  FEA SIMULATION ENGINE', 25, 30);
-    ctx.fillStyle = '#94a3b8';
-    ctx.font = '10px "Plus Jakarta Sans", sans-serif';
-    ctx.fillText(`IS 1893:2016 SEISMIC ANALYSIS  •  LOAD STEP: ${(currentTime * 4.2).toFixed(1)} kN  •  DISP: ${(Math.sin(rot * 2) * 2.4 + 4.1).toFixed(2)} mm`, 25, 48);
-
-    // 3D Isometric Skyscraper Skeleton
-    const cx = w / 2;
-    const cy = h / 2 + 50;
-    const levels = 10;
-    const radius = Math.min(w, h) * 0.22;
-
-    for (let l = 0; l <= levels; l++) {
-      const yOffset = -l * 24;
-      const pts = [];
-      const numSides = 4;
-      for (let i = 0; i < numSides; i++) {
-        const a = rot + (i * Math.PI * 2) / numSides;
-        const px = cx + Math.cos(a) * radius;
-        const py = cy + Math.sin(a) * (radius * 0.45) + yOffset;
-        pts.push({ x: px, y: py });
+  // Fullscreen Toggle
+  function toggleFullscreen() {
+    const wrapper = videoEl.closest('.video-player-wrapper') || videoEl;
+    if (!document.fullscreenElement) {
+      if (wrapper.requestFullscreen) {
+        wrapper.requestFullscreen();
+      } else if (wrapper.webkitRequestFullscreen) {
+        wrapper.webkitRequestFullscreen();
+      } else if (videoEl.webkitEnterFullscreen) {
+        // Native iOS Safari fullscreen
+        videoEl.webkitEnterFullscreen();
       }
-
-      // Draw Floor Slab
-      ctx.beginPath();
-      ctx.moveTo(pts[0].x, pts[0].y);
-      for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i].x, pts[i].y);
-      ctx.closePath();
-
-      // Stress Heatmap Gradient
-      const stressRatio = (levels - l) / levels;
-      ctx.fillStyle = stressRatio > 0.7 ? 'rgba(239, 68, 68, 0.12)' : stressRatio > 0.4 ? 'rgba(245, 158, 11, 0.12)' : 'rgba(14, 165, 233, 0.1)';
-      ctx.fill();
-
-      ctx.strokeStyle = stressRatio > 0.7 ? '#f87171' : stressRatio > 0.4 ? '#fbbf24' : '#38bdf8';
-      ctx.lineWidth = l === 0 || l === levels ? 2 : 1;
-      ctx.stroke();
-
-      // Draw Cross Bracing for Steel Towers
-      if (l > 0) {
-        ctx.strokeStyle = 'rgba(56, 189, 248, 0.35)';
-        ctx.lineWidth = 0.8;
-        for (let i = 0; i < numSides; i++) {
-          const next = (i + 1) % numSides;
-          const prevYOffset = -(l - 1) * 24;
-          const prevA = rot + (i * Math.PI * 2) / numSides;
-          const prevNextA = rot + (next * Math.PI * 2) / numSides;
-
-          const p1x = cx + Math.cos(prevA) * radius;
-          const p1y = cy + Math.sin(prevA) * (radius * 0.45) + prevYOffset;
-          const p2x = cx + Math.cos(prevNextA) * radius;
-          const p2y = cy + Math.sin(prevNextA) * (radius * 0.45) + prevYOffset;
-
-          ctx.beginPath();
-          ctx.moveTo(pts[i].x, pts[i].y);
-          ctx.lineTo(p2x, p2y);
-          ctx.stroke();
-
-          ctx.beginPath();
-          ctx.moveTo(pts[next].x, pts[next].y);
-          ctx.lineTo(p1x, p1y);
-          ctx.stroke();
-        }
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
       }
     }
-
-    // Engineering Callout Overlay Box
-    const calloutX = w - 240;
-    const calloutY = h - 120;
-    ctx.fillStyle = 'rgba(6, 13, 23, 0.88)';
-    ctx.strokeStyle = '#0284c7';
-    ctx.lineWidth = 1;
-    ctx.beginPath();
-    ctx.roundRect(calloutX, calloutY, 215, 80, 8);
-    ctx.fill();
-    ctx.stroke();
-
-    ctx.fillStyle = '#ffffff';
-    ctx.font = 'bold 11px "Space Grotesk", sans-serif';
-    ctx.fillText('STRUCTURAL HEALTH: 100% OK', calloutX + 14, calloutY + 24);
-    ctx.fillStyle = '#10b981';
-    ctx.font = '10px "Plus Jakarta Sans", sans-serif';
-    ctx.fillText('✔ Seismic Base Shear Checked', calloutX + 14, calloutY + 42);
-    ctx.fillText('✔ Lateral Drift < H / 250 (Pass)', calloutX + 14, calloutY + 58);
   }
 
-  // Initial draw
-  drawScene(0);
+  if (fullscreenBtn) {
+    fullscreenBtn.addEventListener('click', toggleFullscreen);
+  }
+
+  function formatTime(seconds) {
+    if (isNaN(seconds)) return '0:00';
+    const m = Math.floor(seconds / 60);
+    const s = Math.floor(seconds % 60);
+    return `${m}:${s < 10 ? '0' : ''}${s}`;
+  }
 }

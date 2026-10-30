@@ -208,13 +208,13 @@ function generateAIResponse(query) {
       📍 <strong>Head Office:</strong> Jaipur, Rajasthan, India<br>
       📞 <strong>Phone:</strong> <a href="tel:+917737243812" style="color:#0284c7; font-weight:700;">+91-7737243812</a><br>
       ✉️ <strong>Email:</strong> <a href="mailto:skytechjpr@gmail.com" style="color:#0284c7; font-weight:700;">skytechjpr@gmail.com</a><br>
-      💬 <strong>WhatsApp:</strong> <a href="https://wa.me/917737243812?text=Hello%20TheSkyTech%2C%20I%20would%20like%20to%20enquire%20about%20your%20structural%20consultancy%20services." target="_blank" rel="noopener noreferrer" style="color:#25d366; font-weight:700;">Chat Instantly on WhatsApp</a><br>
+      💬 <strong>WhatsApp:</strong> <a href="https://wa.me/917737243812?text=Hello%20The%20Skytech%2C%20I%20would%20like%20to%20enquire%20about%20your%20structural%20consultancy%20services." target="_blank" rel="noopener noreferrer" style="color:#25d366; font-weight:700;">Chat Instantly on WhatsApp</a><br>
       ⏰ <strong>Office Hours:</strong> Mon - Sat: 9:00 AM - 7:30 PM
       <div style="margin-top: 10px; display: flex; flex-direction: column; gap: 6px;">
         <a href="tel:+917737243812" class="quick-chip" style="background:#0284c7; color:#fff; text-decoration:none; text-align:center; padding: 6px 12px; font-weight:700; border-radius: 6px;">
           📞 Call Now: +91-7737243812
         </a>
-        <a href="https://wa.me/917737243812?text=Hello%20TheSkyTech%2C%20I%20would%20like%20to%20enquire%20about%20your%20structural%20consultancy%20services." target="_blank" rel="noopener noreferrer" class="quick-chip" style="background:#25d366; color:#fff; text-decoration:none; text-align:center; padding: 6px 12px; font-weight:700; border-radius: 6px;">
+        <a href="https://wa.me/917737243812?text=Hello%20The%20Skytech%2C%20I%20would%20like%20to%20enquire%20about%20your%20structural%20consultancy%20services." target="_blank" rel="noopener noreferrer" class="quick-chip" style="background:#25d366; color:#fff; text-decoration:none; text-align:center; padding: 6px 12px; font-weight:700; border-radius: 6px;">
           💬 Chat on WhatsApp
         </a>
         <button type="button" class="quick-chip" data-open-consultation style="background:#0b1523; color:#fff; text-align:center; padding: 6px 12px; font-weight:700; border-radius: 6px; border:none; cursor:pointer;">
@@ -236,7 +236,7 @@ function generateAIResponse(query) {
       <a href="tel:+917737243812" class="quick-chip" style="background:#0b1523; color:#fff; text-decoration:none; text-align:center; padding: 6px 12px; font-weight:700; border-radius: 6px;">
         📞 Call Engineer: +91-7737243812
       </a>
-      <a href="https://wa.me/917737243812?text=Hello%20TheSkyTech%2C%20I%20would%20like%20to%20enquire%20about%20your%20structural%20consultancy%20services." target="_blank" rel="noopener noreferrer" class="quick-chip" style="background:#25d366; color:#fff; text-decoration:none; text-align:center; padding: 6px 12px; font-weight:700; border-radius: 6px;">
+      <a href="https://wa.me/917737243812?text=Hello%20The%20Skytech%2C%20I%20would%20like%20to%20enquire%20about%20your%20structural%20consultancy%20services." target="_blank" rel="noopener noreferrer" class="quick-chip" style="background:#25d366; color:#fff; text-decoration:none; text-align:center; padding: 6px 12px; font-weight:700; border-radius: 6px;">
         💬 Chat on WhatsApp
       </a>
     </div>

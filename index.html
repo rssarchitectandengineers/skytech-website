@@ -461,19 +461,19 @@
 
           <div class="consultation-card-inner">
             <!-- Left Sub-Box: Media & Video Trigger -->
-            <div class="consultation-card-media">
+            <div class="consultation-card-media" data-open-video style="cursor: pointer;">
               <picture>
-                <source srcset="assets/images/consultation-thumb.webp" type="image/webp">
-                <img src="assets/images/consultation-thumb.jpg" alt="Building engineering consultation by The Skytech" loading="lazy" width="400" height="400" decoding="async">
+                <source srcset="assets/images/walkthrough-video-poster.webp" type="image/webp">
+                <img src="assets/images/walkthrough-video-poster.jpg" alt="The Skytech 3D Structural Walkthrough Video" loading="lazy" width="400" height="400" decoding="async">
               </picture>
               <div class="media-overlay-content">
                 <h4>Get Expert Structural Engineering Consultation</h4>
-                <p>Tell us about your project and connect with the The Skytech team.</p>
+                <p>Experience our projects in 3D walkthroughs &amp; connect with our senior engineers.</p>
                 <button type="button" class="btn-play-video" data-open-video>
                   <span class="play-icon-circle">
                     <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
                   </span>
-                  <span>Building a Stronger Future with The Skytech</span>
+                  <span>Watch 3D Structural Walkthrough Video</span>
                 </button>
               </div>
             </div>
@@ -796,6 +796,159 @@
         </div>
       </div>
     </section>
+
+    <!-- ==========================================================================
+         6B. 3D Structural Walkthrough & BIM Showcase (Inspired by HiDPL)
+         ========================================================================== -->
+    <section class="walkthrough-section" id="3d-walkthrough" aria-label="3D Structural Walkthrough and BIM Showcase">
+      <div class="container">
+        <div class="section-header-flex">
+          <div>
+            <span class="section-kicker">3D VIRTUAL TOURS &amp; BIM WALKTHROUGHS</span>
+            <h2 class="section-title">Interactive 3D Engineering Walkthroughs</h2>
+            <p class="section-description">
+              Experience structural framing, seismic detailing, and steel PEB designs in high-definition 3D before groundbreaking. Optimized for smooth viewing on smartphones, tablets and laptops.
+            </p>
+          </div>
+          <button type="button" class="btn-consultation-primary" data-open-video>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+            <span>Play Full 3D Walkthrough Video</span>
+          </button>
+        </div>
+
+        <!-- Featured Cinema Card (Mobile & Laptop Friendly) -->
+        <div class="walkthrough-featured-card" data-open-video title="Click to Watch 3D Structural Walkthrough Video">
+          <picture>
+            <source srcset="assets/images/walkthrough-video-poster.webp" type="image/webp">
+            <img src="assets/images/walkthrough-video-poster.jpg" alt="The Skytech 3D Structural Engineering Walkthrough Video" loading="lazy" width="1364" height="682" class="walkthrough-featured-img">
+          </picture>
+          <div class="walkthrough-featured-overlay">
+            <span class="walkthrough-live-badge">
+              <span class="pulse-dot"></span> 3D BIM STRUCTURAL WALKTHROUGH
+            </span>
+            <div class="walkthrough-play-trigger">
+              <div class="play-pulse-ring"></div>
+              <span class="play-icon-box">
+                <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+              </span>
+            </div>
+            <div class="walkthrough-featured-meta">
+              <h3>The Skytech Master 3D Engineering &amp; Structural Detailing Tour</h3>
+              <p>Watch full high-definition structural walk-through showcasing RCC framed structures, heavy industrial PEB trusses, and finite element strain analysis.</p>
+              <div class="walkthrough-tags">
+                <span class="w-tag">ETABS &amp; STAAD.Pro 3D Models</span>
+                <span class="w-tag">IS 456 / IS 800 Code-Compliant</span>
+                <span class="w-tag">15–25% Steel Optimization</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4 Grid Cards of 3D Models (Mobile Stack & Laptop 4-Col Grid) -->
+        <div class="walkthrough-grid">
+          <!-- Card 1 -->
+          <div class="walkthrough-card" data-open-video>
+            <div class="walkthrough-card-media">
+              <picture>
+                <source srcset="assets/images/walkthrough-3d-commercial.webp" type="image/webp">
+                <img src="assets/images/walkthrough-3d-commercial.jpg" alt="Commercial Complex 3D Model Walkthrough" loading="lazy" width="800" height="480">
+              </picture>
+              <div class="card-play-hover">
+                <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+              </div>
+            </div>
+            <div class="walkthrough-card-content">
+              <div class="walkthrough-card-badge">COMMERCIAL TOWER</div>
+              <h4>Commercial Complex G+12 3D Model</h4>
+              <p>Post-tensioned slab detailing with ductile shear wall core &amp; double basement diaphragm retaining walls.</p>
+              <div class="walkthrough-card-footer">
+                <span class="walkthrough-action-link">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                  Watch 3D Walkthrough
+                </span>
+                <span class="walkthrough-spec">145,000 sq ft</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="walkthrough-card" data-open-video>
+            <div class="walkthrough-card-media">
+              <picture>
+                <source srcset="assets/images/walkthrough-3d-industrial.webp" type="image/webp">
+                <img src="assets/images/walkthrough-3d-industrial.jpg" alt="Mega Industrial PEB Steel 3D Simulation" loading="lazy" width="800" height="480">
+              </picture>
+              <div class="card-play-hover">
+                <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+              </div>
+            </div>
+            <div class="walkthrough-card-content">
+              <div class="walkthrough-card-badge">INDUSTRIAL PEB</div>
+              <h4>Mega Logistics Park PEB 3D Simulation</h4>
+              <p>45-meter clear-span portal frame with integrated 10T crane runways &amp; wind-load optimized Zincalume roofing.</p>
+              <div class="walkthrough-card-footer">
+                <span class="walkthrough-action-link">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                  Watch 3D Walkthrough
+                </span>
+                <span class="walkthrough-spec">260,000 sq ft</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="walkthrough-card" data-open-video>
+            <div class="walkthrough-card-media">
+              <picture>
+                <source srcset="assets/images/walkthrough-3d-residential.webp" type="image/webp">
+                <img src="assets/images/walkthrough-3d-residential.jpg" alt="High-Rise Twin Towers 3D Framing Tour" loading="lazy" width="800" height="480">
+              </picture>
+              <div class="card-play-hover">
+                <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+              </div>
+            </div>
+            <div class="walkthrough-card-content">
+              <div class="walkthrough-card-badge">RESIDENTIAL HIGH-RISE</div>
+              <h4>Twin Towers G+14 3D Framing Tour</h4>
+              <p>Dual ductile frame with tension-anchored raft foundation on variable geotechnical strata (Zone II seismic).</p>
+              <div class="walkthrough-card-footer">
+                <span class="walkthrough-action-link">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                  Watch 3D Walkthrough
+                </span>
+                <span class="walkthrough-spec">320,000 sq ft</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="walkthrough-card" data-open-video>
+            <div class="walkthrough-card-media">
+              <picture>
+                <source srcset="assets/images/walkthrough-3d-institutional.webp" type="image/webp">
+                <img src="assets/images/walkthrough-3d-institutional.jpg" alt="Long-Span Cantilever Auditorium 3D Model" loading="lazy" width="800" height="480">
+              </picture>
+              <div class="card-play-hover">
+                <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+              </div>
+            </div>
+            <div class="walkthrough-card-content">
+              <div class="walkthrough-card-badge">INSTITUTIONAL</div>
+              <h4>Auditorium &amp; Waffle Slab 3D Model</h4>
+              <p>Column-free 28-meter architectural concrete arches and cantilevered seating gallery with acoustic damping.</p>
+              <div class="walkthrough-card-footer">
+                <span class="walkthrough-action-link">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                  Watch 3D Walkthrough
+                </span>
+                <span class="walkthrough-spec">185,000 sq ft</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
 
     <!-- ==========================================================================
          7. Engineering Insights & Why Choose The Skytech / Process Section
@@ -1138,7 +1291,7 @@
        ========================================================================== -->
   <div class="floating-actions-container" aria-label="Quick Contact Actions">
     <!-- WhatsApp Floating Button -->
-    <a href="https://wa.me/917737243812?text=Hello%20TheSkyTech,%20I%20would%20like%20to%20enquire%20about%20structural%20consultancy%20services." 
+    <a href="https://wa.me/917737243812?text=Hello%20The%20Skytech,%20I%20would%20like%20to%20enquire%20about%20structural%20consultancy%20services." 
        target="_blank" 
        rel="noopener noreferrer" 
        class="floating-btn floating-whatsapp" 
@@ -1315,24 +1468,37 @@
       </button>
 
       <div class="video-player-wrapper">
-        <canvas id="videoCanvasStage" class="video-canvas-stage"></canvas>
+        <video id="brandVideoPlayer" class="responsive-brand-video" playsinline webkit-playsinline preload="metadata" poster="assets/images/walkthrough-video-poster.webp">
+          <source src="assets/videos/walkthrough-video.mp4" type="video/mp4">
+          Your browser does not support HTML5 video.
+        </video>
+
+        <!-- Center Big Play Button Overlay -->
+        <div class="video-center-play-overlay" id="videoCenterPlayBtn" aria-label="Play 3D Walkthrough Video">
+          <div class="play-pulse-ring"></div>
+          <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+        </div>
 
         <div class="custom-video-controls">
-          <button type="button" class="video-control-btn" id="videoPlayPauseBtn" aria-label="Play / Pause">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+          <button type="button" class="video-control-btn" id="videoPlayPauseBtn" aria-label="Play Video">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
           </button>
 
-          <div class="video-progress-bar" id="videoProgressBar">
+          <div class="video-progress-bar" id="videoProgressBar" title="Seek Progress">
             <div class="video-progress-fill" id="videoProgressFill"></div>
           </div>
 
-          <span id="videoTimeDisplay" style="font-size: 0.78rem; font-family: monospace; color: #cbd5e1;">0:00 / 1:15</span>
+          <span id="videoTimeDisplay" class="video-time-display">0:00 / 8:46</span>
 
           <button type="button" class="video-control-btn" id="videoMuteBtn" aria-label="Mute / Unmute">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
           </button>
 
-          <input type="range" id="videoVolumeSlider" min="0" max="1" step="0.05" value="0.8" style="width: 70px; accent-color: #0ea5e9;" aria-label="Volume">
+          <input type="range" id="videoVolumeSlider" class="video-volume-slider" min="0" max="1" step="0.05" value="0.8" aria-label="Volume">
+
+          <button type="button" class="video-control-btn" id="videoFullscreenBtn" aria-label="Fullscreen">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
+          </button>
         </div>
       </div>
     </div>
