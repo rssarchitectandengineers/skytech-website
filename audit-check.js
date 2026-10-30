@@ -86,7 +86,7 @@ for (const file of htmlFiles) {
   // 6. Check logo alt text
   const logoImgs = content.match(/<img[^>]*skytech-logo[^>]*>/gi) || [];
   for (const img of logoImgs) {
-    if (!img.includes('alt="THESKYTECH Structural Consultant — Quality Matters"')) {
+    if (!img.includes('alt="TheSkyTech Structural Consultant — Quality Matters"')) {
       console.error(`  [FAIL] Logo img missing exact required alt text: ${img}`);
       totalErrors++;
     }

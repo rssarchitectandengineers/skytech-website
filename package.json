@@ -1,7 +1,7 @@
 {
   "name": "skytech-structural-consultant",
   "version": "1.0.0",
-  "description": "Production-ready website for THESKYTECH Structural Consultant - Premier structural engineering, RCC, Steel, PEB and audit consultancy in Jaipur, India",
+  "description": "Production-ready website for TheSkyTech Structural Consultant - Premier structural engineering, RCC, Steel, PEB and audit consultancy in Jaipur, India",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
