@@ -1,5 +1,5 @@
 # ==============================================================================
-# Robots.txt for TheSkyTech Structural Consultant
+# Robots.txt for The Skytech Structural Consultant
 # Official Website: https://theskytech.in
 # Structural Engineering & Architectural Design Consultancy | Jaipur, Rajasthan
 # ==============================================================================
