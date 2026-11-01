@@ -37,14 +37,19 @@ function generateLogoSvg(isWhite = false) {
     `);
   }
 
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 64" fill="none" class="skytech-brand-logo${isWhite ? '-white' : ''}">
+  // Exact start and end bounds for typography:
+  // Starts at X = 72, Ends at X = 322 (width = 250px)
+  // 1. The Skytech (Largest font, size 26)
+  // 2. STRUCTURAL CONSULTANT (Medium font, size 12.5)
+  // 3. QUALITY MATTERS (Smallest font, size 9, with flanking accent rules)
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 330 64" fill="none" class="skytech-brand-logo${isWhite ? '-white' : ''}">
   <defs>
     <filter id="logoShadow${isWhite ? 'W' : ''}" x="-10%" y="-10%" width="120%" height="120%">
       <feDropShadow dx="0" dy="1.5" stdDeviation="2" flood-color="${isWhite ? '#38bdf8' : '#0284c7'}" flood-opacity="${isWhite ? '0.3' : '0.2'}"/>
     </filter>
   </defs>
 
-  <!-- Official SkyTech 3D Layered Isometric Building Mark (Exact Match to Official Artwork) -->
+  <!-- Official SkyTech 3D Layered Isometric Building Mark -->
   <g transform="translate(2, 0)" filter="url(#logoShadow${isWhite ? 'W' : ''})">
     <!-- Left Face Layer Bands -->
     <g id="leftFaceLayers${isWhite ? 'W' : ''}">
@@ -70,20 +75,18 @@ function generateLogoSvg(isWhite = false) {
     <polyline points="10,50 32,60 54,50" fill="none" stroke="#67e8f9" stroke-width="0.8"/>
   </g>
 
-  <!-- Official Typography Section (High Legibility & Prominent Tagline) -->
-  <g transform="translate(74, 0)">
-    <!-- Main Wordmark: The Skytech -->
-    <text x="0" y="27" font-family="'Cinzel', 'Playfair Display', 'Times New Roman', 'Georgia', serif" font-size="24" font-weight="900" fill="${textColor}" letter-spacing="1.2">The Skytech</text>
+  <!-- Typography Hierarchy with Exact Full-Width Justified Start and End -->
+  <!-- Line 1: The Skytech (Largest) -->
+  <text x="72" y="27" font-family="'Cinzel', 'Playfair Display', 'Times New Roman', 'Georgia', serif" font-size="26" font-weight="900" fill="${textColor}" textLength="250" lengthAdjust="spacingAndGlyphs">The Skytech</text>
 
-    <!-- Subtitle: STRUCTURAL CONSULTANT -->
-    <text x="1" y="43" font-family="'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif" font-size="10.5" font-weight="800" fill="${subtitleColor}" letter-spacing="2.0">STRUCTURAL CONSULTANT</text>
+  <!-- Line 2: STRUCTURAL CONSULTANT (Medium, Smaller than Line 1) -->
+  <text x="72" y="44" font-family="'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif" font-size="12" font-weight="800" fill="${subtitleColor}" textLength="250" lengthAdjust="spacing">STRUCTURAL CONSULTANT</text>
 
-    <!-- Prominent Tagline: —— QUALITY MATTERS —— -->
-    <g transform="translate(1, 57)">
-      <line x1="0" y1="-3" x2="24" y2="-3" stroke="${lineColor}" stroke-width="1.5" stroke-linecap="round"/>
-      <text x="32" y="0" font-family="'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif" font-size="10" font-weight="900" fill="${taglineColor}" letter-spacing="3.0">QUALITY MATTERS</text>
-      <line x1="195" y1="-3" x2="220" y2="-3" stroke="${lineColor}" stroke-width="1.5" stroke-linecap="round"/>
-    </g>
+  <!-- Line 3: QUALITY MATTERS (Smallest, Smaller than Line 2, Flanked by Accent Rules) -->
+  <g>
+    <line x1="72" y1="55" x2="112" y2="55" stroke="${lineColor}" stroke-width="1.5" stroke-linecap="round"/>
+    <text x="118" y="58" font-family="'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif" font-size="9" font-weight="900" fill="${taglineColor}" textLength="160" lengthAdjust="spacing">QUALITY MATTERS</text>
+    <line x1="282" y1="55" x2="322" y2="55" stroke="${lineColor}" stroke-width="1.5" stroke-linecap="round"/>
   </g>
 </svg>`;
 }
@@ -96,4 +99,4 @@ fs.writeFileSync('public/skytech-logo.svg', svgColor, 'utf8');
 fs.writeFileSync('assets/images/skytech-logo-white.svg', svgWhite, 'utf8');
 fs.writeFileSync('public/skytech-logo-white.svg', svgWhite, 'utf8');
 
-console.log('Successfully generated improved logos with prominent QUALITY MATTERS tagline.');
+console.log('Successfully updated logos with exact typographic hierarchy and full-width aligned edges!');

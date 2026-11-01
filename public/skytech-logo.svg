@@ -1,11 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 64" fill="none" class="skytech-brand-logo">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 330 64" fill="none" class="skytech-brand-logo">
   <defs>
     <filter id="logoShadow" x="-10%" y="-10%" width="120%" height="120%">
       <feDropShadow dx="0" dy="1.5" stdDeviation="2" flood-color="#0284c7" flood-opacity="0.2"/>
     </filter>
   </defs>
 
-  <!-- Official SkyTech 3D Layered Isometric Building Mark (Exact Match to Official Artwork) -->
+  <!-- Official SkyTech 3D Layered Isometric Building Mark -->
   <g transform="translate(2, 0)" filter="url(#logoShadow)">
     <!-- Left Face Layer Bands -->
     <g id="leftFaceLayers">
@@ -63,19 +63,17 @@
     <polyline points="10,50 32,60 54,50" fill="none" stroke="#67e8f9" stroke-width="0.8"/>
   </g>
 
-  <!-- Official Typography Section (High Legibility & Prominent Tagline) -->
-  <g transform="translate(74, 0)">
-    <!-- Main Wordmark: The Skytech -->
-    <text x="0" y="27" font-family="'Cinzel', 'Playfair Display', 'Times New Roman', 'Georgia', serif" font-size="24" font-weight="900" fill="#071e3d" letter-spacing="1.2">The Skytech</text>
+  <!-- Typography Hierarchy with Exact Full-Width Justified Start and End -->
+  <!-- Line 1: The Skytech (Largest) -->
+  <text x="72" y="27" font-family="'Cinzel', 'Playfair Display', 'Times New Roman', 'Georgia', serif" font-size="26" font-weight="900" fill="#071e3d" textLength="250" lengthAdjust="spacingAndGlyphs">The Skytech</text>
 
-    <!-- Subtitle: STRUCTURAL CONSULTANT -->
-    <text x="1" y="43" font-family="'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif" font-size="10.5" font-weight="800" fill="#0b2b5c" letter-spacing="2.0">STRUCTURAL CONSULTANT</text>
+  <!-- Line 2: STRUCTURAL CONSULTANT (Medium, Smaller than Line 1) -->
+  <text x="72" y="44" font-family="'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif" font-size="12" font-weight="800" fill="#0b2b5c" textLength="250" lengthAdjust="spacing">STRUCTURAL CONSULTANT</text>
 
-    <!-- Prominent Tagline: —— QUALITY MATTERS —— -->
-    <g transform="translate(1, 57)">
-      <line x1="0" y1="-3" x2="24" y2="-3" stroke="#0ea5e9" stroke-width="1.5" stroke-linecap="round"/>
-      <text x="32" y="0" font-family="'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif" font-size="10" font-weight="900" fill="#0284c7" letter-spacing="3.0">QUALITY MATTERS</text>
-      <line x1="195" y1="-3" x2="220" y2="-3" stroke="#0ea5e9" stroke-width="1.5" stroke-linecap="round"/>
-    </g>
+  <!-- Line 3: QUALITY MATTERS (Smallest, Smaller than Line 2, Flanked by Accent Rules) -->
+  <g>
+    <line x1="72" y1="55" x2="112" y2="55" stroke="#0ea5e9" stroke-width="1.5" stroke-linecap="round"/>
+    <text x="118" y="58" font-family="'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif" font-size="9" font-weight="900" fill="#0284c7" textLength="160" lengthAdjust="spacing">QUALITY MATTERS</text>
+    <line x1="282" y1="55" x2="322" y2="55" stroke="#0ea5e9" stroke-width="1.5" stroke-linecap="round"/>
   </g>
 </svg>
