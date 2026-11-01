@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initServiceModal();
   initStatsCounter();
   initSmoothScroll();
+  initServiceHashNavigation();
   initInstantPagePrefetch();
 });
 
@@ -53,17 +54,17 @@ function initMobileNav() {
   // By default on mobile, keep Services dropdown expanded
   dropdownParents.forEach(dp => dp.classList.remove('collapsed'));
 
-  const openDrawer = () => {
+  const openDrawer = (updateHash = true) => {
     mainNav.classList.add('mobile-active');
     if (toggleBtn) toggleBtn.setAttribute('aria-expanded', 'true');
     document.body.style.overflow = 'hidden';
     dropdownParents.forEach(dp => dp.classList.remove('collapsed'));
-    try {
-      window.history.pushState({ drawerOpen: true }, '');
-    } catch (e) {}
+    if (updateHash && window.location.hash !== '#menu') {
+      window.location.hash = 'menu';
+    }
   };
 
-  const closeDrawer = (triggerHistory = true) => {
+  const closeDrawer = (updateHash = true) => {
     if (!mainNav.classList.contains('mobile-active')) return;
     mainNav.classList.remove('mobile-active');
     if (toggleBtn) toggleBtn.setAttribute('aria-expanded', 'false');
@@ -71,10 +72,12 @@ function initMobileNav() {
     if (!remainingModal) {
       document.body.style.overflow = '';
     }
-    if (triggerHistory && window.history.state && window.history.state.drawerOpen) {
-      try {
+    if (updateHash && window.location.hash === '#menu') {
+      if (window.history.length > 1) {
         window.history.back();
-      } catch (e) {}
+      } else {
+        history.replaceState(null, '', window.location.pathname + window.location.search);
+      }
     }
   };
 
@@ -84,7 +87,7 @@ function initMobileNav() {
       if (mainNav.classList.contains('mobile-active')) {
         closeDrawer(true);
       } else {
-        openDrawer();
+        openDrawer(true);
       }
     });
   }
@@ -104,33 +107,60 @@ function initMobileNav() {
     link.addEventListener('click', (e) => {
       const parent = link.closest('.has-dropdown');
       // If user taps specifically on Services parent on mobile, toggle collapse
-      if (parent && window.innerWidth <= 768 && (e.target === link || link.contains(e.target))) {
+      if (parent && window.innerWidth <= 991 && (e.target === link || link.contains(e.target))) {
         e.preventDefault();
         parent.classList.toggle('collapsed');
         return;
       }
-      closeDrawer(true);
+      // When tapping other navigation links (Home, Projects, Blog, Contact),
+      // allow normal link navigation, clean up drawer class
+      mainNav.classList.remove('mobile-active');
+      document.body.style.overflow = '';
     });
   });
 
-  // Close nav when an individual service item is tapped
+  // Handle individual dropdown service items:
+  // Allow natural navigation to services.html#<service-id>
   const serviceItems = document.querySelectorAll('.dropdown-service-item');
   serviceItems.forEach(item => {
     item.addEventListener('click', () => {
-      if (window.innerWidth <= 768) {
-        closeDrawer(true);
-      }
+      mainNav.classList.remove('mobile-active');
+      document.body.style.overflow = '';
     });
   });
 
-  // Close when tapping outside the menu on mobile
+  // Tap outside menu closes drawer
   document.addEventListener('click', (e) => {
-    if (window.innerWidth <= 768 && mainNav.classList.contains('mobile-active')) {
-      if (!mainNav.contains(e.target) && !toggleBtn.contains(e.target)) {
+    if (window.innerWidth <= 991 && mainNav.classList.contains('mobile-active')) {
+      if (!mainNav.contains(e.target) && (!toggleBtn || !toggleBtn.contains(e.target))) {
         closeDrawer(true);
       }
     }
   });
+
+  // Sync drawer open/closed state with #menu URL hash
+  const syncDrawerWithHash = () => {
+    if (window.innerWidth <= 991) {
+      if (window.location.hash === '#menu') {
+        openDrawer(false);
+      } else if (mainNav.classList.contains('mobile-active')) {
+        closeDrawer(false);
+      }
+    }
+  };
+
+  window.addEventListener('hashchange', syncDrawerWithHash);
+  window.addEventListener('popstate', syncDrawerWithHash);
+  window.addEventListener('pageshow', () => {
+    if (window.location.hash === '#menu') {
+      openDrawer(false);
+    }
+  });
+
+  // Check on initial load
+  if (window.location.hash === '#menu') {
+    openDrawer(false);
+  }
 }
 
 /* -------------------------------------------------------------
@@ -163,26 +193,16 @@ function initBackToTop() {
 /* -------------------------------------------------------------
  * Mobile Browser Back Button & History Navigation Handler
  * Prevents mobile back button from exiting the website when a
- * modal or mobile menu drawer is open.
+ * modal is open.
  * ------------------------------------------------------------- */
 function initHistoryBackSupport() {
-  window.addEventListener('popstate', (e) => {
-    // 1. If mobile menu drawer is open, close it!
-    const mainNav = document.querySelector('.main-nav');
-    if (mainNav && mainNav.classList.contains('mobile-active')) {
-      const toggleBtn = document.querySelector('.mobile-nav-toggle');
-      mainNav.classList.remove('mobile-active');
-      if (toggleBtn) toggleBtn.setAttribute('aria-expanded', 'false');
-      const activeModal = document.querySelector('.modal-overlay.active');
-      if (!activeModal) document.body.style.overflow = '';
-      return;
-    }
-
-    // 2. If any modal is active, close it!
+  window.addEventListener('popstate', () => {
+    // If any modal is active, close it!
     const activeModal = document.querySelector('.modal-overlay.active');
     if (activeModal) {
       activeModal.classList.remove('active');
-      document.body.style.overflow = '';
+      const mainNav = document.querySelector('.main-nav.mobile-active');
+      if (!mainNav) document.body.style.overflow = '';
       if (activeModal.id === 'consultationPopupModal') {
         sessionStorage.setItem('skytech_consultation_dismissed', 'true');
       }
@@ -934,9 +954,13 @@ function initServiceModal() {
     if (e.target === modal) closeModal(modal);
   });
 
-  // Attach to cards and dropdown items
-  document.querySelectorAll('[data-service-key]').forEach(item => {
+  // Attach ONLY to service grid cards on homepage, NEVER dropdown navigation links!
+  document.querySelectorAll('.service-card[data-service-key]').forEach(item => {
     item.addEventListener('click', (e) => {
+      const targetAnchor = e.target.closest('a');
+      if (targetAnchor && targetAnchor.getAttribute('href') && !targetAnchor.getAttribute('href').startsWith('#')) {
+        return;
+      }
       e.preventDefault();
       const serviceKey = item.getAttribute('data-service-key');
       const service = SERVICES_DATA[serviceKey];
@@ -1287,4 +1311,29 @@ function initInstantPagePrefetch() {
       a.addEventListener('touchstart', () => prefetchUrl(href), { passive: true, once: true });
     }
   });
+}
+
+/* -------------------------------------------------------------
+ * 14. Service Hash Anchor Navigation & Visual Focus
+ * Scrolls smoothly to targeted service card on services.html
+ * ------------------------------------------------------------- */
+function initServiceHashNavigation() {
+  const highlightTargetCard = () => {
+    const hash = window.location.hash;
+    if (!hash || hash === '#menu') return;
+    const targetId = hash.replace('#', '');
+    const targetEl = document.getElementById(targetId);
+    if (targetEl && targetEl.classList.contains('service-detail-card')) {
+      setTimeout(() => {
+        targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        targetEl.classList.add('service-card-highlighted');
+        setTimeout(() => {
+          targetEl.classList.remove('service-card-highlighted');
+        }, 2500);
+      }, 150);
+    }
+  };
+
+  highlightTargetCard();
+  window.addEventListener('hashchange', highlightTargetCard);
 }
