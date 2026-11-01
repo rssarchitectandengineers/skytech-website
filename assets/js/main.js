@@ -6,6 +6,8 @@
 document.addEventListener('DOMContentLoaded', () => {
   initStickyHeader();
   initMobileNav();
+  initHeroSlider();
+  initBlogSlider();
   initBackToTop();
   initHistoryBackSupport();
   initCopyButtons();
@@ -41,7 +43,7 @@ function initStickyHeader() {
 }
 
 /* -------------------------------------------------------------
- * 2. Mobile Navigation Toggle
+ * 2. Mobile Navigation Toggle (Accordion with default collapsed state)
  * ------------------------------------------------------------- */
 function initMobileNav() {
   const toggleBtn = document.querySelector('.mobile-nav-toggle');
@@ -51,14 +53,18 @@ function initMobileNav() {
 
   if (!mainNav) return;
 
-  // By default on mobile, keep Services dropdown expanded
-  dropdownParents.forEach(dp => dp.classList.remove('collapsed'));
+  // By default on mobile, always keep Services dropdown collapsed
+  const collapseAllDropdowns = () => {
+    dropdownParents.forEach(dp => dp.classList.remove('expanded'));
+  };
+
+  collapseAllDropdowns();
 
   const openDrawer = (updateHash = true) => {
     mainNav.classList.add('mobile-active');
     if (toggleBtn) toggleBtn.setAttribute('aria-expanded', 'true');
     document.body.style.overflow = 'hidden';
-    dropdownParents.forEach(dp => dp.classList.remove('collapsed'));
+    collapseAllDropdowns();
     if (updateHash && window.location.hash !== '#menu') {
       window.location.hash = 'menu';
     }
@@ -68,6 +74,7 @@ function initMobileNav() {
     if (!mainNav.classList.contains('mobile-active')) return;
     mainNav.classList.remove('mobile-active');
     if (toggleBtn) toggleBtn.setAttribute('aria-expanded', 'false');
+    collapseAllDropdowns();
     const remainingModal = document.querySelector('.modal-overlay.active');
     if (!remainingModal) {
       document.body.style.overflow = '';
@@ -109,13 +116,26 @@ function initMobileNav() {
       // If user taps specifically on Services parent on mobile, toggle collapse
       if (parent && window.innerWidth <= 991 && (e.target === link || link.contains(e.target))) {
         e.preventDefault();
-        parent.classList.toggle('collapsed');
+        parent.classList.toggle('expanded');
         return;
       }
       // When tapping other navigation links (Home, Projects, Blog, Contact),
-      // allow normal link navigation, clean up drawer class
+      // allow normal link navigation, collapse dropdown and clean up drawer class
+      collapseAllDropdowns();
       mainNav.classList.remove('mobile-active');
       document.body.style.overflow = '';
+    });
+  });
+
+  // Also support tapping the dropdown arrow directly
+  document.querySelectorAll('.dropdown-arrow').forEach(arrow => {
+    arrow.addEventListener('click', (e) => {
+      const parent = arrow.closest('.has-dropdown');
+      if (parent && window.innerWidth <= 991) {
+        e.preventDefault();
+        e.stopPropagation();
+        parent.classList.toggle('expanded');
+      }
     });
   });
 
@@ -124,6 +144,7 @@ function initMobileNav() {
   const serviceItems = document.querySelectorAll('.dropdown-service-item');
   serviceItems.forEach(item => {
     item.addEventListener('click', () => {
+      collapseAllDropdowns();
       mainNav.classList.remove('mobile-active');
       document.body.style.overflow = '';
     });
@@ -141,6 +162,7 @@ function initMobileNav() {
   // Sync drawer open/closed state with #menu URL hash
   const syncDrawerWithHash = () => {
     if (window.innerWidth <= 991) {
+      collapseAllDropdowns();
       if (window.location.hash === '#menu') {
         openDrawer(false);
       } else if (mainNav.classList.contains('mobile-active')) {
@@ -152,6 +174,7 @@ function initMobileNav() {
   window.addEventListener('hashchange', syncDrawerWithHash);
   window.addEventListener('popstate', syncDrawerWithHash);
   window.addEventListener('pageshow', () => {
+    collapseAllDropdowns();
     if (window.location.hash === '#menu') {
       openDrawer(false);
     }
@@ -163,7 +186,7 @@ function initMobileNav() {
   }
 }
 
-/* -------------------------------------------------------------
+/* ----------
  * Back to Top (Scroll to Top) Floating Button Logic
  * ------------------------------------------------------------- */
 function initBackToTop() {
@@ -1336,4 +1359,252 @@ function initServiceHashNavigation() {
 
   highlightTargetCard();
   window.addEventListener('hashchange', highlightTargetCard);
+}
+
+
+/* -------------------------------------------------------------
+ * Hero 3D Automatic Slider Controller (Referencing hidpl.com & Desktop/2.mp4)
+ * ------------------------------------------------------------- */
+function initHeroSlider() {
+  const container = document.querySelector('.hero-slider-section');
+  if (!container) return;
+
+  const slides = container.querySelectorAll('.hero-slide');
+  const dots = container.querySelectorAll('.hero-dot');
+  const prevBtn = container.querySelector('.hero-slider-prev');
+  const nextBtn = container.querySelector('.hero-slider-next');
+
+  if (!slides.length) return;
+
+  let currentIndex = 0;
+  let autoSlideTimer = null;
+  const slideInterval = 5000; // 5 seconds auto transition
+
+  const showSlide = (index) => {
+    if (index < 0) index = slides.length - 1;
+    if (index >= slides.length) index = 0;
+    currentIndex = index;
+
+    slides.forEach((slide, i) => {
+      if (i === currentIndex) {
+        slide.classList.add('active');
+      } else {
+        slide.classList.remove('active');
+      }
+    });
+
+    dots.forEach((dot, i) => {
+      if (i === currentIndex) {
+        dot.classList.add('active');
+      } else {
+        dot.classList.remove('active');
+      }
+    });
+  };
+
+  const nextSlide = () => {
+    showSlide(currentIndex + 1);
+  };
+
+  const prevSlide = () => {
+    showSlide(currentIndex - 1);
+  };
+
+  const startAutoSlide = () => {
+    stopAutoSlide();
+    autoSlideTimer = setInterval(nextSlide, slideInterval);
+  };
+
+  const stopAutoSlide = () => {
+    if (autoSlideTimer) {
+      clearInterval(autoSlideTimer);
+      autoSlideTimer = null;
+    }
+  };
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      nextSlide();
+      startAutoSlide();
+    });
+  }
+
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+      prevSlide();
+      startAutoSlide();
+    });
+  }
+
+  dots.forEach((dot, i) => {
+    dot.addEventListener('click', () => {
+      showSlide(i);
+      startAutoSlide();
+    });
+  });
+
+  // Pause on hover
+  container.addEventListener('mouseenter', stopAutoSlide);
+  container.addEventListener('mouseleave', startAutoSlide);
+
+  // Touch swipe support for mobile
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  container.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+    stopAutoSlide();
+  }, { passive: true });
+
+  container.addEventListener('touchend', (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    const diff = touchStartX - touchEndX;
+    if (Math.abs(diff) > 40) {
+      if (diff > 0) {
+        nextSlide();
+      } else {
+        prevSlide();
+      }
+    }
+    startAutoSlide();
+  }, { passive: true });
+
+  // Start auto play
+  startAutoSlide();
+}
+
+/* -------------------------------------------------------------
+ * Blog & Updates 3D Automatic Slider (Referencing hidpl.com)
+ * ------------------------------------------------------------- */
+function initBlogSlider() {
+  const container = document.querySelector('.blog-slider-section');
+  if (!container) return;
+
+  const track = container.querySelector('.blog-slider-track');
+  const items = container.querySelectorAll('.blog-slide-item');
+  const dots = container.querySelectorAll('.blog-dot');
+  const prevBtn = container.querySelector('.blog-slider-prev');
+  const nextBtn = container.querySelector('.blog-slider-next');
+
+  if (!track || !items.length) return;
+
+  let currentIndex = 0;
+  let autoTimer = null;
+  const interval = 5500; // 5.5 seconds auto transition
+
+  const getVisibleCount = () => {
+    const w = window.innerWidth;
+    if (w <= 640) return 1;
+    if (w <= 991) return 2;
+    return 3;
+  };
+
+  const getMaxIndex = () => {
+    return Math.max(0, items.length - getVisibleCount());
+  };
+
+  const updateSlider = () => {
+    const visibleCount = getVisibleCount();
+    const maxIdx = getMaxIndex();
+    if (currentIndex > maxIdx) currentIndex = 0;
+    if (currentIndex < 0) currentIndex = maxIdx;
+
+    const itemWidthPercent = 100 / visibleCount;
+    const offset = currentIndex * itemWidthPercent;
+    track.style.transform = `translateX(-${offset}%)`;
+
+    dots.forEach((dot, i) => {
+      if (i === currentIndex) {
+        dot.classList.add('active');
+      } else {
+        dot.classList.remove('active');
+      }
+    });
+  };
+
+  const nextBlog = () => {
+    const maxIdx = getMaxIndex();
+    if (currentIndex >= maxIdx) {
+      currentIndex = 0;
+    } else {
+      currentIndex++;
+    }
+    updateSlider();
+  };
+
+  const prevBlog = () => {
+    const maxIdx = getMaxIndex();
+    if (currentIndex <= 0) {
+      currentIndex = maxIdx;
+    } else {
+      currentIndex--;
+    }
+    updateSlider();
+  };
+
+  const startAuto = () => {
+    stopAuto();
+    autoTimer = setInterval(nextBlog, interval);
+  };
+
+  const stopAuto = () => {
+    if (autoTimer) {
+      clearInterval(autoTimer);
+      autoTimer = null;
+    }
+  };
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      nextBlog();
+      startAuto();
+    });
+  }
+
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+      prevBlog();
+      startAuto();
+    });
+  }
+
+  dots.forEach((dot, i) => {
+    dot.addEventListener('click', () => {
+      currentIndex = Math.min(i, getMaxIndex());
+      updateSlider();
+      startAuto();
+    });
+  });
+
+  container.addEventListener('mouseenter', stopAuto);
+  container.addEventListener('mouseleave', startAuto);
+
+  // Touch swipe support
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  container.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+    stopAuto();
+  }, { passive: true });
+
+  container.addEventListener('touchend', (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    const diff = touchStartX - touchEndX;
+    if (Math.abs(diff) > 40) {
+      if (diff > 0) {
+        nextBlog();
+      } else {
+        prevBlog();
+      }
+    }
+    startAuto();
+  }, { passive: true });
+
+  window.addEventListener('resize', () => {
+    updateSlider();
+  }, { passive: true });
+
+  updateSlider();
+  startAuto();
 }
