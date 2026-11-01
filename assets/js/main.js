@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initServiceModal();
   initStatsCounter();
   initSmoothScroll();
+  initFaqAccordion();
   initServiceHashNavigation();
   initInstantPagePrefetch();
 });
@@ -1607,4 +1608,30 @@ function initBlogSlider() {
 
   updateSlider();
   startAuto();
+}
+
+
+// ==========================================================================
+// FAQ ACCORDION CONTROLLER (HiDPL Style)
+// ==========================================================================
+function initFaqAccordion() {
+  const cards = document.querySelectorAll('.faq-card');
+  if (!cards.length) return;
+
+  cards.forEach(card => {
+    const btn = card.querySelector('.faq-card-header');
+    if (!btn) return;
+    btn.addEventListener('click', () => {
+      const isCurrentlyActive = card.classList.contains('active');
+      cards.forEach(c => {
+        c.classList.remove('active');
+        const b = c.querySelector('.faq-card-header');
+        if (b) b.setAttribute('aria-expanded', 'false');
+      });
+      if (!isCurrentlyActive) {
+        card.classList.add('active');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
 }

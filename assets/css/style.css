@@ -3955,10 +3955,66 @@ textarea:focus-visible {
   }
 }
 
+/* Point 3: 13+ years with 50+ projects, and 100% with 5+ team members (Completed in TWO ROWS on mobile) */
+@media (max-width: 768px) {
+  .hero-stats-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.65rem !important;
+  }
+  .hero-stat-card {
+    padding: 0.85rem 0.65rem !important;
+    gap: 0.65rem !important;
+    border-radius: 12px !important;
+  }
+  .hero-stat-icon-wrap {
+    width: 36px !important;
+    height: 36px !important;
+    border-radius: 9px !important;
+    flex-shrink: 0 !important;
+  }
+  .hero-stat-icon-wrap svg {
+    width: 18px !important;
+    height: 18px !important;
+  }
+  .hero-stat-number {
+    font-size: 1.35rem !important;
+    line-height: 1.1 !important;
+  }
+  .hero-stat-label {
+    font-size: 0.72rem !important;
+    line-height: 1.2 !important;
+  }
+  /* Point 1: Hide call button on mobile */
+  .top-call-circle,
+  .top-bar-right .top-call-circle {
+    display: none !important;
+  }
+}
+
 @media (max-width: 480px) {
   .hero-stats-grid {
-    grid-template-columns: 1fr;
-    gap: 0.85rem;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.55rem !important;
+  }
+  .hero-stat-card {
+    padding: 0.75rem 0.5rem !important;
+    gap: 0.5rem !important;
+    border-radius: 10px !important;
+  }
+  .hero-stat-icon-wrap {
+    width: 32px !important;
+    height: 32px !important;
+    border-radius: 8px !important;
+  }
+  .hero-stat-icon-wrap svg {
+    width: 16px !important;
+    height: 16px !important;
+  }
+  .hero-stat-number {
+    font-size: 1.22rem !important;
+  }
+  .hero-stat-label {
+    font-size: 0.68rem !important;
   }
 }
 
@@ -4234,5 +4290,175 @@ textarea:focus-visible {
   .why-choose-grid-full {
     grid-template-columns: 1fr;
     gap: 2.5rem;
+  }
+}
+
+
+/* ==========================================================================
+   FAQ SECTION (Matching hidpl.com per 4.mp4)
+   ========================================================================== */
+.faq-accordion-section {
+  padding: 5rem 0;
+  background: #f8fafc;
+  border-top: 1px solid var(--slate-200);
+  border-bottom: 1px solid var(--slate-200);
+}
+
+.faq-header {
+  max-width: 760px;
+  margin: 0 auto 3rem;
+  text-align: center;
+}
+
+.faq-pill-kicker {
+  display: inline-block;
+  background: #ff7a00;
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  padding: 0.3rem 0.9rem;
+  border-radius: 6px;
+  text-transform: uppercase;
+  margin-bottom: 0.9rem;
+}
+
+.faq-main-heading {
+  font-family: var(--font-heading);
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: var(--navy-900);
+  line-height: 1.25;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+}
+
+.faq-heading-divider {
+  width: 60px;
+  height: 3.5px;
+  background: #ff7a00;
+  margin: 0.85rem auto 1.25rem;
+  border-radius: 2px;
+}
+
+.faq-sub-desc {
+  color: var(--slate-600);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.faq-accordion-wrapper {
+  max-width: 860px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.faq-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+  transition: all var(--transition-fast);
+}
+
+.faq-card:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+}
+
+.faq-card.active {
+  border-color: #0284c7;
+  box-shadow: 0 8px 24px rgba(2, 132, 199, 0.08);
+}
+
+.faq-card-header {
+  width: 100%;
+  padding: 1.25rem 1.5rem;
+  background: transparent;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-align: left;
+  cursor: pointer;
+  gap: 1rem;
+}
+
+.faq-card-title {
+  font-family: var(--font-heading);
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: var(--navy-900);
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+  transition: color 0.2s ease;
+}
+
+.faq-card.active .faq-card-title,
+.faq-card-header:hover .faq-card-title {
+  color: #0284c7;
+}
+
+.faq-toggle-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #f1f5f9;
+  color: #475569;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.25s ease;
+}
+
+.faq-toggle-icon svg {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.25s ease;
+}
+
+.faq-card.active .faq-toggle-icon {
+  background: #0284c7;
+  color: #ffffff;
+}
+
+.faq-card.active .faq-toggle-icon svg {
+  transform: rotate(180deg);
+}
+
+.faq-card-body {
+  display: none;
+  padding: 0 1.5rem 1.35rem 1.5rem;
+  color: var(--slate-600);
+  font-size: 0.95rem;
+  line-height: 1.65;
+  border-top: 1px solid #f1f5f9;
+  padding-top: 1rem;
+}
+
+.faq-card.active .faq-card-body {
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .faq-accordion-section {
+    padding: 3.5rem 0;
+  }
+  .faq-main-heading {
+    font-size: 1.7rem;
+  }
+  .faq-card-header {
+    padding: 1rem 1.15rem;
+  }
+  .faq-card-title {
+    font-size: 0.88rem;
+  }
+  .faq-card-body {
+    padding: 0 1.15rem 1.15rem 1.15rem;
+    font-size: 0.88rem;
   }
 }

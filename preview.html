@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>The Skytech — Original Website Live Preview (Desktop & Mobile)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Segoe+UI:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: #0f172a;
+      color: #f8fafc;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* Top Control Bar */
+    .preview-header {
+      background: #1e293b;
+      border-bottom: 1px solid #334155;
+      padding: 0.75rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      z-index: 100;
+    }
+
+    .preview-title {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .preview-title h1 {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #38bdf8;
+    }
+
+    .preview-title span {
+      background: #0284c7;
+      color: #ffffff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.2rem 0.55rem;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .view-switchers {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #0f172a;
+      padding: 0.35rem;
+      border-radius: 8px;
+      border: 1px solid #334155;
+    }
+
+    .btn-switch {
+      background: transparent;
+      color: #94a3b8;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.2s ease;
+    }
+
+    .btn-switch.active, .btn-switch:hover {
+      background: #0284c7;
+      color: #ffffff;
+    }
+
+    .btn-external {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      background: #334155;
+      color: #f8fafc;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .btn-external:hover {
+      background: #475569;
+    }
+
+    /* Stage Area */
+    .stage-container {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.25rem;
+      overflow: auto;
+      background: radial-gradient(#1e293b 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+
+    /* Desktop Full Mode */
+    .view-desktop-full {
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 8px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      background: #ffffff;
+    }
+
+    /* Mobile Phone Frame Mockup */
+    .phone-mockup-wrapper {
+      display: none;
+      width: 375px;
+      height: 780px;
+      background: #000000;
+      border-radius: 46px;
+      padding: 12px;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.8), 0 0 0 4px #334155;
+      position: relative;
+    }
+
+    .phone-notch {
+      position: absolute;
+      top: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 24px;
+      background: #000000;
+      border-radius: 12px;
+      z-index: 10;
+    }
+
+    .phone-screen {
+      width: 100%;
+      height: 100%;
+      border-radius: 36px;
+      border: none;
+      background: #ffffff;
+    }
+
+    /* Dual Side-by-Side Mode */
+    .dual-wrapper {
+      display: none;
+      width: 100%;
+      height: 100%;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    .dual-desktop {
+      flex: 1;
+      height: 100%;
+      border-radius: 8px;
+      border: 1px solid #334155;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      background: #ffffff;
+    }
+
+    .dual-mobile {
+      width: 360px;
+      height: 720px;
+      background: #000000;
+      border-radius: 42px;
+      padding: 10px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 0 3px #334155;
+      flex-shrink: 0;
+    }
+
+    .dual-mobile iframe {
+      width: 100%;
+      height: 100%;
+      border-radius: 32px;
+      border: none;
+      background: #ffffff;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header Switcher Bar -->
+  <header class="preview-header">
+    <div class="preview-title">
+      <h1>THE SKYTECH</h1>
+      <span>ORIGINAL WEBSITE (REVISED)</span>
+    </div>
+
+    <!-- View Switchers -->
+    <div class="view-switchers">
+      <button type="button" class="btn-switch active" id="btnDesktop" onclick="setMode('desktop')">
+        🖥️ Desktop View
+      </button>
+      <button type="button" class="btn-switch" id="btnMobile" onclick="setMode('mobile')">
+        📱 Mobile View
+      </button>
+      <button type="button" class="btn-switch" id="btnDual" onclick="setMode('dual')">
+        ⚡ Side-by-Side (Both)
+      </button>
+    </div>
+
+    <div>
+      <a href="index.html" target="_blank" class="btn-external">
+        Open in New Tab ↗
+      </a>
+    </div>
+  </header>
+
+  <!-- Live Stage Display -->
+  <main class="stage-container">
+    <!-- 1. Desktop Full Frame -->
+    <iframe src="index.html" id="frameDesktopFull" class="view-desktop-full" title="Desktop Live Preview"></iframe>
+
+    <!-- 2. Phone Mockup Frame -->
+    <div class="phone-mockup-wrapper" id="frameMobileMockup">
+      <div class="phone-notch"></div>
+      <iframe src="index.html" class="phone-screen" title="Mobile Live Preview"></iframe>
+    </div>
+
+    <!-- 3. Dual Side-by-Side -->
+    <div class="dual-wrapper" id="dualContainer">
+      <iframe src="index.html" class="dual-desktop" title="Desktop Side"></iframe>
+      <div class="dual-mobile">
+        <iframe src="index.html" title="Mobile Side"></iframe>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    function setMode(mode) {
+      const btnDesk = document.getElementById('btnDesktop');
+      const btnMob = document.getElementById('btnMobile');
+      const btnDual = document.getElementById('btnDual');
+
+      const fDesk = document.getElementById('frameDesktopFull');
+      const fMob = document.getElementById('frameMobileMockup');
+      const fDual = document.getElementById('dualContainer');
+
+      btnDesk.classList.remove('active');
+      btnMob.classList.remove('active');
+      btnDual.classList.remove('active');
+
+      fDesk.style.display = 'none';
+      fMob.style.display = 'none';
+      fDual.style.display = 'none';
+
+      if (mode === 'desktop') {
+        btnDesk.classList.add('active');
+        fDesk.style.display = 'block';
+      } else if (mode === 'mobile') {
+        btnMob.classList.add('active');
+        fMob.style.display = 'block';
+      } else if (mode === 'dual') {
+        btnDual.classList.add('active');
+        fDual.style.display = 'flex';
+      }
+    }
+  </script>
+</body>
+</html>
