@@ -6,6 +6,8 @@
 document.addEventListener('DOMContentLoaded', () => {
   initStickyHeader();
   initMobileNav();
+  initBackToTop();
+  initHistoryBackSupport();
   initCopyButtons();
   initSmartContactActions();
   initConsultationPopup();
@@ -46,18 +48,54 @@ function initMobileNav() {
   const navLinks = document.querySelectorAll('.nav-link');
   const dropdownParents = document.querySelectorAll('.has-dropdown');
 
-  if (!toggleBtn || !mainNav) return;
+  if (!mainNav) return;
 
   // By default on mobile, keep Services dropdown expanded
   dropdownParents.forEach(dp => dp.classList.remove('collapsed'));
 
-  toggleBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    const isActive = mainNav.classList.toggle('mobile-active');
-    toggleBtn.setAttribute('aria-expanded', isActive ? 'true' : 'false');
-    // Ensure services dropdown is always expanded when menu opens
-    if (isActive) {
-      dropdownParents.forEach(dp => dp.classList.remove('collapsed'));
+  const openDrawer = () => {
+    mainNav.classList.add('mobile-active');
+    if (toggleBtn) toggleBtn.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+    dropdownParents.forEach(dp => dp.classList.remove('collapsed'));
+    try {
+      window.history.pushState({ drawerOpen: true }, '');
+    } catch (e) {}
+  };
+
+  const closeDrawer = (triggerHistory = true) => {
+    if (!mainNav.classList.contains('mobile-active')) return;
+    mainNav.classList.remove('mobile-active');
+    if (toggleBtn) toggleBtn.setAttribute('aria-expanded', 'false');
+    const remainingModal = document.querySelector('.modal-overlay.active');
+    if (!remainingModal) {
+      document.body.style.overflow = '';
+    }
+    if (triggerHistory && window.history.state && window.history.state.drawerOpen) {
+      try {
+        window.history.back();
+      } catch (e) {}
+    }
+  };
+
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (mainNav.classList.contains('mobile-active')) {
+        closeDrawer(true);
+      } else {
+        openDrawer();
+      }
+    });
+  }
+
+  // Handle drawer top close button (X)
+  document.addEventListener('click', (e) => {
+    const dClose = e.target.closest('.drawer-close-btn');
+    if (dClose) {
+      e.preventDefault();
+      e.stopPropagation();
+      closeDrawer(true);
     }
   });
 
@@ -71,9 +109,7 @@ function initMobileNav() {
         parent.classList.toggle('collapsed');
         return;
       }
-      // For any normal links, close menu
-      mainNav.classList.remove('mobile-active');
-      toggleBtn.setAttribute('aria-expanded', 'false');
+      closeDrawer(true);
     });
   });
 
@@ -82,8 +118,7 @@ function initMobileNav() {
   serviceItems.forEach(item => {
     item.addEventListener('click', () => {
       if (window.innerWidth <= 768) {
-        mainNav.classList.remove('mobile-active');
-        toggleBtn.setAttribute('aria-expanded', 'false');
+        closeDrawer(true);
       }
     });
   });
@@ -92,9 +127,66 @@ function initMobileNav() {
   document.addEventListener('click', (e) => {
     if (window.innerWidth <= 768 && mainNav.classList.contains('mobile-active')) {
       if (!mainNav.contains(e.target) && !toggleBtn.contains(e.target)) {
-        mainNav.classList.remove('mobile-active');
-        toggleBtn.setAttribute('aria-expanded', 'false');
+        closeDrawer(true);
       }
+    }
+  });
+}
+
+/* -------------------------------------------------------------
+ * Back to Top (Scroll to Top) Floating Button Logic
+ * ------------------------------------------------------------- */
+function initBackToTop() {
+  const btn = document.getElementById('backToTopBtn');
+  if (!btn) return;
+
+  const handleScroll = () => {
+    if (window.scrollY > 250) {
+      btn.classList.add('visible');
+    } else {
+      btn.classList.remove('visible');
+    }
+  };
+
+  window.addEventListener('scroll', handleScroll, { passive: true });
+  handleScroll();
+
+  btn.addEventListener('click', (e) => {
+    e.preventDefault();
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
+}
+
+/* -------------------------------------------------------------
+ * Mobile Browser Back Button & History Navigation Handler
+ * Prevents mobile back button from exiting the website when a
+ * modal or mobile menu drawer is open.
+ * ------------------------------------------------------------- */
+function initHistoryBackSupport() {
+  window.addEventListener('popstate', (e) => {
+    // 1. If mobile menu drawer is open, close it!
+    const mainNav = document.querySelector('.main-nav');
+    if (mainNav && mainNav.classList.contains('mobile-active')) {
+      const toggleBtn = document.querySelector('.mobile-nav-toggle');
+      mainNav.classList.remove('mobile-active');
+      if (toggleBtn) toggleBtn.setAttribute('aria-expanded', 'false');
+      const activeModal = document.querySelector('.modal-overlay.active');
+      if (!activeModal) document.body.style.overflow = '';
+      return;
+    }
+
+    // 2. If any modal is active, close it!
+    const activeModal = document.querySelector('.modal-overlay.active');
+    if (activeModal) {
+      activeModal.classList.remove('active');
+      document.body.style.overflow = '';
+      if (activeModal.id === 'consultationPopupModal') {
+        sessionStorage.setItem('skytech_consultation_dismissed', 'true');
+      }
+      return;
     }
   });
 }
@@ -246,12 +338,24 @@ function openModal(modal) {
   if (!modal) return;
   modal.classList.add('active');
   document.body.style.overflow = 'hidden';
+  try {
+    window.history.pushState({ modalOpen: true, modalId: modal.id }, '');
+  } catch (err) {}
 }
 
-function closeModal(modal) {
+function closeModal(modal, triggerHistory = true) {
   if (!modal) return;
   modal.classList.remove('active');
-  document.body.style.overflow = '';
+  const remainingModal = document.querySelector('.modal-overlay.active');
+  const mainNav = document.querySelector('.main-nav.mobile-active');
+  if (!remainingModal && !mainNav) {
+    document.body.style.overflow = '';
+  }
+  if (triggerHistory && window.history.state && window.history.state.modalOpen) {
+    try {
+      window.history.back();
+    } catch (err) {}
+  }
 }
 
 /* -------------------------------------------------------------

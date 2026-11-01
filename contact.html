@@ -200,6 +200,18 @@
         <img src="assets/images/skytech-logo.svg" alt="The Skytech Structural Consultant — Quality Matters" width="240" height="48">
       </a>
       <nav class="main-nav">
+                <!-- Mobile Drawer Top Bar (Logo + Close X) -->
+        <div class="mobile-drawer-header">
+          <a href="index.html" class="drawer-logo-wrap" title="The Skytech Home">
+            <img src="assets/images/skytech-logo.svg" alt="The Skytech Structural Consultant — Quality Matters" width="165" height="34">
+          </a>
+          <button type="button" class="drawer-close-btn" aria-label="Close Navigation Menu">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
         <ul class="nav-list">
           <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
           <li class="nav-item has-dropdown">
@@ -600,7 +612,14 @@
 
   <!-- Floating Actions Container -->
   <div class="floating-actions-container">
-    <a href="https://wa.me/917737243812" target="_blank" rel="noopener noreferrer" class="floating-btn floating-whatsapp" title="WhatsApp Us" aria-label="WhatsApp Us">
+        <!-- Back to Top Floating Button -->
+    <button type="button" class="floating-btn floating-back-to-top" id="backToTopBtn" aria-label="Back to Top" title="Scroll to Top">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="18 15 12 9 6 15"></polyline>
+      </svg>
+      <span class="floating-btn-tooltip">Back to Top</span>
+    </button>
+<a href="https://wa.me/917737243812" target="_blank" rel="noopener noreferrer" class="floating-btn floating-whatsapp" title="WhatsApp Us" aria-label="WhatsApp Us">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm5.79 14.07c-.24.67-1.4 1.24-1.92 1.28-.48.04-1.07.06-3.48-.94-2.88-1.2-4.75-4.14-4.89-4.33-.14-.19-1.18-1.57-1.18-2.99 0-1.42.74-2.12 1.01-2.41.27-.29.59-.36.79-.36.2 0 .4 0 .57.01.19.01.44-.07.69.52.25.6.86 2.1.94 2.25.07.16.12.35.02.55-.1.2-.15.32-.3.5-.15.17-.32.39-.46.52-.15.15-.31.31-.13.62.17.3 1.09 1.79 2.34 2.91 1.61 1.43 2.97 1.87 3.39 2.08.42.2.66.18.91-.11.25-.28 1.07-1.25 1.36-1.68.29-.42.57-.35.96-.21.39.14 2.47 1.17 2.89 1.38.42.21.7.31.81.49.1.18.1.96-.14 1.63z"/></svg>
       <span class="floating-btn-tooltip">WhatsApp Us</span>
     </a>
