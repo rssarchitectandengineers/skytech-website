@@ -3000,18 +3000,21 @@ textarea.form-control {
     height: 22px;
   }
   .main-nav {
-    position: fixed;
-    top: 55px;
+    position: absolute;
+    top: 100%;
     left: 0;
     right: 0;
     background: #ffffff;
-    box-shadow: 0 20px 30px rgba(0, 0, 0, 0.15);
-    padding: 1.25rem 1rem;
+    box-shadow: 0 20px 35px rgba(0, 0, 0, 0.15);
+    padding: 1rem 1rem 2rem;
     flex-direction: column;
     align-items: flex-start;
     display: none;
-    max-height: calc(100vh - 55px);
+    max-height: calc(100vh - 65px);
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    z-index: 999;
+    border-top: 1px solid var(--slate-200);
   }
   .main-nav.mobile-active {
     display: flex;
@@ -3022,14 +3025,92 @@ textarea.form-control {
     width: 100%;
     gap: 0.85rem;
   }
+  
+  /* Mobile Services Mega Dropdown - Visible & Expanded by Default */
+  .has-dropdown {
+    width: 100%;
+  }
+  .has-dropdown .nav-link {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 700;
+    color: var(--sky-blue-600);
+  }
+  .has-dropdown .dropdown-arrow {
+    width: 18px;
+    height: 18px;
+    transform: rotate(180deg);
+    transition: transform var(--transition-fast);
+  }
   .services-dropdown {
     position: static;
     width: 100%;
     box-shadow: none;
-    border: 1px solid var(--slate-200);
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    background: #f8fafc;
     grid-template-columns: 1fr;
     margin-top: 0.5rem;
-    padding: 0.75rem;
+    padding: 0.5rem;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+  .dropdown-service-item {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.5rem 0.6rem;
+    border-radius: 8px;
+    background: #ffffff;
+    border: 1px solid rgba(226, 232, 240, 0.85);
+    transition: all var(--transition-fast);
+  }
+  .dropdown-service-item:hover,
+  .dropdown-service-item:active {
+    background: var(--sky-blue-50);
+    border-color: var(--sky-blue-300);
+    transform: translateX(2px);
+  }
+  .dropdown-service-icon {
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+    border-radius: 6px;
+    background: var(--sky-blue-100);
+    color: var(--sky-blue-600);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .dropdown-service-icon svg {
+    width: 14px;
+    height: 14px;
+  }
+  .dropdown-service-text h4 {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--slate-900);
+    margin-bottom: 1px;
+    line-height: 1.2;
+  }
+  .dropdown-service-text span {
+    font-size: 0.7rem;
+    color: var(--slate-500);
+    line-height: 1.15;
+  }
+
+  /* Optional toggle: if user clicks Services header, it can collapse/expand */
+  .has-dropdown.collapsed .services-dropdown {
+    display: none;
+  }
+  .has-dropdown.collapsed .dropdown-arrow {
+    transform: rotate(0deg);
   }
   .header-actions {
     display: none;

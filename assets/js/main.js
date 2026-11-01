@@ -44,26 +44,58 @@ function initMobileNav() {
   const toggleBtn = document.querySelector('.mobile-nav-toggle');
   const mainNav = document.querySelector('.main-nav');
   const navLinks = document.querySelectorAll('.nav-link');
+  const dropdownParents = document.querySelectorAll('.has-dropdown');
 
   if (!toggleBtn || !mainNav) return;
 
-  toggleBtn.addEventListener('click', () => {
+  // By default on mobile, keep Services dropdown expanded
+  dropdownParents.forEach(dp => dp.classList.remove('collapsed'));
+
+  toggleBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
     const isActive = mainNav.classList.toggle('mobile-active');
     toggleBtn.setAttribute('aria-expanded', isActive ? 'true' : 'false');
+    // Ensure services dropdown is always expanded when menu opens
+    if (isActive) {
+      dropdownParents.forEach(dp => dp.classList.remove('collapsed'));
+    }
   });
 
-  // Close nav on link click
+  // Handle nav link clicks
   navLinks.forEach(link => {
     link.addEventListener('click', (e) => {
-      // If mobile dropdown parent clicked, toggle dropdown
       const parent = link.closest('.has-dropdown');
-      if (parent && window.innerWidth <= 768 && e.target === link) {
+      // If user taps specifically on Services parent on mobile, toggle collapse
+      if (parent && window.innerWidth <= 768 && (e.target === link || link.contains(e.target))) {
         e.preventDefault();
-        parent.classList.toggle('open');
+        parent.classList.toggle('collapsed');
         return;
       }
+      // For any normal links, close menu
       mainNav.classList.remove('mobile-active');
+      toggleBtn.setAttribute('aria-expanded', 'false');
     });
+  });
+
+  // Close nav when an individual service item is tapped
+  const serviceItems = document.querySelectorAll('.dropdown-service-item');
+  serviceItems.forEach(item => {
+    item.addEventListener('click', () => {
+      if (window.innerWidth <= 768) {
+        mainNav.classList.remove('mobile-active');
+        toggleBtn.setAttribute('aria-expanded', 'false');
+      }
+    });
+  });
+
+  // Close when tapping outside the menu on mobile
+  document.addEventListener('click', (e) => {
+    if (window.innerWidth <= 768 && mainNav.classList.contains('mobile-active')) {
+      if (!mainNav.contains(e.target) && !toggleBtn.contains(e.target)) {
+        mainNav.classList.remove('mobile-active');
+        toggleBtn.setAttribute('aria-expanded', 'false');
+      }
+    }
   });
 }
 
