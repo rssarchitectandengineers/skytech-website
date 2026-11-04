@@ -4467,8 +4467,9 @@ textarea:focus-visible {
   }
 }
 
+
 /* ==========================================================================
-   Clean Hero 3D Architectural Slider & Showcase
+   Clean Hero 3D Architectural Slider & Showcase (5 Attached WebP Photos)
    ========================================================================== */
 .hero-slider-section {
   position: relative;
@@ -4611,225 +4612,73 @@ textarea:focus-visible {
 }
 
 /* ==========================================================================
-   SEO Engineering Expertise Section (Below Clean Hero Slider)
+   Compact SEO Title & Services Strip (Immediately Below Hero)
    ========================================================================== */
-.seo-overview-section {
-  padding: 5rem 0 4.5rem;
-  background: #f8fafc;
+.seo-compact-strip {
+  background: #ffffff;
   border-bottom: 1px solid #e2e8f0;
-}
-
-.seo-overview-header {
+  padding: 2.25rem 1.25rem 2.5rem;
   text-align: center;
-  max-width: 960px;
-  margin: 0 auto 3.5rem;
 }
 
-.seo-badge-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  background: rgba(2, 132, 199, 0.1);
-  color: #0284c7;
-  font-size: 0.8125rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  padding: 0.35rem 0.9rem;
-  border-radius: 20px;
-  margin-bottom: 1rem;
+.seo-compact-wrap {
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
-.seo-main-h1 {
-  font-size: 2.25rem;
+.seo-compact-title {
+  font-size: 1.75rem;
   font-weight: 800;
   color: #0b1523;
   line-height: 1.25;
-  letter-spacing: -0.02em;
-  margin-bottom: 1.25rem;
+  letter-spacing: -0.015em;
+  margin-bottom: 0.85rem;
 }
 
 @media (min-width: 768px) {
-  .seo-main-h1 {
-    font-size: 2.75rem;
+  .seo-compact-title {
+    font-size: 2.15rem;
   }
 }
 
-.seo-main-lead {
+.seo-compact-services {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.seo-compact-line {
   font-size: 1.05rem;
-  line-height: 1.7;
-  color: #475569;
-}
-
-.seo-categories-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 2.5rem;
-}
-
-@media (min-width: 992px) {
-  .seo-categories-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-.seo-category-card {
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 16px;
-  padding: 2.25rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
-  display: flex;
-  flex-direction: column;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-.seo-category-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 32px rgba(2, 132, 199, 0.08);
-  border-color: #cbd5e1;
-}
-
-.seo-card-badge-wrap {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 1rem;
-}
-
-.seo-category-number {
-  font-size: 1.4rem;
-  font-weight: 900;
-  color: #0284c7;
-  letter-spacing: -0.02em;
-}
-
-.seo-category-pill {
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  background: #f1f5f9;
-  color: #475569;
-  padding: 0.2rem 0.65rem;
-  border-radius: 12px;
-}
-
-.seo-card-title {
-  font-size: 1.45rem;
-  font-weight: 800;
-  color: #0b1523;
-  margin-bottom: 0.85rem;
-  line-height: 1.3;
-}
-
-.seo-card-desc {
-  font-size: 0.95rem;
   line-height: 1.65;
-  color: #475569;
-  margin-bottom: 1.5rem;
-}
-
-.seo-subservices-list {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 1.75rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.seo-subservices-list li {
-  border-left: 3px solid #0284c7;
-  padding-left: 0.85rem;
-}
-
-.seo-subservice-link {
-  display: block;
-  text-decoration: none;
-  color: inherit;
-  transition: color 0.2s ease;
-}
-
-.seo-subservice-link strong {
-  display: block;
-  font-size: 0.92rem;
-  color: #0b1523;
-  font-weight: 700;
-  margin-bottom: 0.2rem;
-}
-
-.seo-subservice-link:hover strong {
-  color: #0284c7;
-}
-
-.seo-subservice-link span {
-  display: block;
-  font-size: 0.825rem;
-  color: #64748b;
-  line-height: 1.45;
-}
-
-/* Card Gallery for WebP Images */
-.seo-card-gallery {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
-  margin-top: auto;
-  padding-top: 1.25rem;
-  border-top: 1px solid #f1f5f9;
-}
-
-.seo-card-gallery.single-wide {
-  grid-template-columns: 1fr;
-}
-
-.seo-gallery-item {
+  color: #334155;
   margin: 0;
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
-  border-radius: 10px;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
+  font-weight: 500;
 }
 
-.seo-gallery-item img {
-  width: 100%;
-  height: 160px;
-  object-fit: cover;
-  object-position: center;
-  display: block;
-  transition: transform 0.35s ease;
-}
-
-.seo-card-gallery.single-wide .seo-gallery-item img {
-  height: 240px;
-}
-
-.seo-gallery-item:hover img {
-  transform: scale(1.04);
-}
-
-.seo-gallery-item figcaption {
-  font-size: 0.72rem;
-  color: #475569;
+.seo-compact-line a {
+  color: #0284c7;
+  text-decoration: none;
   font-weight: 600;
-  padding: 0.5rem 0.65rem;
-  background: #ffffff;
-  border-top: 1px solid #f1f5f9;
-  line-height: 1.35;
+  transition: color 0.2s ease, text-decoration 0.2s ease;
 }
 
-@media (max-width: 640px) {
-  .seo-overview-section {
-    padding: 3rem 0;
+.seo-compact-line a:hover {
+  color: #0369a1;
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .seo-compact-strip {
+    padding: 1.75rem 1rem 2rem;
   }
-  .seo-category-card {
-    padding: 1.5rem 1.15rem;
+  .seo-compact-title {
+    font-size: 1.35rem;
+    line-height: 1.3;
+    margin-bottom: 0.75rem;
   }
-  .seo-card-gallery {
-    grid-template-columns: 1fr;
-  }
-  .seo-gallery-item img {
-    height: 180px;
+  .seo-compact-line {
+    font-size: 0.92rem;
+    line-height: 1.6;
+    text-align: center;
   }
 }
