@@ -4259,7 +4259,7 @@ textarea:focus-visible {
 
 /* ==========================================================================
    Clean Hero 3D Architectural Slider & Responsive Showcase
-   Zero Image Cropping • object-fit: contain • Soft Blurred Ambient Backdrop
+   Full-Width Desktop • Zero Image Cropping • Responsive Mobile
    ========================================================================== */
 .hero-slider-section {
   position: relative;
@@ -4271,19 +4271,17 @@ textarea:focus-visible {
 .hero-slider-container {
   position: relative;
   width: 100%;
-  height: clamp(380px, 62vh, 680px);
-  min-height: 250px;
-  max-height: 720px;
+  height: clamp(380px, 60vh, 520px);
+  min-height: 280px;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: height 0.45s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 @media (min-width: 992px) {
   .hero-slider-container {
-    height: clamp(520px, 68vh, 700px);
+    height: clamp(520px, 68vh, 760px);
   }
 }
 
@@ -4314,47 +4312,28 @@ textarea:focus-visible {
   z-index: 2;
 }
 
-/* Soft Blurred Ambient Backdrop (Preserves atmosphere without cropping main image) */
-.hero-slide-backdrop {
-  position: absolute;
-  inset: -25px;
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
-  filter: blur(36px) brightness(0.24) saturate(1.25);
-  transform: scale(1.12);
-  opacity: 0.88;
-  pointer-events: none;
-  z-index: 1;
-}
-
-/* Foreground Inner Wrap */
-.hero-slide-inner {
-  position: relative;
-  z-index: 2;
+.hero-picture {
+  display: block;
   width: 100%;
   height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.75rem 1rem;
-  box-sizing: border-box;
 }
 
-/* Main Architectural Photo: 100% Complete, No Cropping, Contained */
+/* Full Width Desktop & Contained Mobile Image */
 .hero-clean-img {
-  max-width: 100%;
-  max-height: 100%;
-  width: auto;
-  height: auto;
-  object-fit: contain !important;
-  object-position: center center !important;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
   display: block;
-  margin: auto;
   user-select: none;
   -webkit-user-drag: none;
-  border-radius: 6px;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+}
+
+@media (max-width: 991px) {
+  .hero-clean-img {
+    object-fit: contain;
+    background: #080f1a;
+  }
 }
 
 /* Slider Controls: Clean Prev/Next & Dots */
@@ -4432,9 +4411,6 @@ textarea:focus-visible {
 }
 
 @media (max-width: 768px) {
-  .hero-slide-inner {
-    padding: 0.4rem 0.5rem;
-  }
   .hero-slider-nav {
     display: none;
   }

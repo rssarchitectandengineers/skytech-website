@@ -32,7 +32,8 @@
 
   <!-- Preload Critical Above-The-Fold Assets -->
   <link rel="preload" as="image" href="assets/images/skytech-logo.svg" type="image/svg+xml">
-  <link rel="preload" as="image" href="assets/images/hero-slide-1.webp" type="image/webp" fetchpriority="high">
+  <link rel="preload" as="image" href="assets/images/hero-slide-1-desktop.webp" type="image/webp" media="(min-width: 992px)" fetchpriority="high">
+  <link rel="preload" as="image" href="assets/images/hero-slide-1.webp" type="image/webp" media="(max-width: 991px)" fetchpriority="high">
   <link rel="preload" as="image" href="assets/images/hero-building.webp" type="image/webp">
 
   <!-- Stylesheet -->
@@ -384,70 +385,70 @@
     <section class="hero-slider-section" id="hero" aria-label="The Skytech 3D Architectural Showcase Slider">
       <div class="hero-slider-container">
         <div class="hero-slider-track">
-          <!-- Slide 1: 3D Architectural Multi-Storey Model (LCP Optimized) -->
-          <div class="hero-slide active" data-slide-index="0" data-aspect="1.000">
-            <div class="hero-slide-backdrop" style="background-image: url('assets/images/hero-slide-1.webp');" aria-hidden="true"></div>
-            <div class="hero-slide-inner">
+          <!-- Slide 1: 3D Architectural Multi-Storey Model (Full Width Desktop & LCP Optimized) -->
+          <div class="hero-slide active" data-slide-index="0">
+            <picture class="hero-picture">
+              <source media="(min-width: 992px)" srcset="assets/images/hero-slide-1-desktop.webp">
               <img src="assets/images/hero-slide-1.webp" 
                    alt="3D architectural model of a multi-storey residential and commercial building displayed alongside structural elevation drawings on computer screens." 
                    class="hero-clean-img" 
                    fetchpriority="high" 
                    loading="eager" 
-                   width="736" 
-                   height="736">
-            </div>
+                   width="1920" 
+                   height="850">
+            </picture>
           </div>
 
           <!-- Slide 2: Structural Engineering Design Steps Infographic -->
-          <div class="hero-slide" data-slide-index="1" data-aspect="0.666">
-            <div class="hero-slide-backdrop" style="background-image: url('assets/images/hero-slide-2.webp');" aria-hidden="true"></div>
-            <div class="hero-slide-inner">
+          <div class="hero-slide" data-slide-index="1">
+            <picture class="hero-picture">
+              <source media="(min-width: 992px)" srcset="assets/images/hero-slide-2-desktop.webp">
               <img src="assets/images/hero-slide-2.webp" 
                    alt="Structural engineering design process infographic showing concept design, load analysis, structural analysis, system design, detailing, drafting and construction administration." 
                    class="hero-clean-img" 
                    loading="lazy" 
-                   width="682" 
-                   height="1024">
-            </div>
+                   width="1920" 
+                   height="850">
+            </picture>
           </div>
 
           <!-- Slide 3: RCC Slab Reinforcement Site Work -->
-          <div class="hero-slide" data-slide-index="2" data-aspect="1.784">
-            <div class="hero-slide-backdrop" style="background-image: url('assets/images/hero-slide-3.webp');" aria-hidden="true"></div>
-            <div class="hero-slide-inner">
+          <div class="hero-slide" data-slide-index="2">
+            <picture class="hero-picture">
+              <source media="(min-width: 992px)" srcset="assets/images/hero-slide-3-desktop.webp">
               <img src="assets/images/hero-slide-3.webp" 
                    alt="Construction workers placing and checking steel reinforcement bars for an RCC slab before concrete casting." 
                    class="hero-clean-img" 
                    loading="lazy" 
-                   width="1024" 
-                   height="574">
-            </div>
+                   width="1920" 
+                   height="850">
+            </picture>
           </div>
 
           <!-- Slide 4: RCC Beam and Slab Rebar Detail Close-up -->
-          <div class="hero-slide" data-slide-index="3" data-aspect="2.216">
-            <div class="hero-slide-backdrop" style="background-image: url('assets/images/hero-slide-4.webp');" aria-hidden="true"></div>
-            <div class="hero-slide-inner">
+          <div class="hero-slide" data-slide-index="3">
+            <picture class="hero-picture">
+              <source media="(min-width: 992px)" srcset="assets/images/hero-slide-4-desktop.webp">
               <img src="assets/images/hero-slide-4.webp" 
                    alt="Close-up view of a dense reinforced steel bar arrangement for an RCC beam and slab structure before concreting." 
                    class="hero-clean-img" 
                    loading="lazy" 
-                   width="1024" 
-                   height="462">
-            </div>
+                   width="1920" 
+                   height="850">
+            </picture>
           </div>
 
           <!-- Slide 5: Pre-Engineered Steel Building Frame Erection -->
-          <div class="hero-slide" data-slide-index="4" data-aspect="0.909">
-            <div class="hero-slide-backdrop" style="background-image: url('assets/images/hero-slide-5.webp');" aria-hidden="true"></div>
-            <div class="hero-slide-inner">
+          <div class="hero-slide" data-slide-index="4">
+            <picture class="hero-picture">
+              <source media="(min-width: 992px)" srcset="assets/images/hero-slide-5-desktop.webp">
               <img src="assets/images/hero-slide-5.webp" 
                    alt="Steel frame erection at an industrial building site showing columns, roof rafters and purlins for a pre-engineered building structure." 
                    class="hero-clean-img" 
                    loading="lazy" 
-                   width="720" 
-                   height="792">
-            </div>
+                   width="1920" 
+                   height="850">
+            </picture>
           </div>
         </div>
 

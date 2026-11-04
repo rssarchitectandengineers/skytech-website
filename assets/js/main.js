@@ -1371,7 +1371,6 @@ function initHeroSlider() {
   const container = document.querySelector('.hero-slider-section');
   if (!container) return;
 
-  const sliderBox = container.querySelector('.hero-slider-container');
   const slides = container.querySelectorAll('.hero-slide');
   const dots = container.querySelectorAll('.hero-dot');
   const prevBtn = container.querySelector('.hero-slider-prev');
@@ -1379,49 +1378,9 @@ function initHeroSlider() {
 
   if (!slides.length) return;
 
-  // Aspect ratios for the 5 WebP slides (w / h):
-  // Slide 1: 736/736 = 1.000 (Square 3D architectural model)
-  // Slide 2: 682/1024 = 0.666 (Portrait 7 Steps Infographic)
-  // Slide 3: 1024/574 = 1.784 (Landscape RCC slab reinforcement site work)
-  // Slide 4: 1024/462 = 2.216 (Wide landscape RCC rebar detail)
-  // Slide 5: 720/792 = 0.909 (Slightly tall PEB steel structure)
-  const slideRatios = [1.000, 0.666, 1.784, 2.216, 0.909];
-
   let currentIndex = 0;
   let autoSlideTimer = null;
   const slideInterval = 5000; // 5 seconds auto transition
-
-  const updateAdaptiveHeight = (index) => {
-    if (!sliderBox) return;
-    const ratio = slideRatios[index] || 1.0;
-    const vpW = window.innerWidth;
-    const vpH = window.innerHeight;
-    let targetH;
-
-    if (vpW < 768) {
-      // Mobile: full width, naturally adapted height with safe viewport bounds
-      const idealH = vpW / ratio;
-      const maxH = Math.min(vpH * 0.68, 500);
-      const minH = 260;
-      targetH = Math.round(Math.max(minH, Math.min(idealH, maxH)));
-    } else if (vpW < 1024) {
-      // Tablet:
-      const maxContentW = Math.min(vpW * 0.88, 800);
-      const idealH = maxContentW / ratio;
-      const maxH = Math.min(vpH * 0.65, 580);
-      const minH = 360;
-      targetH = Math.round(Math.max(minH, Math.min(idealH, maxH)));
-    } else {
-      // Desktop:
-      const maxContentW = Math.min(vpW * 0.82, 1150);
-      const idealH = maxContentW / ratio;
-      const maxH = Math.min(vpH * 0.74, 700);
-      const minH = 480;
-      targetH = Math.round(Math.max(minH, Math.min(idealH, maxH)));
-    }
-
-    sliderBox.style.height = targetH + 'px';
-  };
 
   const showSlide = (index) => {
     if (index < 0) index = slides.length - 1;
@@ -1443,8 +1402,6 @@ function initHeroSlider() {
         dot.classList.remove('active');
       }
     });
-
-    updateAdaptiveHeight(currentIndex);
   };
 
   const nextSlide = () => {
@@ -1514,16 +1471,7 @@ function initHeroSlider() {
     startAutoSlide();
   }, { passive: true });
 
-  // Update on window resize (debounced)
-  let resizeTimeout = null;
-  window.addEventListener('resize', () => {
-    clearTimeout(resizeTimeout);
-    resizeTimeout = setTimeout(() => {
-      updateAdaptiveHeight(currentIndex);
-    }, 100);
-  });
-
-  // Initialize first slide and adaptive height immediately
+  // Start auto play
   showSlide(0);
   startAutoSlide();
 }
