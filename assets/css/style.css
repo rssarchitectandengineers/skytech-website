@@ -566,6 +566,10 @@ button {
 }
 
 .btn-mobile-call-header {
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: inherit;
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
@@ -587,9 +591,9 @@ button {
 }
 
 .btn-mobile-call-header svg {
-  width: 13px;
-  height: 13px;
-  fill: currentColor;
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
 }
 
 /* Mobile Toggle Hamburger */

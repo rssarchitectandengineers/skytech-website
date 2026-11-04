@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initFaqAccordion();
   initServiceHashNavigation();
   initInstantPagePrefetch();
+  initPortfolioLeadGate();
 });
 
 /* -------------------------------------------------------------
@@ -1633,5 +1634,178 @@ function initFaqAccordion() {
         btn.setAttribute('aria-expanded', 'true');
       }
     });
+  });
+}
+
+/* -------------------------------------------------------------
+ * 19. Mobile Portfolio Access Lead Gate Modal
+ * ------------------------------------------------------------- */
+function initPortfolioLeadGate() {
+  const portfolioModal = document.getElementById('portfolioLeadModal');
+  if (!portfolioModal) return;
+
+  const closeBtns = portfolioModal.querySelectorAll('.close-modal-btn');
+  closeBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      closeModal(portfolioModal);
+    });
+  });
+
+  portfolioModal.addEventListener('click', (e) => {
+    if (e.target === portfolioModal) {
+      closeModal(portfolioModal);
+    }
+  });
+
+  // Global Click Event Delegation for [data-open-portfolio-gate]
+  document.addEventListener('click', (e) => {
+    const trigger = e.target.closest('[data-open-portfolio-gate]');
+    if (trigger) {
+      e.preventDefault();
+
+      // If mobile navigation drawer is active, close it first
+      const mainNav = document.querySelector('.main-nav.mobile-active');
+      if (mainNav) {
+        mainNav.classList.remove('mobile-active');
+        const toggleBtn = document.querySelector('.mobile-nav-toggle');
+        if (toggleBtn) toggleBtn.setAttribute('aria-expanded', 'false');
+      }
+
+      // If AI Assistant is currently open, close it
+      const aiWidget = document.getElementById('aiAssistantWidget');
+      if (aiWidget && aiWidget.classList.contains('active')) {
+        aiWidget.classList.remove('active');
+      }
+
+      openModal(portfolioModal);
+    }
+  });
+
+  // Handle Form Submission
+  const form = document.getElementById('portfolioLeadForm');
+  if (!form) return;
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const nameInput = form.querySelector('[name="fullName"]');
+    const countryCode = form.querySelector('[name="countryCode"]') ? form.querySelector('[name="countryCode"]').value : '+91';
+    const phoneInput = form.querySelector('[name="phone"]');
+    const emailInput = form.querySelector('[name="email"]');
+
+    if (!nameInput || !nameInput.value.trim() || nameInput.value.trim().length < 2) {
+      showToast('Please enter your full name (minimum 2 characters).');
+      if (nameInput) nameInput.focus();
+      return;
+    }
+
+    const phoneRegex = /^[0-9]{8,14}$/;
+    const cleanPhone = phoneInput ? phoneInput.value.replace(/[^0-9]/g, '') : '';
+    if (!cleanPhone || !phoneRegex.test(cleanPhone)) {
+      showToast('Please enter a valid mobile number (10 digits).');
+      if (phoneInput) phoneInput.focus();
+      return;
+    }
+
+    const emailVal = emailInput && emailInput.value.trim() ? emailInput.value.trim() : '';
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailVal || !emailRegex.test(emailVal)) {
+      showToast('Please enter a valid email address.');
+      if (emailInput) emailInput.focus();
+      return;
+    }
+
+    const fullName = nameInput.value.trim();
+    const fullPhoneNumber = `${countryCode} ${cleanPhone}`;
+
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const origText = submitBtn ? submitBtn.innerHTML : 'Submit & Open Portfolio';
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = 'Verifying & Opening Portfolio...';
+    }
+
+    // 1. Push lead notification
+    sendMobileLeadNotification({
+      fullName,
+      cleanPhone,
+      fullPhoneNumber,
+      emailVal,
+      serviceName: 'Portfolio PDF Access',
+      details: 'User requested The Skytech Engineering Portfolio via Mobile Header'
+    });
+
+    // 2. Automated email dispatch
+    try {
+      fetch('https://formsubmit.co/ajax/skytechjpr@gmail.com', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          _subject: `📁 New Portfolio Download: ${fullName} - Phone: ${fullPhoneNumber}`,
+          _template: 'table',
+          _captcha: 'false',
+          'Client Name': fullName,
+          'Phone Number': fullPhoneNumber,
+          'Email Address': emailVal,
+          'Source': 'Mobile Portfolio Header Lead Gate',
+          'Website Page': window.location.href,
+          'Timestamp': new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })
+        })
+      }).catch(err => {
+        console.warn('Portfolio lead email notice:', err);
+      });
+    } catch (err) {
+      console.warn('Portfolio dispatch notice:', err);
+    }
+
+    // 3. Automated PDF trigger for mobile
+    const portfolioPdf = 'SkyTech-Structural-Consultancy-Portfolio.pdf';
+    setTimeout(() => {
+      const downloadAnchor = document.createElement('a');
+      downloadAnchor.href = portfolioPdf;
+      downloadAnchor.download = 'SkyTech-Structural-Consultancy-Portfolio.pdf';
+      downloadAnchor.target = '_blank';
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      document.body.removeChild(downloadAnchor);
+    }, 400);
+
+    // 4. Update modal UI to show success & direct download action
+    const wrap = form.parentElement;
+    wrap.innerHTML = `
+      <div style="text-align: center; padding: 1.5rem 0.5rem;">
+        <div style="width: 58px; height: 58px; border-radius: 50%; background: #dcfce7; color: #16a34a; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 1rem;">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+          </svg>
+        </div>
+        <h3 style="font-size: 1.25rem; color: #0b1523; font-weight: 800; margin-bottom: 0.5rem;">Portfolio Access Granted!</h3>
+        <p style="font-size: 0.88rem; color: #475569; margin-bottom: 1.25rem; line-height: 1.5;">
+          Thank you <strong>${fullName}</strong>. The Skytech Engineering Portfolio is downloading to your device now. If it didn't open automatically, tap below:
+        </p>
+
+        <a href="${portfolioPdf}" download="SkyTech-Structural-Consultancy-Portfolio.pdf" target="_blank" class="btn-consultation-primary" style="display: flex; width: 100%; justify-content: center; padding: 0.85rem 1.25rem; margin-bottom: 0.75rem; font-weight: 700; text-decoration: none;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 6px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <span>Open / Download Portfolio (PDF)</span>
+        </a>
+
+        <button type="button" class="btn-portfolio-outline close-parent-modal-btn" style="width: 100%; justify-content: center; padding: 0.65rem 1rem; font-size: 0.85rem;">
+          <span>Close Window</span>
+        </button>
+      </div>
+    `;
+
+    const closeBtn = wrap.querySelector('.close-parent-modal-btn');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', () => {
+        closeModal(portfolioModal);
+      });
+    }
+
+    showToast('Portfolio opening now!');
   });
 }
