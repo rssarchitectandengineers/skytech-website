@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initServiceHashNavigation();
   initInstantPagePrefetch();
   initPortfolioLeadGate();
+  initAboutVideoPlayer();
 });
 
 /* -------------------------------------------------------------
@@ -1808,5 +1809,59 @@ function initPortfolioLeadGate() {
     }
 
     showToast('Portfolio opening now!');
+  });
+}
+
+/* -------------------------------------------------------------
+ * 20. About Section Video Player (Inline Interactive Playback)
+ * ------------------------------------------------------------- */
+function initAboutVideoPlayer() {
+  const container = document.getElementById('aboutVideoContainer');
+  const video = document.getElementById('aboutInlineVideo');
+  const playBtn = document.getElementById('aboutVideoPlayBtn');
+
+  if (!container || !video || !playBtn) return;
+
+  function playVideo() {
+    video.controls = true;
+    const playPromise = video.play();
+    if (playPromise !== undefined) {
+      playPromise.then(() => {
+        container.classList.add('is-playing');
+      }).catch(err => {
+        console.warn('Playback error or policy blocked:', err);
+        container.classList.remove('is-playing');
+      });
+    }
+  }
+
+  playBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    playVideo();
+  });
+
+  container.addEventListener('click', (e) => {
+    // If not playing, click on container initiates playback
+    if (!container.classList.contains('is-playing') && e.target !== video) {
+      playVideo();
+    }
+  });
+
+  video.addEventListener('play', () => {
+    container.classList.add('is-playing');
+    video.controls = true;
+  });
+
+  video.addEventListener('pause', () => {
+    if (!video.seeking) {
+      container.classList.remove('is-playing');
+    }
+  });
+
+  video.addEventListener('ended', () => {
+    container.classList.remove('is-playing');
+    video.controls = false;
+    video.load(); // Reset poster
   });
 }

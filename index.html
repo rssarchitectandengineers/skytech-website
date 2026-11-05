@@ -545,30 +545,11 @@
     </section>
 
     <!-- ==========================================================================
-         4. About The Skytech Section (Photo 5 sequence, duplicate stats removed)
+         4. About The Skytech Section (Desktop: Left Text, Right Video | Mobile: Top Text, Bottom Video)
          ========================================================================== -->
     <section class="about-section" id="about">
       <div class="container about-grid">
-        <!-- Left: Image with Safety Quality Strength Badge -->
-        <div class="about-media-col">
-          <div class="about-image-wrapper">
-            <picture>
-              <source srcset="assets/images/about-engineers.webp" type="image/webp">
-              <img src="assets/images/about-engineers.jpg" alt="The Skytech senior structural engineers inspecting construction drawings on site" loading="lazy" width="600" height="480" decoding="async">
-            </picture>
-            <div class="about-trust-badge">
-              <div class="badge-crest-icon">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-              </div>
-              <div class="badge-text">
-                <h4>Safety • Quality • Strength</h4>
-                <span>The Skytech Engineering Standard</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Right: Content & Know More button -->
+        <!-- Content Column (Left on Desktop, Top on Mobile) -->
         <div class="about-content-col">
           <span class="section-kicker">ABOUT THE SKYTECH</span>
           <h2 class="section-title">Building Trust Through Engineering Excellence</h2>
@@ -583,6 +564,24 @@
             <span>Know More About Us</span>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
           </a>
+        </div>
+
+        <!-- Video Column (Right on Desktop, Bottom on Mobile) -->
+        <div class="about-media-col">
+          <div class="about-video-container" id="aboutVideoContainer">
+            <video id="aboutInlineVideo" class="about-inline-video" poster="assets/images/walkthrough-video-poster.webp" playsinline preload="metadata">
+              <source src="assets/videos/walkthrough-video.mp4" type="video/mp4">
+              Your browser does not support HTML5 video.
+            </video>
+
+            <!-- Circular Golden Play Button Overlay -->
+            <button type="button" class="about-video-play-btn" id="aboutVideoPlayBtn" aria-label="Play Skytech Corporate Video">
+              <span class="about-play-ripple"></span>
+              <span class="about-play-icon">
+                <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20"></polygon></svg>
+              </span>
+            </button>
+          </div>
         </div>
       </div>
     </section>
