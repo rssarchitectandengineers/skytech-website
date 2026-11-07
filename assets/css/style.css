@@ -1268,6 +1268,7 @@ textarea.form-control {
     transform: scale(0.85);
     opacity: 0.9;
   }
+
   100% {
     transform: scale(1.65);
     opacity: 0;
@@ -3003,11 +3004,13 @@ textarea.form-control {
   }
 
   .about-content-col {
-    order: 1; /* Top on mobile */
+    order: 1;
+    /* Top on mobile */
   }
 
   .about-media-col {
-    order: 2; /* Bottom on mobile */
+    order: 2;
+    /* Bottom on mobile */
   }
 
   .about-video-container {
@@ -3816,29 +3819,35 @@ textarea:focus-visible {
     grid-template-columns: repeat(2, 1fr) !important;
     gap: 0.65rem !important;
   }
+
   .hero-stat-card {
     padding: 0.85rem 0.65rem !important;
     gap: 0.65rem !important;
     border-radius: 12px !important;
   }
+
   .hero-stat-icon-wrap {
     width: 36px !important;
     height: 36px !important;
     border-radius: 9px !important;
     flex-shrink: 0 !important;
   }
+
   .hero-stat-icon-wrap svg {
     width: 18px !important;
     height: 18px !important;
   }
+
   .hero-stat-number {
     font-size: 1.35rem !important;
     line-height: 1.1 !important;
   }
+
   .hero-stat-label {
     font-size: 0.72rem !important;
     line-height: 1.2 !important;
   }
+
   /* Point 1: Hide call button on mobile */
   .top-call-circle,
   .top-bar-right .top-call-circle {
@@ -3851,23 +3860,28 @@ textarea:focus-visible {
     grid-template-columns: repeat(2, 1fr) !important;
     gap: 0.55rem !important;
   }
+
   .hero-stat-card {
     padding: 0.75rem 0.5rem !important;
     gap: 0.5rem !important;
     border-radius: 10px !important;
   }
+
   .hero-stat-icon-wrap {
     width: 32px !important;
     height: 32px !important;
     border-radius: 8px !important;
   }
+
   .hero-stat-icon-wrap svg {
     width: 16px !important;
     height: 16px !important;
   }
+
   .hero-stat-number {
     font-size: 1.22rem !important;
   }
+
   .hero-stat-label {
     font-size: 0.68rem !important;
   }
@@ -4303,15 +4317,19 @@ textarea:focus-visible {
   .faq-accordion-section {
     padding: 3.5rem 0;
   }
+
   .faq-main-heading {
     font-size: 1.7rem;
   }
+
   .faq-card-header {
     padding: 1rem 1.15rem;
   }
+
   .faq-card-title {
     font-size: 0.88rem;
   }
+
   .faq-card-body {
     padding: 0 1.15rem 1.15rem 1.15rem;
     font-size: 0.88rem;
@@ -4476,15 +4494,18 @@ textarea:focus-visible {
   .hero-slider-nav {
     display: none;
   }
+
   .hero-slider-dots {
     bottom: 0.65rem;
     padding: 0.3rem 0.65rem;
     gap: 0.45rem;
   }
+
   .hero-dot {
     width: 8px;
     height: 8px;
   }
+
   .hero-dot.active {
     width: 20px;
   }
@@ -4555,19 +4576,23 @@ textarea:focus-visible {
   .seo-compact-strip {
     padding: 1.5rem 1rem 1.75rem;
   }
+
   .seo-compact-title {
     font-size: 1.25rem;
     line-height: 1.35;
     margin-bottom: 0.75rem;
   }
+
   .seo-compact-line {
     font-size: 0.92rem;
     line-height: 1.75;
   }
+
   .seo-compact-line a {
     white-space: normal;
     display: inline-block;
   }
+
   .seo-compact-line .sep {
     margin: 0 0.35rem;
   }
