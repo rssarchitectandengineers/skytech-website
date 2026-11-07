@@ -153,6 +153,43 @@ function initMobileNav() {
     });
   });
 
+  // Multi-Level Hierarchy Dropdown Interaction (StructureX Pattern: Desktop Hover & Mobile Accordion)
+  const hierarchyGroups = document.querySelectorAll('.hierarchy-cat-group');
+  hierarchyGroups.forEach(group => {
+    // Desktop: Mouse hover switches active panel smoothly
+    group.addEventListener('mouseenter', () => {
+      if (window.innerWidth > 991) {
+        hierarchyGroups.forEach(g => g.classList.remove('active'));
+        group.classList.add('active');
+      }
+    });
+
+    // Mobile: Tapping header toggles accordion
+    const catHeader = group.querySelector('.hierarchy-cat-header');
+    if (catHeader) {
+      catHeader.addEventListener('click', (e) => {
+        if (window.innerWidth <= 991) {
+          e.preventDefault();
+          e.stopPropagation();
+          const wasOpen = group.classList.contains('mobile-open');
+          hierarchyGroups.forEach(g => g.classList.remove('mobile-open'));
+          if (!wasOpen) {
+            group.classList.add('mobile-open');
+          }
+        }
+      });
+    }
+  });
+
+  // Tapping any hierarchy sub-link closes mobile drawer and allows normal navigation
+  document.querySelectorAll('.hierarchy-sub-link').forEach(subLink => {
+    subLink.addEventListener('click', () => {
+      collapseAllDropdowns();
+      mainNav.classList.remove('mobile-active');
+      document.body.style.overflow = '';
+    });
+  });
+
   // Tap outside menu closes drawer
   document.addEventListener('click', (e) => {
     if (window.innerWidth <= 991 && mainNav.classList.contains('mobile-active')) {

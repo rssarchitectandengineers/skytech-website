@@ -262,7 +262,21 @@
       fMob.style.display = 'none';
       fDual.style.display = 'none';
 
-      if (mode === 'desktop') {
+    let currentPage = 'index.html';
+    function setPage(url) {
+      currentPage = url;
+      document.querySelectorAll('iframe').forEach(f => f.src = url);
+      const bHome = document.getElementById('btnPageHome');
+      const bServ = document.getElementById('btnPageServices');
+      const bRCC = document.getElementById('btnPageRCC');
+      if (bHome) bHome.classList.toggle('active', url === 'index.html');
+      if (bServ) bServ.classList.toggle('active', url === 'services.html');
+      if (bRCC) bRCC.classList.toggle('active', url === 'rcc-structural-design.html');
+      const openBtn = document.querySelector('.btn-external');
+      if (openBtn) openBtn.href = url;
+    }
+
+    if (mode === 'desktop') {
         btnDesk.classList.add('active');
         fDesk.style.display = 'block';
       } else if (mode === 'mobile') {

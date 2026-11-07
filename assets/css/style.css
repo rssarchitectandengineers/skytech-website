@@ -447,6 +447,197 @@ button {
   line-height: 1.2;
 }
 
+/* ==========================================================================
+   Multi-Level Hierarchy Dropdown (StructureX Pattern: 3-Tier Navigation)
+   ========================================================================== */
+.hierarchy-dropdown {
+  position: absolute;
+  top: 100%;
+  left: -20px;
+  width: 760px;
+  background: #ffffff;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 22px 50px -10px rgba(11, 21, 35, 0.22), 0 0 0 1px rgba(0, 0, 0, 0.06);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px);
+  transition: all var(--transition-base);
+  z-index: 130;
+  overflow: hidden;
+}
+
+.has-dropdown:hover .hierarchy-dropdown,
+.has-dropdown:focus-within .hierarchy-dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(4px);
+}
+
+.hierarchy-container {
+  display: flex;
+  position: relative;
+  min-height: 380px;
+}
+
+/* Tier 1: Left Categories Column (Desktop) */
+.hierarchy-categories-col {
+  width: 320px;
+  background: #f8fafc;
+  border-right: 1px solid #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem 0;
+  flex-shrink: 0;
+}
+
+.hierarchy-cat-group {
+  position: static;
+}
+
+.hierarchy-cat-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.65rem;
+  padding: 0.85rem 1.15rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  color: var(--slate-800);
+  font-weight: 700;
+  font-size: 0.86rem;
+  border-left: 3px solid transparent;
+  user-select: none;
+}
+
+.hierarchy-cat-header:hover,
+.hierarchy-cat-group.active .hierarchy-cat-header {
+  background: #ffffff;
+  color: var(--sky-blue-700);
+  border-left-color: var(--sky-blue-600);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.hierarchy-cat-left {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  line-height: 1.35;
+}
+
+.hierarchy-cat-num {
+  color: var(--sky-blue-600);
+  font-weight: 800;
+  font-size: 0.82rem;
+  letter-spacing: 0.5px;
+  flex-shrink: 0;
+}
+
+.hierarchy-cat-title {
+  color: inherit;
+}
+
+.hierarchy-chevron {
+  width: 16px;
+  height: 16px;
+  color: var(--slate-400);
+  transition: transform var(--transition-fast), color var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.hierarchy-cat-header:hover .hierarchy-chevron,
+.hierarchy-cat-group.active .hierarchy-chevron {
+  color: var(--sky-blue-600);
+  transform: translateX(3px);
+}
+
+/* Tier 2: Right Sub-Services Flyout Menu (Desktop) */
+.hierarchy-sub-menu {
+  position: absolute;
+  top: 0;
+  left: 320px;
+  right: 0;
+  bottom: 0;
+  background: #ffffff;
+  padding: 1.25rem 1.25rem;
+  overflow-y: auto;
+  display: none;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.hierarchy-cat-group.active .hierarchy-sub-menu {
+  display: flex;
+}
+
+.hierarchy-sub-heading {
+  font-size: 0.76rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--sky-blue-600);
+  margin-bottom: 0.35rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1.5px solid #f1f5f9;
+}
+
+.hierarchy-sub-link {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.65rem 0.85rem;
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  color: var(--slate-800);
+  background: #ffffff;
+  border: 1px solid transparent;
+  transition: all var(--transition-fast);
+}
+
+.hierarchy-sub-link:hover {
+  background: #f0f9ff;
+  border-color: #bae6fd;
+  transform: translateX(3px);
+}
+
+.sub-link-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  background: #e0f2fe;
+  color: #0284c7;
+  font-size: 0.75rem;
+  font-weight: 800;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.sub-link-body {
+  flex: 1;
+}
+
+.sub-link-body strong {
+  display: block;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--navy-950);
+  line-height: 1.3;
+  margin-bottom: 2px;
+}
+
+.sub-link-body p {
+  font-size: 0.74rem;
+  color: #64748b;
+  line-height: 1.35;
+  margin: 0;
+}
+
+.hierarchy-sub-link:hover .sub-link-body strong {
+  color: #0284c7;
+}
+
 /* Header Action Buttons matching exact reference snippet */
 .header-actions {
   display: flex;
@@ -3380,8 +3571,90 @@ textarea.form-control {
     visibility: visible;
   }
 
+  .has-dropdown.expanded .hierarchy-dropdown {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+  }
+
   .has-dropdown.expanded .dropdown-arrow {
     transform: rotate(180deg);
+  }
+
+  /* Hierarchy Dropdown Mobile Rules */
+  .hierarchy-dropdown {
+    position: static;
+    width: 100%;
+    box-shadow: none;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    background: #ffffff;
+    margin-top: 0.5rem;
+    padding: 0.25rem 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: none;
+    display: none;
+  }
+
+  .hierarchy-container {
+    display: flex;
+    flex-direction: column;
+    min-height: auto;
+  }
+
+  .hierarchy-categories-col {
+    width: 100%;
+    background: transparent;
+    border-right: none;
+    padding: 0;
+  }
+
+  .hierarchy-cat-group {
+    border-bottom: 1px solid #f1f5f9;
+  }
+
+  .hierarchy-cat-header {
+    padding: 0.85rem 0.95rem;
+    font-size: 0.86rem;
+    border-left: none;
+  }
+
+  .hierarchy-cat-header:hover,
+  .hierarchy-cat-group.active .hierarchy-cat-header {
+    box-shadow: none;
+  }
+
+  .hierarchy-cat-group.mobile-open .hierarchy-cat-header {
+    background: #f0f9ff;
+    color: var(--sky-blue-700);
+    border-left: 3px solid var(--sky-blue-600);
+  }
+
+  .hierarchy-cat-group.mobile-open .hierarchy-chevron {
+    transform: rotate(90deg);
+    color: var(--sky-blue-600);
+  }
+
+  .hierarchy-sub-menu {
+    position: static;
+    width: 100%;
+    background: #f8fafc;
+    border-top: 1px solid #e2e8f0;
+    padding: 0.65rem 0.75rem;
+    display: none;
+    gap: 0.45rem;
+  }
+
+  .hierarchy-cat-group.mobile-open .hierarchy-sub-menu {
+    display: flex;
+  }
+
+  .hierarchy-sub-link {
+    padding: 0.6rem 0.65rem;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
   }
 
   .header-actions {
@@ -4595,5 +4868,231 @@ textarea:focus-visible {
 
   .seo-compact-line .sep {
     margin: 0 0.35rem;
+  }
+}
+
+/* ==========================================================================
+   Service Locations & Technical Gallery Components
+   ========================================================================== */
+.service-locations-card {
+  background: #ffffff;
+  border: 1px solid var(--slate-200);
+  border-radius: var(--radius-xl);
+  padding: 2.75rem 2.25rem;
+  margin: 3.5rem 0 2.5rem;
+  box-shadow: 0 12px 30px -5px rgba(0, 0, 0, 0.05);
+}
+
+.locations-header-badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--sky-blue-600);
+  background: var(--sky-blue-50);
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-full);
+  margin-bottom: 0.65rem;
+}
+
+.locations-main-title {
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: var(--navy-950);
+  margin-bottom: 0.5rem;
+}
+
+.locations-sub-text {
+  font-size: 0.95rem;
+  color: #64748b;
+  max-width: 720px;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.rajasthan-locations-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(185px, 1fr));
+  gap: 0.85rem;
+  margin-bottom: 2.25rem;
+}
+
+.location-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.8rem 1rem;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--navy-900);
+  transition: all var(--transition-fast);
+}
+
+.location-pill:hover {
+  background: #f0f9ff;
+  border-color: #38bdf8;
+  color: #0284c7;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.12);
+}
+
+.location-pill svg {
+  width: 17px;
+  height: 17px;
+  color: #0284c7;
+  flex-shrink: 0;
+}
+
+.location-pill.highlight-state {
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  border-color: #7dd3fc;
+  color: #0369a1;
+}
+
+/* Pan-India Coverage Banner */
+.pan-india-banner {
+  background: linear-gradient(135deg, #0b1523 0%, #15243a 100%);
+  border: 1.5px solid rgba(56, 189, 248, 0.35);
+  border-radius: var(--radius-lg);
+  padding: 2rem 2.25rem;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 1.75rem;
+  box-shadow: 0 10px 25px rgba(11, 21, 35, 0.15);
+}
+
+.pan-india-icon-box {
+  width: 58px;
+  height: 58px;
+  border-radius: 14px;
+  background: rgba(14, 165, 233, 0.2);
+  border: 1.5px solid #38bdf8;
+  color: #38bdf8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.pan-india-icon-box svg {
+  width: 30px;
+  height: 30px;
+}
+
+.pan-india-text h4 {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #38bdf8;
+  margin-bottom: 0.4rem;
+}
+
+.pan-india-text p {
+  color: #e2e8f0;
+  font-size: 0.96rem;
+  line-height: 1.65;
+  margin: 0;
+}
+
+/* Engineering Drawings & Photo Gallery Grid */
+.engineering-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin: 2.25rem 0;
+}
+
+.drawing-card {
+  background: #ffffff;
+  border: 1px solid var(--slate-200);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+  transition: all var(--transition-base);
+}
+
+.drawing-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--sky-blue-400);
+  box-shadow: 0 14px 30px -5px rgba(2, 132, 199, 0.15);
+}
+
+.drawing-card-img-wrap {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  background: #f1f5f9;
+  overflow: hidden;
+}
+
+.drawing-card-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.drawing-card:hover .drawing-card-img-wrap img {
+  transform: scale(1.04);
+}
+
+.drawing-card-body {
+  padding: 1.25rem 1.35rem;
+}
+
+.drawing-card-badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #0284c7;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 0.4rem;
+}
+
+.drawing-card-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--navy-950);
+  margin-bottom: 0.4rem;
+  line-height: 1.35;
+}
+
+.drawing-card-desc {
+  font-size: 0.85rem;
+  color: #64748b;
+  line-height: 1.5;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .service-locations-card {
+    padding: 1.75rem 1.25rem;
+    margin: 2rem 0;
+  }
+  .locations-main-title {
+    font-size: 1.45rem;
+  }
+  .rajasthan-locations-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.6rem;
+  }
+  .location-pill {
+    padding: 0.65rem 0.75rem;
+    font-size: 0.82rem;
+  }
+  .pan-india-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1.5rem 1.25rem;
+    gap: 1rem;
+  }
+  .engineering-gallery-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
   }
 }

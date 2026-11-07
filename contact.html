@@ -204,52 +204,133 @@
         </div>
         <ul class="nav-list">
           <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
-          <li class="nav-item has-dropdown">
+                    <!-- Multi-Level Hierarchy Dropdown (StructureX Pattern: 3-Tier Navigation) -->
+          <li class="nav-item has-dropdown has-hierarchy-dropdown">
             <a href="services.html" class="nav-link" aria-haspopup="true">
               Engineering Expertise
-              <svg class="dropdown-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              <svg class="dropdown-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
             </a>
-            <div class="services-dropdown" role="menu">
-              <a href="services.html#rcc-structural-design" class="dropdown-service-item">
-                <div class="dropdown-service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 22h16M4 2v20M20 2v20M8 2v20M12 2v20M16 2v20M4 6h16M4 10h16M4 14h16M4 18h16"/></svg></div>
-                <div class="dropdown-service-text"><h4>RCC Structural Design</h4><span>IS 456 / IS 13920 compliant</span></div>
-              </a>
-              <a href="services.html#steel-structure-design" class="dropdown-service-item">
-                <div class="dropdown-service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 20h20M7 20V4l5 4 5-4v16M2 8h20M2 14h20"/></svg></div>
-                <div class="dropdown-service-text"><h4>Steel Structure Design</h4><span>Heavy industrial frames</span></div>
-              </a>
-              <a href="services.html#building-cost-reduction" class="dropdown-service-item">
-                <div class="dropdown-service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
-                <div class="dropdown-service-text"><h4>Building Cost Reduction</h4><span>15-25% steel savings on approved drawings</span></div>
-              </a>
-              <a href="services.html#peb-design" class="dropdown-service-item">
-                <div class="dropdown-service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M3 10l9-7 9 7v11H3V10zM9 21v-6h6v6"/></svg></div>
-                <div class="dropdown-service-text"><h4>PEB Design</h4><span>Pre-Engineered industrial sheds</span></div>
-              </a>
-              <a href="services.html#structural-audit" class="dropdown-service-item">
-                <div class="dropdown-service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
-                <div class="dropdown-service-text"><h4>Structural Audit &amp; Assessment</h4><span>NDT, Rebound hammer &amp; UPV</span></div>
-              </a>
-              <a href="services.html#structural-stability" class="dropdown-service-item">
-                <div class="dropdown-service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
-                <div class="dropdown-service-text"><h4>Structural Stability Assessment</h4><span>Statutory certificates &amp; peer reviews</span></div>
-              </a>
-              <a href="services.html#retrofitting-strengthening" class="dropdown-service-item">
-                <div class="dropdown-service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
-                <div class="dropdown-service-text"><h4>Retrofitting &amp; Strengthening</h4><span>Jacketing &amp; CFRP composite wrap</span></div>
-              </a>
-              <a href="services.html#project-management-pmc" class="dropdown-service-item">
-                <div class="dropdown-service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 7a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-                <div class="dropdown-service-text"><h4>Project Management (PMC)</h4><span>BBS checks &amp; site quality supervision</span></div>
-              </a>
-              <a href="services.html#quality-control" class="dropdown-service-item">
-                <div class="dropdown-service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10zM9 12l2 2 4-4"/></svg></div>
-                <div class="dropdown-service-text"><h4>Quality Control</h4><span>Concrete testing &amp; material QA</span></div>
-              </a>
-              <a href="services.html#soil-investigation" class="dropdown-service-item">
-                <div class="dropdown-service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 17l10 5 10-5M2 12l10 5 10-5M2 7l10 5 10-5"/></svg></div>
-                <div class="dropdown-service-text"><h4>Soil Investigation / Geo-Tech</h4><span>SBC reports &amp; borehole testing</span></div>
-              </a>
+
+            <div class="hierarchy-dropdown" role="menu" aria-label="Engineering Expertise Hierarchy">
+              <div class="hierarchy-container">
+                <div class="hierarchy-categories-col">
+
+                  <!-- 01. Structural Engineering & Design -->
+                  <div class="hierarchy-cat-group active" data-category="structural">
+                    <div class="hierarchy-cat-header" tabindex="0">
+                      <div class="hierarchy-cat-left">
+                        <span class="hierarchy-cat-num">01.</span>
+                        <span class="hierarchy-cat-title">Structural Engineering &amp; Design</span>
+                      </div>
+                      <svg class="hierarchy-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </div>
+                    <div class="hierarchy-sub-menu">
+                      <div class="hierarchy-sub-heading">01. Structural Engineering &amp; Design Services</div>
+                      <a href="rcc-structural-design.html" class="hierarchy-sub-link">
+                        <span class="sub-link-badge">1</span>
+                        <div class="sub-link-body">
+                          <strong>RCC Structural Design</strong>
+                          <p>IS 456 / IS 13920 multi-storey buildings, rafts &amp; shear walls</p>
+                        </div>
+                      </a>
+                      <a href="services.html#steel-structure-design" class="hierarchy-sub-link">
+                        <span class="sub-link-badge">2</span>
+                        <div class="sub-link-body">
+                          <strong>Steel Structural Design</strong>
+                          <p>Heavy industrial frames, portal trusses &amp; gantry beams</p>
+                        </div>
+                      </a>
+                      <a href="services.html#ms-structures" class="hierarchy-sub-link">
+                        <span class="sub-link-badge">3</span>
+                        <div class="sub-link-body">
+                          <strong>MS Structures</strong>
+                          <p>Mild steel fabrication, mezzanine platforms &amp; pipe racks</p>
+                        </div>
+                      </a>
+                      <a href="services.html#peb-design" class="hierarchy-sub-link">
+                        <span class="sub-link-badge">4</span>
+                        <div class="sub-link-body">
+                          <strong>PEB (Pre-Engineered Building) Structures</strong>
+                          <p>Clear-span industrial sheds, warehouses &amp; logistics hubs</p>
+                        </div>
+                      </a>
+                      <a href="services.html#structural-stability" class="hierarchy-sub-link">
+                        <span class="sub-link-badge">5</span>
+                        <div class="sub-link-body">
+                          <strong>Structural Stability Certificate</strong>
+                          <p>Statutory chartered engineer safety certificates &amp; peer audits</p>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+
+                  <!-- 02. Geotechnical Investigation(S.B.C.) -->
+                  <div class="hierarchy-cat-group" data-category="geotech">
+                    <div class="hierarchy-cat-header" tabindex="0">
+                      <div class="hierarchy-cat-left">
+                        <span class="hierarchy-cat-num">02.</span>
+                        <span class="hierarchy-cat-title">Geotechnical Investigation(S.B.C.)</span>
+                      </div>
+                      <svg class="hierarchy-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </div>
+                    <div class="hierarchy-sub-menu">
+                      <div class="hierarchy-sub-heading">02. Geotechnical Investigation(S.B.C.)</div>
+                      <a href="services.html#soil-investigation" class="hierarchy-sub-link">
+                        <span class="sub-link-badge">1</span>
+                        <div class="sub-link-body">
+                          <strong>Soil testing and Report submission</strong>
+                          <p>Safe Bearing Capacity (S.B.C.), borehole testing &amp; soil strata analysis</p>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+
+                  <!-- 03. Structural Assessment & Rehabilitation -->
+                  <div class="hierarchy-cat-group" data-category="rehab">
+                    <div class="hierarchy-cat-header" tabindex="0">
+                      <div class="hierarchy-cat-left">
+                        <span class="hierarchy-cat-num">03.</span>
+                        <span class="hierarchy-cat-title">Structural Assessment &amp; Rehabilitation</span>
+                      </div>
+                      <svg class="hierarchy-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </div>
+                    <div class="hierarchy-sub-menu">
+                      <div class="hierarchy-sub-heading">03. Structural Assessment &amp; Rehabilitation</div>
+                      <a href="services.html#structural-audit" class="hierarchy-sub-link">
+                        <span class="sub-link-badge">01</span>
+                        <div class="sub-link-body">
+                          <strong>Structural Audit, NDT, DT and Building Rehabilitation</strong>
+                          <p>Rebound hammer, UPV testing, crack monitoring &amp; CFRP retrofitting</p>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+
+                  <!-- 04. Project Management Consultancy (PMC) -->
+                  <div class="hierarchy-cat-group" data-category="pmc">
+                    <div class="hierarchy-cat-header" tabindex="0">
+                      <div class="hierarchy-cat-left">
+                        <span class="hierarchy-cat-num">04.</span>
+                        <span class="hierarchy-cat-title">Project Management Consultancy (PMC)</span>
+                      </div>
+                      <svg class="hierarchy-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </div>
+                    <div class="hierarchy-sub-menu">
+                      <div class="hierarchy-sub-heading">04. Project Management Consultancy (PMC)</div>
+                      <a href="services.html#project-management-pmc" class="hierarchy-sub-link">
+                        <span class="sub-link-badge">01</span>
+                        <div class="sub-link-body">
+                          <strong>Quality Control, Cost Management and Site Supervision</strong>
+                          <p>Bar bending checks, concrete QA/QC, cost optimization &amp; milestone supervision</p>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
             </div>
           </li>
           <li class="nav-item"><a href="projects.html" class="nav-link">Projects</a></li>
