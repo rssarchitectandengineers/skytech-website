@@ -734,6 +734,73 @@ button {
   fill: currentColor;
 }
 
+/* Service Hero & Detail Card Action Buttons Responsiveness */
+.service-hero-actions,
+.service-detail-actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.service-hero-actions .btn-consultation-primary,
+.service-hero-actions .btn-whatsapp-outline,
+.service-detail-actions .btn-consultation-primary,
+.service-detail-actions .btn-portfolio-outline,
+.service-detail-actions .btn-whatsapp-outline {
+  max-width: 100%;
+  box-sizing: border-box;
+  white-space: normal;
+  text-align: center;
+  word-break: break-word;
+  height: auto;
+  min-height: 44px;
+}
+
+@media (max-width: 768px) {
+  .btn-consultation-primary,
+  .btn-portfolio-outline,
+  .btn-whatsapp-outline {
+    white-space: normal;
+    height: auto;
+    min-height: 42px;
+    max-width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+  }
+}
+
+@media (max-width: 640px) {
+  .service-hero-actions,
+  .service-detail-actions {
+    flex-direction: column !important;
+    gap: 0.75rem !important;
+    width: 100% !important;
+  }
+
+  .service-hero-actions .btn-consultation-primary,
+  .service-hero-actions .btn-whatsapp-outline,
+  .service-hero-actions button,
+  .service-hero-actions a,
+  .service-detail-actions .btn-consultation-primary,
+  .service-detail-actions .btn-portfolio-outline,
+  .service-detail-actions .btn-whatsapp-outline,
+  .service-detail-actions button,
+  .service-detail-actions a {
+    width: 100% !important;
+    justify-content: center !important;
+    text-align: center !important;
+    padding: 0.85rem 1rem !important;
+    box-sizing: border-box !important;
+    white-space: normal !important;
+    font-size: 0.92rem !important;
+  }
+
+  .service-detail-card {
+    padding: 1.5rem 1rem !important;
+  }
+}
+
 /* Mobile Nav Actions block */
 .mobile-nav-actions {
   display: none;
@@ -3185,24 +3252,51 @@ textarea.form-control {
   }
 
   .about-grid {
-    grid-template-columns: 1fr;
-    gap: 2.25rem;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2rem;
+    min-width: 0;
+    width: 100%;
+    max-width: 100%;
   }
 
   .about-content-col {
     order: 1;
-    /* Top on mobile */
+    min-width: 0;
+    width: 100%;
+    max-width: 100%;
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+
+  .about-content-col .section-title {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    font-size: clamp(1.65rem, 5.5vw, 2.25rem);
+    line-height: 1.25;
+  }
+
+  .about-content-col .section-description {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    font-size: 0.95rem;
+    line-height: 1.65;
   }
 
   .about-media-col {
     order: 2;
-    /* Bottom on mobile */
+    min-width: 0;
+    width: 100%;
+    max-width: 100%;
   }
 
   .about-video-container {
+    width: 100%;
+    max-width: 100%;
     aspect-ratio: 16 / 9;
-    min-height: 250px;
+    min-height: 0 !important;
+    height: auto;
     border-radius: 16px;
+    overflow: hidden;
   }
 
   .about-video-play-btn {

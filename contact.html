@@ -115,7 +115,22 @@
 
     @media (max-width: 900px) {
       .contact-layout-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+    @media (max-width: 640px) {
+      .contact-layout-grid {
+        gap: 1.5rem;
+      }
+      .contact-info-card {
+        padding: 1.5rem 1rem;
+        border-radius: var(--radius-lg);
+        max-width: 100%;
+        box-sizing: border-box;
+      }
+      .map-container-frame {
+        max-width: 100%;
+        box-sizing: border-box;
       }
     }
   </style>
