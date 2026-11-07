@@ -1202,7 +1202,7 @@ textarea.form-control {
 .about-video-container {
   position: relative;
   width: 100%;
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 16 / 9;
   min-height: 380px;
   border-radius: 20px;
   overflow: hidden;
@@ -2796,7 +2796,7 @@ textarea.form-control {
 
 .walkthrough-card-media {
   position: relative;
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 16 / 9;
   overflow: hidden;
   background: #020617;
 }
@@ -3011,7 +3011,7 @@ textarea.form-control {
   }
 
   .about-video-container {
-    aspect-ratio: 16 / 10;
+    aspect-ratio: 16 / 9;
     min-height: 250px;
     border-radius: 16px;
   }
