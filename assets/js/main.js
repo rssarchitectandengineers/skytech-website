@@ -155,6 +155,22 @@ function initMobileNav() {
 
   // Multi-Level Hierarchy Dropdown Interaction (StructureX Pattern: Desktop Hover & Mobile Accordion)
   const hierarchyGroups = document.querySelectorAll('.hierarchy-cat-group');
+
+  // Desktop: Ensure first category (01) is active by default when viewing on desktop
+  const checkDesktopHierarchy = () => {
+    if (window.innerWidth > 991) {
+      const anyActive = Array.from(hierarchyGroups).some(g => g.classList.contains('active'));
+      if (!anyActive && hierarchyGroups.length > 0) {
+        hierarchyGroups[0].classList.add('active');
+      }
+    } else {
+      // On mobile, remove desktop active class so nothing stays stuck
+      hierarchyGroups.forEach(g => g.classList.remove('active'));
+    }
+  };
+  checkDesktopHierarchy();
+  window.addEventListener('resize', checkDesktopHierarchy);
+
   hierarchyGroups.forEach(group => {
     // Desktop: Mouse hover switches active panel smoothly
     group.addEventListener('mouseenter', () => {
@@ -164,16 +180,21 @@ function initMobileNav() {
       }
     });
 
-    // Mobile: Tapping header toggles accordion
+    // Mobile: Tapping header toggles accordion and rotates chevron
     const catHeader = group.querySelector('.hierarchy-cat-header');
     if (catHeader) {
       catHeader.addEventListener('click', (e) => {
         if (window.innerWidth <= 991) {
           e.preventDefault();
           e.stopPropagation();
-          const wasOpen = group.classList.contains('mobile-open');
-          hierarchyGroups.forEach(g => g.classList.remove('mobile-open'));
-          if (!wasOpen) {
+          const isOpen = group.classList.contains('mobile-open');
+          // Close all groups
+          hierarchyGroups.forEach(g => {
+            g.classList.remove('mobile-open');
+            g.classList.remove('active');
+          });
+          // If not previously open, open it
+          if (!isOpen) {
             group.classList.add('mobile-open');
           }
         }

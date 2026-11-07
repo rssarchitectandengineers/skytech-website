@@ -565,8 +565,10 @@ button {
   gap: 0.45rem;
 }
 
-.hierarchy-cat-group.active .hierarchy-sub-menu {
-  display: flex;
+@media (min-width: 992px) {
+  .hierarchy-cat-group.active .hierarchy-sub-menu {
+    display: flex;
+  }
 }
 
 .hierarchy-sub-heading {
@@ -600,18 +602,11 @@ button {
 }
 
 .sub-link-badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 22px;
-  height: 22px;
-  border-radius: 6px;
-  background: #e0f2fe;
-  color: #0284c7;
-  font-size: 0.75rem;
-  font-weight: 800;
-  flex-shrink: 0;
-  margin-top: 2px;
+  display: none !important;
+}
+
+.hierarchy-sub-heading {
+  display: none !important;
 }
 
 .sub-link-body {
@@ -3646,8 +3641,33 @@ textarea.form-control {
     gap: 0.45rem;
   }
 
+  /* On mobile: suppress desktop active state */
+  .hierarchy-cat-group.active .hierarchy-sub-menu {
+    display: none;
+  }
+  .hierarchy-cat-group.active .hierarchy-cat-header {
+    background: transparent;
+    color: var(--slate-800);
+    border-left: none;
+    box-shadow: none;
+  }
+  .hierarchy-cat-group.active .hierarchy-chevron {
+    transform: rotate(0deg);
+    color: var(--slate-400);
+  }
+
+  /* When mobile-open is active on mobile */
   .hierarchy-cat-group.mobile-open .hierarchy-sub-menu {
-    display: flex;
+    display: flex !important;
+  }
+  .hierarchy-cat-group.mobile-open .hierarchy-cat-header {
+    background: #f0f9ff !important;
+    color: var(--sky-blue-700) !important;
+    border-left: 3px solid var(--sky-blue-600) !important;
+  }
+  .hierarchy-cat-group.mobile-open .hierarchy-chevron {
+    transform: rotate(90deg) !important;
+    color: var(--sky-blue-600) !important;
   }
 
   .hierarchy-sub-link {
@@ -5095,4 +5115,539 @@ textarea:focus-visible {
     grid-template-columns: 1fr;
     gap: 1.25rem;
   }
+}
+
+/* ==========================================================================
+   Footer Brand Badge (White background card ensuring 100% logo visibility per Photo 2)
+   ========================================================================== */
+.footer-brand-badge {
+  display: inline-flex;
+  align-items: center;
+  background: #ffffff;
+  padding: 7px 16px;
+  border-radius: 8px;
+  margin-bottom: 1.25rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  text-decoration: none;
+}
+.footer-brand-badge:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(56, 189, 248, 0.4);
+}
+.footer-brand-badge img {
+  display: block;
+  max-width: 100%;
+  height: 42px;
+  width: auto;
+}
+
+/* ==========================================================================
+   Home Page Engineering Expertise Section (Reflecting Navigation Hierarchy)
+   ========================================================================== */
+.expertise-hierarchy-section {
+  background: #ffffff;
+  padding: 5rem 0;
+}
+.home-expertise-branches {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-top: 2.5rem;
+}
+.home-branch-group {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: var(--radius-xl);
+  padding: 1.75rem 2rem;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+.home-branch-group:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
+}
+.home-branch-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding-bottom: 1.15rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+.home-branch-header-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.home-branch-badge {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #0284c7;
+  background: #e0f2fe;
+  padding: 0.35rem 0.75rem;
+  border-radius: 8px;
+  letter-spacing: 0.5px;
+}
+.home-branch-title {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--navy-950);
+  margin-bottom: 0.2rem;
+}
+.home-branch-subtitle {
+  font-size: 0.88rem;
+  color: #64748b;
+  margin: 0;
+}
+.home-branch-tag {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #0284c7;
+  background: #f0f9ff;
+  border: 1px solid #bae6fd;
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+}
+.home-branch-cards-grid {
+  display: grid;
+  gap: 1.25rem;
+}
+.home-branch-cards-grid.grid-col-5 {
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+}
+.home-lower-branches-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+@media (max-width: 991px) {
+  .home-lower-branches-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.home-subservice-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 1.35rem 1.2rem;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  transition: all var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+.home-subservice-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: #0284c7;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+.home-subservice-card:hover {
+  transform: translateY(-4px);
+  border-color: #38bdf8;
+  box-shadow: 0 12px 24px -8px rgba(2, 132, 199, 0.15);
+}
+.home-subservice-card:hover::after {
+  opacity: 1;
+}
+.home-subservice-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: #f0f9ff;
+  color: #0284c7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.85rem;
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+.home-subservice-icon svg {
+  width: 22px;
+  height: 22px;
+}
+.home-subservice-card:hover .home-subservice-icon {
+  background: #0284c7;
+  color: #ffffff;
+}
+.home-subservice-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--navy-950);
+  margin-bottom: 0.4rem;
+  line-height: 1.3;
+}
+.home-subservice-desc {
+  font-size: 0.84rem;
+  color: #64748b;
+  line-height: 1.55;
+  margin-bottom: 1rem;
+  flex-grow: 1;
+}
+.home-subservice-link {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #0284c7;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  transition: gap var(--transition-fast);
+}
+.home-subservice-card:hover .home-subservice-link {
+  gap: 0.6rem;
+  color: #0369a1;
+}
+
+/* ==========================================================================
+   Engineering Workflow Visual Cards & Infographic Banner
+   ========================================================================== */
+.workflow-visual-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+@media (max-width: 640px) {
+  .workflow-visual-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.workflow-visual-card {
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all var(--transition-fast);
+  display: flex;
+  flex-direction: column;
+}
+.workflow-visual-card:hover {
+  transform: translateY(-3px);
+  border-color: #38bdf8;
+  box-shadow: 0 10px 25px -5px rgba(2, 132, 199, 0.25);
+}
+.workflow-visual-img-wrap {
+  position: relative;
+  height: 110px;
+  width: 100%;
+  overflow: hidden;
+  background: #0b1523;
+}
+.workflow-visual-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+.workflow-visual-card:hover .workflow-visual-img-wrap img {
+  transform: scale(1.08);
+}
+.workflow-step-badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: #0284c7;
+  color: #ffffff;
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 0.2rem 0.55rem;
+  border-radius: 6px;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+.workflow-visual-body {
+  padding: 0.9rem 1rem;
+}
+.workflow-visual-body h5 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.35rem;
+  line-height: 1.3;
+}
+.workflow-visual-body p {
+  font-size: 0.8rem;
+  color: #cbd5e1;
+  line-height: 1.5;
+  margin: 0;
+}
+.workflow-infographic-banner {
+  background: rgba(15, 23, 42, 0.9);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  border-radius: 12px;
+  padding: 1.25rem;
+  margin-top: 1rem;
+  text-align: center;
+}
+.workflow-banner-header {
+  margin-bottom: 0.85rem;
+}
+.workflow-banner-header .banner-badge {
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.12);
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  display: inline-block;
+  margin-bottom: 0.35rem;
+}
+.workflow-banner-header h4 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+}
+.workflow-full-infographic-img {
+  width: 100%;
+  max-height: 220px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: block;
+}
+
+
+/* ==========================================================================
+   Light White Theme for Why The Skytech & Engineering Workflow (Photo 1)
+   ========================================================================== */
+.why-process-section.light-theme-workflow {
+  background: #f8fafc !important;
+  border-top: 1px solid #e2e8f0;
+  border-bottom: 1px solid #e2e8f0;
+  color: #334155 !important;
+  padding: 5rem 0;
+}
+.why-process-section.light-theme-workflow .why-choose-block h2,
+.why-process-section.light-theme-workflow .process-block h2 {
+  color: var(--navy-950) !important;
+}
+.why-process-section.light-theme-workflow .section-kicker {
+  color: #0284c7 !important;
+  background: #e0f2fe !important;
+}
+.why-process-section.light-theme-workflow .section-description {
+  color: #64748b !important;
+}
+.why-process-section.light-theme-workflow .why-point-item span {
+  color: #1e293b !important;
+  font-weight: 600;
+}
+.why-process-section.light-theme-workflow .check-icon-circle {
+  background: #e0f2fe !important;
+  border-color: #0284c7 !important;
+  color: #0284c7 !important;
+}
+.why-process-section.light-theme-workflow .workflow-visual-card {
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 4px 15px -3px rgba(0, 0, 0, 0.06) !important;
+}
+.why-process-section.light-theme-workflow .workflow-visual-card:hover {
+  border-color: #38bdf8 !important;
+  box-shadow: 0 12px 28px -5px rgba(2, 132, 199, 0.18) !important;
+}
+.why-process-section.light-theme-workflow .workflow-visual-body h5 {
+  color: var(--navy-950) !important;
+}
+.why-process-section.light-theme-workflow .workflow-visual-body p {
+  color: #64748b !important;
+}
+.why-process-section.light-theme-workflow .workflow-infographic-banner {
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 4px 15px -3px rgba(0, 0, 0, 0.06) !important;
+}
+.why-process-section.light-theme-workflow .workflow-banner-header h4 {
+  color: var(--navy-950) !important;
+}
+.why-process-section.light-theme-workflow .workflow-full-infographic-img {
+  border: 1px solid #e2e8f0 !important;
+}
+
+/* Footer Brand Badge Card */
+.footer-brand-badge {
+  display: inline-flex !important;
+  align-items: center;
+  background: #ffffff !important;
+  padding: 8px 16px;
+  border-radius: 8px;
+  margin-bottom: 1.25rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  text-decoration: none;
+}
+.footer-brand-badge:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(56, 189, 248, 0.4);
+}
+.footer-brand-badge img {
+  display: block !important;
+  width: 220px !important;
+  height: auto !important;
+  max-width: 100% !important;
+}
+
+/* Services Page Branches & Disciplines Styling */
+.services-branch-container {
+  display: flex;
+  flex-direction: column;
+  gap: 3.5rem;
+  margin-bottom: 4rem;
+}
+.services-branch-section {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: var(--radius-xl);
+  padding: 2.25rem 2.25rem;
+  box-shadow: 0 10px 30px -10px rgba(0,0,0,0.04);
+}
+.services-branch-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.25rem;
+  padding-bottom: 1.5rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+.services-branch-badge {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #0284c7;
+  background: #e0f2fe;
+  padding: 0.4rem 0.85rem;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+.services-branch-title {
+  font-size: 1.65rem;
+  font-weight: 800;
+  color: var(--navy-950);
+  margin-bottom: 0.35rem;
+}
+.services-branch-desc {
+  font-size: 0.95rem;
+  color: #64748b;
+  margin: 0;
+  line-height: 1.5;
+}
+.services-items-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+
+/* Light White Theme for why-choose-section (Photo 1) */
+.why-choose-section.light-theme-workflow {
+  background: #f8fafc !important;
+  border-top: 1px solid #e2e8f0;
+  border-bottom: 1px solid #e2e8f0;
+  color: #334155 !important;
+  padding: 5rem 0;
+}
+.why-choose-section.light-theme-workflow .why-choose-block h2,
+.why-choose-section.light-theme-workflow .process-block h2 {
+  color: var(--navy-950) !important;
+}
+.why-choose-section.light-theme-workflow .section-kicker {
+  color: #0284c7 !important;
+  background: #e0f2fe !important;
+}
+.why-choose-section.light-theme-workflow .section-description {
+  color: #64748b !important;
+}
+.why-choose-section.light-theme-workflow .why-point-item span {
+  color: #1e293b !important;
+  font-weight: 600;
+}
+.why-choose-section.light-theme-workflow .check-icon-circle {
+  background: #e0f2fe !important;
+  border-color: #0284c7 !important;
+  color: #0284c7 !important;
+}
+.why-choose-section.light-theme-workflow .workflow-visual-card {
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 4px 15px -3px rgba(0, 0, 0, 0.06) !important;
+}
+.why-choose-section.light-theme-workflow .workflow-visual-card:hover {
+  border-color: #38bdf8 !important;
+  box-shadow: 0 12px 28px -5px rgba(2, 132, 199, 0.18) !important;
+}
+.why-choose-section.light-theme-workflow .workflow-visual-body h5 {
+  color: var(--navy-950) !important;
+}
+.why-choose-section.light-theme-workflow .workflow-visual-body p {
+  color: #64748b !important;
+}
+.why-choose-section.light-theme-workflow .workflow-infographic-banner {
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 4px 15px -3px rgba(0, 0, 0, 0.06) !important;
+}
+.why-choose-section.light-theme-workflow .workflow-banner-header h4 {
+  color: var(--navy-950) !important;
+}
+.why-choose-section.light-theme-workflow .workflow-full-infographic-img {
+  border: 1px solid #e2e8f0 !important;
+}
+
+
+/* Global .page-hero Banner Styling (Ensuring 100% Visibility per Photo 2) */
+.page-hero {
+  background: linear-gradient(135deg, #0b1523 0%, #172a45 100%) !important;
+  padding: 4.5rem 0 3.5rem !important;
+  color: #ffffff !important;
+  position: relative;
+  overflow: hidden;
+}
+.page-hero .hero-title {
+  color: #ffffff !important;
+  font-family: var(--font-display);
+  font-size: 2.75rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-top: 0.75rem;
+  margin-bottom: 0.85rem;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+.page-hero .hero-description {
+  color: #cbd5e1 !important;
+  font-size: 1.05rem;
+  line-height: 1.65;
+  max-width: 780px;
+  margin: 0;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+.page-hero .hero-badge {
+  background: rgba(56, 189, 248, 0.15) !important;
+  color: #38bdf8 !important;
+  border: 1px solid rgba(56, 189, 248, 0.3) !important;
+  font-weight: 800;
+  font-size: 0.75rem;
+  letter-spacing: 1.5px;
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+  text-transform: uppercase;
+  display: inline-block;
 }

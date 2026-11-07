@@ -23,24 +23,24 @@
     .preview-header {
       background: #1e293b;
       border-bottom: 1px solid #334155;
-      padding: 0.75rem 1.5rem;
+      padding: 0.6rem 1.2rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
       flex-wrap: wrap;
-      gap: 1rem;
+      gap: 0.75rem;
       z-index: 100;
     }
 
     .preview-title {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
+      gap: 0.65rem;
     }
 
     .preview-title h1 {
       font-family: 'Sora', sans-serif;
-      font-size: 1.15rem;
+      font-size: 1.1rem;
       font-weight: 700;
       color: #38bdf8;
     }
@@ -48,9 +48,9 @@
     .preview-title span {
       background: #0284c7;
       color: #ffffff;
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       font-weight: 700;
-      padding: 0.2rem 0.55rem;
+      padding: 0.18rem 0.5rem;
       border-radius: 4px;
       text-transform: uppercase;
       letter-spacing: 0.05em;
@@ -59,26 +59,28 @@
     .view-switchers {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.35rem;
       background: #0f172a;
-      padding: 0.35rem;
+      padding: 0.3rem 0.5rem;
       border-radius: 8px;
       border: 1px solid #334155;
+      flex-wrap: wrap;
     }
 
     .btn-switch {
       background: transparent;
       color: #94a3b8;
       border: none;
-      padding: 0.5rem 1rem;
+      padding: 0.4rem 0.75rem;
       border-radius: 6px;
-      font-size: 0.88rem;
+      font-size: 0.8rem;
       font-weight: 600;
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.35rem;
       transition: all 0.2s ease;
+      white-space: nowrap;
     }
 
     .btn-switch.active, .btn-switch:hover {
@@ -90,14 +92,15 @@
       display: inline-flex;
       align-items: center;
       gap: 0.4rem;
-      padding: 0.5rem 1rem;
+      padding: 0.45rem 0.9rem;
       border-radius: 6px;
       background: #334155;
       color: #f8fafc;
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       font-weight: 600;
       text-decoration: none;
       transition: all 0.2s ease;
+      white-space: nowrap;
     }
 
     .btn-external:hover {
@@ -110,7 +113,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 1.25rem;
+      padding: 1rem;
       overflow: auto;
       background: radial-gradient(#1e293b 1px, transparent 1px);
       background-size: 20px 20px;
@@ -201,24 +204,38 @@
   <header class="preview-header">
     <div class="preview-title">
       <h1>THE SKYTECH</h1>
-      <span>ORIGINAL WEBSITE (REVISED)</span>
+      <span>LIVE PREVIEW</span>
     </div>
 
-    <!-- View Switchers -->
+    <!-- Page Switchers -->
+    <div class="view-switchers" style="background: rgba(2, 132, 199, 0.15); border-color: #0284c7;">
+      <button type="button" class="btn-switch btn-page active" onclick="setPage('index.html', this)">🏠 Home</button>
+      <button type="button" class="btn-switch btn-page" onclick="setPage('services.html', this)">🏢 All Services</button>
+      <button type="button" class="btn-switch btn-page" onclick="setPage('rcc-structural-design.html', this)">🧱 RCC</button>
+      <button type="button" class="btn-switch btn-page" onclick="setPage('steel-structural-design.html', this)">🏗️ Steel</button>
+      <button type="button" class="btn-switch btn-page" onclick="setPage('ms-structures.html', this)">⚙️ MS</button>
+      <button type="button" class="btn-switch btn-page" onclick="setPage('peb-structures.html', this)">🏭 PEB</button>
+      <button type="button" class="btn-switch btn-page" onclick="setPage('structural-stability-certificate.html', this)">📜 Stability</button>
+      <button type="button" class="btn-switch btn-page" onclick="setPage('soil-testing-report.html', this)">🧪 Soil Test</button>
+      <button type="button" class="btn-switch btn-page" onclick="setPage('structural-audit-rehabilitation.html', this)">🔍 Audit/NDT</button>
+      <button type="button" class="btn-switch btn-page" onclick="setPage('pmc-quality-control.html', this)">👷 PMC</button>
+    </div>
+
+    <!-- View Mode Switchers -->
     <div class="view-switchers">
       <button type="button" class="btn-switch active" id="btnDesktop" onclick="setMode('desktop')">
-        🖥️ Desktop View
+        🖥️ Desktop
       </button>
       <button type="button" class="btn-switch" id="btnMobile" onclick="setMode('mobile')">
-        📱 Mobile View
+        📱 Mobile
       </button>
       <button type="button" class="btn-switch" id="btnDual" onclick="setMode('dual')">
-        ⚡ Side-by-Side (Both)
+        ⚡ Dual
       </button>
     </div>
 
     <div>
-      <a href="index.html" target="_blank" class="btn-external">
+      <a href="index.html" target="_blank" class="btn-external" id="btnOpenTab">
         Open in New Tab ↗
       </a>
     </div>
@@ -245,7 +262,20 @@
   </main>
 
   <script>
+    let currentMode = 'desktop';
+    let currentPage = 'index.html';
+
+    function setPage(url, btn) {
+      currentPage = url;
+      document.querySelectorAll('iframe').forEach(f => f.src = url);
+      document.querySelectorAll('.btn-page').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      const openBtn = document.getElementById('btnOpenTab');
+      if (openBtn) openBtn.href = url;
+    }
+
     function setMode(mode) {
+      currentMode = mode;
       const btnDesk = document.getElementById('btnDesktop');
       const btnMob = document.getElementById('btnMobile');
       const btnDual = document.getElementById('btnDual');
@@ -262,21 +292,7 @@
       fMob.style.display = 'none';
       fDual.style.display = 'none';
 
-    let currentPage = 'index.html';
-    function setPage(url) {
-      currentPage = url;
-      document.querySelectorAll('iframe').forEach(f => f.src = url);
-      const bHome = document.getElementById('btnPageHome');
-      const bServ = document.getElementById('btnPageServices');
-      const bRCC = document.getElementById('btnPageRCC');
-      if (bHome) bHome.classList.toggle('active', url === 'index.html');
-      if (bServ) bServ.classList.toggle('active', url === 'services.html');
-      if (bRCC) bRCC.classList.toggle('active', url === 'rcc-structural-design.html');
-      const openBtn = document.querySelector('.btn-external');
-      if (openBtn) openBtn.href = url;
-    }
-
-    if (mode === 'desktop') {
+      if (mode === 'desktop') {
         btnDesk.classList.add('active');
         fDesk.style.display = 'block';
       } else if (mode === 'mobile') {
