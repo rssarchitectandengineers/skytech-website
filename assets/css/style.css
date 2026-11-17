@@ -215,8 +215,8 @@ button {
 }
 
 .social-circle-link {
-  width: 28px;
-  height: 28px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.08);
   display: inline-flex;
@@ -624,7 +624,7 @@ button {
 
 .sub-link-body p {
   font-size: 0.74rem;
-  color: #64748b;
+  color: #475569;
   line-height: 1.35;
   margin: 0;
 }
@@ -1042,7 +1042,7 @@ button {
 
 .trust-text span {
   font-size: 0.72rem;
-  color: #94a3b8;
+  color: #475569;
 }
 
 /* ==========================================================================
@@ -1660,8 +1660,10 @@ textarea.form-control {
 }
 
 .arrow-btn {
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
   border-radius: 50%;
   border: 1px solid var(--slate-300);
   display: flex;
@@ -1824,7 +1826,7 @@ textarea.form-control {
 
 .home-blog-subtext {
   font-size: 0.92rem;
-  color: #94a3b8;
+  color: #475569;
   line-height: 1.55;
   margin-bottom: 1.75rem;
 }
@@ -1870,7 +1872,7 @@ textarea.form-control {
 
 .home-blog-date {
   font-size: 0.75rem;
-  color: #64748b;
+  color: #475569;
 }
 
 .home-blog-title {
@@ -2068,7 +2070,7 @@ textarea.form-control {
 
 .step-subtext {
   font-size: 0.7rem;
-  color: #94a3b8;
+  color: #475569;
   margin-top: 3px;
 }
 
@@ -2268,6 +2270,12 @@ textarea.form-control {
 .footer-bottom-links {
   display: flex;
   gap: 1.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.footer-bottom-links a {
+  display: inline-block;
+  padding: 0.5rem 0.25rem;
 }
 
 .footer-bottom-links a:hover {
@@ -5465,7 +5473,8 @@ textarea:focus-visible {
 .workflow-visual-body {
   padding: 0.9rem 1rem;
 }
-.workflow-visual-body h5 {
+.workflow-visual-body h5,
+.workflow-visual-body .workflow-step-heading {
   font-size: 0.95rem;
   font-weight: 700;
   color: #ffffff;
@@ -5500,7 +5509,8 @@ textarea:focus-visible {
   display: inline-block;
   margin-bottom: 0.35rem;
 }
-.workflow-banner-header h4 {
+.workflow-banner-header h4,
+.workflow-banner-header .workflow-banner-heading {
   font-size: 1.05rem;
   font-weight: 700;
   color: #ffffff;
