@@ -1331,7 +1331,45 @@ const TELEGRAM_ALERT_CONFIG = {
   chatId: '5018364349'
 };
 
+
+/* -------------------------------------------------------------
+ * 12B. Supabase Cloud Database Dispatcher
+ * ------------------------------------------------------------- */
+const SUPABASE_CONFIG = {
+  url: 'https://fzfdddlkclluqpiyjrtx.supabase.co',
+  key: 'sb_publishable_Psu9GXnSc_MXGNgQxP6-Dg_W14RBCVq'
+};
+
+function saveLeadToSupabase(lead) {
+  if (!SUPABASE_CONFIG.url || !SUPABASE_CONFIG.key) return;
+  try {
+    fetch(`${SUPABASE_CONFIG.url}/rest/v1/leads`, {
+      method: 'POST',
+      headers: {
+        'apikey': SUPABASE_CONFIG.key,
+        'Authorization': `Bearer ${SUPABASE_CONFIG.key}`,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify({
+        full_name: lead.fullName,
+        phone: lead.fullPhoneNumber,
+        email: lead.emailVal || null,
+        service: lead.serviceName || 'Structural Consultation',
+        project_details: lead.details || '',
+        source_page: window.location.pathname || 'Homepage',
+        status: 'New'
+      })
+    }).catch(err => {
+      console.warn('Supabase lead save notice:', err);
+    });
+  } catch (err) {
+    console.warn('Supabase dispatch notice:', err);
+  }
+}
+
 function sendMobileLeadNotification(lead) {
+  saveLeadToSupabase(lead);
   if (!TELEGRAM_ALERT_CONFIG.enabled || !TELEGRAM_ALERT_CONFIG.botToken) return;
 
   // Sanitize phone number for WhatsApp link to prevent duplicate country codes
