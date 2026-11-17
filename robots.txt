@@ -57,7 +57,9 @@ Disallow: /*.gz$
 Disallow: /*.map$
 Disallow: /*.lock$
 
-# Disallow duplicate internal search and query parameters
+# Allow duplicate internal search and query parameters for blog articles
+Allow: /blog-post.html*
+Allow: /blog-post.html?*
 Disallow: /*?*
 Allow: /*?v=*
 
