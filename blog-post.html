@@ -23,16 +23,26 @@
   <link rel="icon" type="image/svg+xml" href="assets/images/skytech-logo.svg">
   <link rel="stylesheet" href="assets/css/style.css">
 
-  <style>
+    <style>
     /* --------------------------------------------------------------------------
-       Blog Post Reader Styles
+       Blog Post Reader Styles - 100% Mobile & Desktop Friendly (Zero Text/Photo Cutting)
        -------------------------------------------------------------------------- */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    html, body {
+      overflow-x: hidden;
+      width: 100%;
+      max-width: 100%;
+    }
     .post-header-hero {
       background: linear-gradient(135deg, var(--navy-950) 0%, var(--navy-900) 100%);
       color: #ffffff;
       padding: 3.5rem 0 3rem;
       border-bottom: 3px solid var(--sky-blue-600);
       position: relative;
+      width: 100%;
+      overflow: hidden;
     }
     .post-breadcrumb {
       display: flex;
@@ -42,6 +52,7 @@
       color: var(--slate-400);
       margin-bottom: 1.25rem;
       flex-wrap: wrap;
+      word-break: break-word;
     }
     .post-breadcrumb a {
       color: var(--sky-blue-400);
@@ -66,17 +77,15 @@
       margin-bottom: 1rem;
     }
     .post-main-title {
-      font-size: 2.25rem;
+      font-size: clamp(1.4rem, 3.5vw + 0.4rem, 2.25rem);
       font-weight: 900;
-      line-height: 1.25;
+      line-height: 1.28;
       color: #ffffff;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.25rem;
       max-width: 950px;
-    }
-    @media (max-width: 768px) {
-      .post-main-title {
-        font-size: 1.65rem;
-      }
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+      word-break: break-word;
     }
     .post-meta-row {
       display: flex;
@@ -93,8 +102,8 @@
       gap: 0.85rem;
     }
     .post-author-avatar {
-      width: 48px;
-      height: 48px;
+      width: 46px;
+      height: 46px;
       border-radius: 50%;
       background: var(--sky-blue-600);
       display: flex;
@@ -105,6 +114,7 @@
       font-size: 1.1rem;
       border: 2px solid var(--sky-blue-400);
       overflow: hidden;
+      flex-shrink: 0;
     }
     .post-author-avatar img {
       width: 100%;
@@ -128,6 +138,7 @@
       display: flex;
       align-items: center;
       gap: 0.5rem;
+      flex-wrap: wrap;
     }
     .post-share-btn {
       display: inline-flex;
@@ -143,6 +154,7 @@
       text-decoration: none;
       cursor: pointer;
       transition: all var(--transition-fast);
+      touch-action: manipulation;
     }
     .post-share-btn:hover {
       background: var(--sky-blue-600);
@@ -157,37 +169,72 @@
       gap: 3rem;
       padding: 3rem 0 5rem;
       align-items: start;
+      width: 100%;
+      max-width: 100%;
     }
     @media (max-width: 992px) {
       .post-body-container {
-        grid-template-columns: 1fr;
+        grid-template-columns: 100%;
         gap: 2.5rem;
+        padding: 2rem 0 4rem;
+      }
+      .post-sidebar {
+        position: static !important;
+        top: auto !important;
+        width: 100%;
       }
     }
 
-    /* Featured Image */
+    /* Responsive Featured Image (No cutting on any screen) */
     .post-featured-media {
-      margin-bottom: 2.5rem;
+      margin-bottom: 2rem;
       border-radius: var(--radius-xl);
       overflow: hidden;
       border: 1px solid var(--slate-200);
       box-shadow: 0 10px 25px -5px rgba(0,0,0,0.06);
+      background: #0b1523;
+      width: 100%;
+      max-width: 100%;
     }
     .post-featured-media img {
       width: 100%;
-      max-height: 440px;
+      height: auto;
+      max-height: 460px;
+      aspect-ratio: 16 / 9;
       object-fit: cover;
       display: block;
     }
+    @media (max-width: 640px) {
+      .post-featured-media {
+        border-radius: var(--radius-lg);
+      }
+      .post-featured-media img {
+        max-height: 240px;
+        aspect-ratio: 16 / 10;
+      }
+    }
 
-    /* Article Content Typography (1-2 pages depth) */
+    /* Article Content Typography (Zero cutting, fully responsive) */
+    .post-main-column {
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+      word-break: break-word;
+    }
     .post-content-area {
-      font-size: 1.06rem;
+      font-size: clamp(0.98rem, 0.8vw + 0.6rem, 1.08rem);
       line-height: 1.82;
       color: #334155;
+      width: 100%;
+      max-width: 100%;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+      word-break: break-word;
     }
     .post-content-area h2 {
-      font-size: 1.55rem;
+      font-size: clamp(1.25rem, 2.5vw + 0.3rem, 1.6rem);
       font-weight: 800;
       color: var(--navy-950);
       margin-top: 2.5rem;
@@ -195,41 +242,72 @@
       padding-left: 0.85rem;
       border-left: 4px solid var(--sky-blue-600);
       line-height: 1.35;
+      overflow-wrap: break-word;
+      word-break: break-word;
     }
     .post-content-area h3 {
-      font-size: 1.25rem;
+      font-size: clamp(1.08rem, 2vw + 0.2rem, 1.3rem);
       font-weight: 700;
       color: var(--navy-900);
       margin-top: 1.75rem;
       margin-bottom: 0.75rem;
       line-height: 1.4;
+      overflow-wrap: break-word;
+      word-break: break-word;
     }
     .post-content-area p {
       margin-bottom: 1.35rem;
+      overflow-wrap: break-word;
+      word-break: break-word;
     }
     .post-content-area ul, .post-content-area ol {
       margin-bottom: 1.5rem;
-      padding-left: 1.5rem;
+      padding-left: 1.35rem;
     }
     .post-content-area li {
       margin-bottom: 0.65rem;
       line-height: 1.75;
+      overflow-wrap: break-word;
+      word-break: break-word;
     }
     .post-content-area strong {
       color: var(--navy-950);
     }
+    .post-content-area a {
+      color: var(--sky-blue-600);
+      text-decoration: underline;
+      font-weight: 600;
+      word-break: break-word;
+    }
+    .post-content-area a:hover {
+      color: var(--sky-blue-700);
+    }
+    .post-content-area img {
+      max-width: 100% !important;
+      height: auto !important;
+      border-radius: var(--radius-lg);
+      display: block;
+      margin: 1.5rem auto;
+      object-fit: cover;
+    }
 
-    /* Technical Callout Boxes */
+    /* Technical Callout Boxes (Mobile-safe wrapping) */
     .code-callout {
       background: #f8fafc;
       border: 1px solid #cbd5e1;
       border-left: 5px solid var(--sky-blue-600);
-      padding: 1.25rem 1.5rem;
+      padding: 1.25rem 1.35rem;
       border-radius: var(--radius-md);
       margin: 1.75rem 0;
       font-size: 0.95rem;
       color: #1e293b;
       box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      word-break: break-word;
     }
     .code-callout strong {
       color: var(--navy-950);
@@ -239,25 +317,49 @@
     .code-callout code {
       background: #e2e8f0;
       color: #0f172a;
-      padding: 0.2rem 0.45rem;
+      padding: 0.25rem 0.5rem;
       border-radius: 4px;
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
       font-size: 0.9em;
       font-weight: 600;
+      white-space: pre-wrap;
+      word-break: break-word;
+      overflow-wrap: anywhere;
+      max-width: 100%;
       display: inline-block;
-      margin: 0.2rem 0;
+      margin: 0.25rem 0;
     }
 
-    /* Technical Engineering Comparison Tables */
+    /* Mobile Swipe Indicator for Tables */
+    .table-scroll-hint {
+      display: none;
+      font-size: 0.78rem;
+      color: var(--sky-blue-600);
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    @media (max-width: 768px) {
+      .table-scroll-hint {
+        display: flex;
+      }
+    }
+
+    /* Technical Engineering Comparison Tables (Zero text clipping) */
     .table-responsive {
+      width: 100%;
+      max-width: 100%;
       overflow-x: auto;
-      margin: 2rem 0;
+      -webkit-overflow-scrolling: touch;
+      margin: 1.5rem 0 2rem;
       border-radius: var(--radius-lg);
       border: 1px solid var(--slate-200);
       box-shadow: 0 4px 10px rgba(0,0,0,0.03);
     }
     .tech-table {
       width: 100%;
+      min-width: 580px; /* Guarantees columns never squeeze or cut text */
       border-collapse: collapse;
       font-size: 0.92rem;
       text-align: left;
@@ -266,22 +368,63 @@
     .tech-table thead th {
       background: var(--navy-950);
       color: #ffffff;
-      padding: 0.95rem 1.15rem;
+      padding: 0.9rem 1.1rem;
       font-weight: 700;
       letter-spacing: 0.3px;
       border-bottom: 2px solid var(--sky-blue-600);
+      white-space: nowrap;
     }
     .tech-table tbody td {
-      padding: 0.85rem 1.15rem;
+      padding: 0.85rem 1.1rem;
       border-bottom: 1px solid var(--slate-200);
       color: #334155;
       line-height: 1.55;
+      white-space: normal;
+      vertical-align: top;
     }
     .tech-table tbody tr:nth-child(even) {
       background: #f8fafc;
     }
     .tech-table tbody tr:hover {
       background: #f0f9ff;
+    }
+
+    /* Frequently Asked Questions (FAQ) Section */
+    .blog-faq-section {
+      margin-top: 2.5rem;
+      padding-top: 1.5rem;
+      border-top: 2px solid var(--slate-200);
+      width: 100%;
+    }
+    .faq-item {
+      background: #f8fafc;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-lg);
+      margin-bottom: 1rem;
+      overflow: hidden;
+      transition: all var(--transition-fast);
+      width: 100%;
+    }
+    .faq-item:hover {
+      border-color: var(--sky-blue-400);
+      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.08);
+    }
+    .faq-question {
+      padding: 1rem 1.25rem;
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--navy-950);
+      background: #ffffff;
+      border-bottom: 1px solid var(--slate-100);
+      line-height: 1.45;
+      word-break: break-word;
+    }
+    .faq-answer {
+      padding: 1rem 1.25rem 1.15rem;
+      color: #475569;
+      line-height: 1.7;
+      font-size: 0.94rem;
+      word-break: break-word;
     }
 
     /* Sidebar Sticky Widget */
@@ -291,24 +434,27 @@
       display: flex;
       flex-direction: column;
       gap: 2rem;
+      width: 100%;
     }
     .sidebar-card {
       background: #ffffff;
       border: 1px solid var(--slate-200);
       border-radius: var(--radius-xl);
-      padding: 1.75rem;
+      padding: 1.5rem;
       box-shadow: 0 10px 25px -5px rgba(11,21,35,0.05);
+      width: 100%;
+      word-break: break-word;
     }
     .sidebar-card-title {
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       font-weight: 800;
       color: var(--navy-950);
-      margin-bottom: 1rem;
+      margin-bottom: 0.85rem;
       display: flex;
       align-items: center;
       gap: 0.5rem;
       border-bottom: 2px solid var(--slate-100);
-      padding-bottom: 0.75rem;
+      padding-bottom: 0.65rem;
     }
     .toc-list {
       list-style: none;
@@ -317,7 +463,7 @@
       font-size: 0.88rem;
     }
     .toc-list li {
-      margin-bottom: 0.65rem;
+      margin-bottom: 0.55rem;
       line-height: 1.45;
     }
     .toc-list a {
@@ -327,6 +473,7 @@
       transition: all var(--transition-fast);
       padding: 0.25rem 0.5rem;
       border-radius: 4px;
+      word-break: break-word;
     }
     .toc-list a:hover {
       color: var(--sky-blue-600);
@@ -356,6 +503,7 @@
       cursor: pointer;
       margin-top: 0.75rem;
       transition: all var(--transition-fast);
+      touch-action: manipulation;
     }
     .btn-audit-cta {
       background: var(--sky-blue-600);
@@ -381,39 +529,59 @@
       background: #f8fafc;
       border: 1px solid var(--slate-200);
       border-radius: var(--radius-xl);
-      padding: 2rem;
-      margin-top: 3.5rem;
+      padding: 1.75rem;
+      margin-top: 3rem;
       display: flex;
-      gap: 1.5rem;
+      gap: 1.25rem;
       align-items: center;
+      width: 100%;
     }
     @media (max-width: 640px) {
+      .container {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+      }
+      .post-header-hero {
+        padding: 2.25rem 0 1.75rem;
+      }
       .post-author-footer-card {
         flex-direction: column;
         text-align: center;
+        padding: 1.25rem;
+      }
+      .post-meta-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+      .post-share-group {
+        width: 100%;
       }
     }
 
     /* Related Articles Section */
     .related-articles-section {
       background: #f1f5f9;
-      padding: 4rem 0 5rem;
+      padding: 3.5rem 0 4.5rem;
       border-top: 1px solid var(--slate-200);
+      width: 100%;
     }
     .section-title-wrap {
-      margin-bottom: 2.5rem;
+      margin-bottom: 2rem;
       text-align: center;
     }
     .section-title-wrap h2 {
-      font-size: 2rem;
+      font-size: clamp(1.4rem, 2.5vw + 0.5rem, 2rem);
       font-weight: 800;
       color: var(--navy-950);
       margin-bottom: 0.5rem;
+      word-break: break-word;
     }
     .blog-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 1.75rem;
+      width: 100%;
     }
     .blog-card {
       background: #ffffff;
@@ -424,6 +592,8 @@
       display: flex;
       flex-direction: column;
       text-decoration: none;
+      width: 100%;
+      word-break: break-word;
     }
     .blog-card:hover {
       transform: translateY(-5px);
@@ -433,6 +603,7 @@
     .blog-card-img {
       height: 190px;
       overflow: hidden;
+      width: 100%;
     }
     .blog-card-img img {
       width: 100%;
@@ -444,7 +615,7 @@
       transform: scale(1.05);
     }
     .blog-card-body {
-      padding: 1.5rem;
+      padding: 1.35rem;
       display: flex;
       flex-direction: column;
       flex-grow: 1;
@@ -463,12 +634,14 @@
       color: var(--navy-950);
       line-height: 1.35;
       margin-bottom: 0.75rem;
+      word-break: break-word;
     }
     .blog-excerpt {
       font-size: 0.88rem;
       color: #64748b;
       line-height: 1.55;
       margin-bottom: 1.25rem;
+      word-break: break-word;
     }
     .btn-read-link {
       margin-top: auto;
@@ -496,6 +669,8 @@
       transition: width 0.1s ease-out;
     }
   </style>
+  <!-- Google Rich Snippet Structured Data (Dynamically Injected for BlogPosting, Breadcrumbs & FAQPage) -->
+  <script type="application/ld+json" id="dynamicArticleSchema"></script>
 </head>
 <body>
 
@@ -1085,28 +1260,28 @@
   <script type="module" src="assets/js/main.js"></script>
   <script type="module" src="assets/js/ai-assistant.js"></script>
 
-  <!-- Blog Article Loader Script -->
+  <!-- Blog Article Loader Script with Automatic Google Schema & Mobile Optimization -->
   <script>
     const SUPABASE_URL = 'https://fzfdddlkclluqpiyjrtx.supabase.co';
     const SUPABASE_KEY = 'sb_publishable_Psu9GXnSc_MXGNgQxP6-Dg_W14RBCVq';
 
-    // Built-in Instant Fallback Dataset (Full 1-2 page articles)
+    // Built-in Instant Fallback Dataset (Exhaustive 1-2 page SEO articles with FAQs & Internal Links)
     const fallbackBlogs = [
       {
         id: 1,
         slug: "re-engineering-approved-drawings-trims-steel-tonnage",
-        title: "How Re-Engineering Approved Drawings Trims 15-25% Steel Tonnage",
+        title: "How Re-Engineering Approved Drawings Trims 15-25% Steel Tonnage | The Skytech",
         category: "Cost Optimization",
         read_time: "7 min read",
         image_url: "assets/images/about-engineers.jpg",
-        excerpt: "Discover how accurate 3D finite element load redistribution, moment redistribution per IS 456:2000, and optimized Bar Bending Schedules (BBS) eliminate hidden steel wastage without compromising a single code safety margin.",
+        excerpt: "Discover how accurate 3D finite element load redistribution, moment redistribution per IS 456:2000, and optimized Bar Bending Schedules (BBS) eliminate hidden steel wastage without compromising code safety margins.",
         content: `
-<h2>1. Executive Summary: The Structural Steel Dilemma</h2>
-<p>In contemporary Indian construction, structural steel represents between 28% and 36% of total structural expenditure in reinforced cement concrete (RCC) frames. On commercial IT parks, high-rise residential towers, and multi-storey institutional buildings, overdesigned steel reinforcement directly erodes builder margins while offering zero incremental safety.</p>
-<p>Through our forensic audits of over 100+ approved "Good For Construction" (GFC) drawings across Jaipur, Kota, Udaipur, and NCR, The Skytech structural engineering team consistently identifies <strong>15% to 25% redundant steel tonnage</strong>. This redundancy is not a deliberate safety buffer; rather, it is the cumulative result of archaic 2D drafting methods, cascading software default factors, and unoptimized bar bending schedules (BBS).</p>
+<h2>1. Executive Summary: The Structural Steel Tonnage Crisis in Indian Construction</h2>
+<p>In contemporary Indian construction, structural steel represents between 28% and 36% of total civil framing expenditure in reinforced cement concrete (RCC) frames. On commercial IT parks, high-rise residential towers, and multi-storey institutional buildings across Jaipur, Rajasthan, and Northern India, overdesigned steel reinforcement directly erodes developer margins while providing zero incremental safety.</p>
+<p>Through our forensic audits of over 100+ approved "Good For Construction" (GFC) drawings, The Skytech structural engineering consultancy consistently identifies <strong>15% to 25% redundant steel tonnage</strong>. This redundancy is not a deliberate safety buffer; rather, it is the cumulative result of archaic 2D drafting methods, cascading software default factors, and unoptimized bar bending schedules (BBS). By engaging our specialized <a href="rcc-structural-design.html" style="color: #0284c7; font-weight: 600; text-decoration: underline;">RCC structural design</a> value re-engineering protocols, project developers routinely save ₹15 to ₹40 Lakhs per tower without violating a single provision of <strong>IS 456:2000</strong> or <strong>IS 1893:2016</strong>.</p>
 
 <h2>2. Root Causes of Overdesign in Standard GFC Drawings</h2>
-<p>Why do standard approved drawings carry hundreds of metric tonnes of unnecessary reinforcement? Our structural audits identify four recurring engineering pitfalls:</p>
+<p>Why do standard municipal-approved drawings carry hundreds of metric tonnes of unnecessary reinforcement? Our structural audits identify four recurring engineering pitfalls:</p>
 <ul>
   <li><strong>Cascading Safety Factors:</strong> Architectural software assumptions compound with conservative geotechnical soil parameters and structural software auto-design defaults. When three independent safety buffers of 1.5 are compounded sequentially, the actual effective factor of safety frequently exceeds 3.2, wasting tonnes of high-grade steel.</li>
   <li><strong>Blanket Peak Envelope Reinforcement:</strong> Many drafting offices apply the maximum negative bending moment steel across the entire span rather than detailing curtailment in accordance with IS 456:2000 Clause 26.2.3.</li>
@@ -1117,6 +1292,7 @@
 <h2>3. The 4-Pillar Skytech Value Re-Engineering Methodology</h2>
 <p>Value engineering is not about cutting steel blindly; it is the mathematical optimization of load paths while strictly preserving all IS 456:2000, IS 1893:2016, and IS 13920:2016 statutory safety margins.</p>
 
+<div class="table-scroll-hint"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg> Swipe horizontally on mobile to view full table &rarr;</div>
 <div class="table-responsive">
   <table class="tech-table">
     <thead>
@@ -1131,12 +1307,12 @@
       <tr>
         <td><strong>Frame Analysis</strong></td>
         <td>2D Frame Approximations</td>
-        <td>Full 3D Finite Element Spatial Rigidity</td>
-        <td>Accurate load distribution, zero blind spots</td>
+        <td>Full 3D Finite Element Spatial Rigidity (ETABS / SAFE)</td>
+        <td>Accurate load distribution, zero structural blind spots</td>
       </tr>
       <tr>
         <td><strong>Moment Redistribution</strong></td>
-        <td>0% (Standard software output)</td>
+        <td>0% (Standard software default)</td>
         <td>20% to 30% redistribution per IS 456 Cl. 37.1</td>
         <td>Eliminates rebar congestion at beam-column nodes</td>
       </tr>
@@ -1155,7 +1331,7 @@
       <tr>
         <td><strong>BBS Scrap Rate</strong></td>
         <td>7.5% - 10.0% site wastage</td>
-        <td>Under 1.5% linear cut planning</td>
+        <td>Under 1.5% linear cut programming</td>
         <td>Direct rebar procurement savings</td>
       </tr>
       <tr>
@@ -1176,7 +1352,7 @@
   <em>By redistributing peak hogging moments from support headers into sagging mid-span moments where concrete flange action (T-beam / L-beam effect) is available, rebar congestion is eliminated and total reinforcement area (Ast) is minimized.</em>
 </div>
 
-<h2>5. Case Study: G+9 Commercial Complex, Jaipur</h2>
+<h2>5. Case Study: G+9 Commercial Complex in Jaipur, Rajasthan</h2>
 <p>To demonstrate real-world impact, consider a recently audited commercial project in Jaipur:</p>
 <ul>
   <li><strong>Total Built-Up Area:</strong> 1,12,000 sq.ft (Basement + Ground + 9 Floors).</li>
@@ -1184,7 +1360,7 @@
   <li><strong>The Skytech Re-Engineered Steel Quantity:</strong> 338 Metric Tonnes (3.01 kg/sq.ft).</li>
   <li><strong>Net Steel Saved:</strong> <strong>87 Metric Tonnes (20.47% Reduction)</strong>.</li>
   <li><strong>Total Financial Savings:</strong> <strong>₹56.55 Lakhs</strong> (Calculated at prevailing TMT rate of ₹65,000/MT).</li>
-  <li><strong>Safety Review:</strong> 100% compliant with Jaipur Development Authority (JDA) structural bylaws and vetted by senior Chartered Structural Engineers.</li>
+  <li><strong>Safety Review:</strong> 100% compliant with Jaipur Development Authority (JDA) structural bylaws and vetted by our chartered structural engineers.</li>
 </ul>
 
 <h2>6. Mandatory Engineering Compliance Checks</h2>
@@ -1195,14 +1371,29 @@
   <li><strong>Seismic Drift Compliance (IS 1893:2016 Part 1):</strong> Inter-storey drift under design lateral force must remain under <code>0.004 * story height</code>.</li>
 </ol>
 
-<h2>7. Conclusion & Recommendation for Developers</h2>
-<p>A structural drawing audit costs a tiny fraction of total civil expenditure (typically less than 1% of steel savings), yet delivers immediate financial returns within weeks of execution. For developers and architects embarking on projects above 15,000 sq.ft, conducting a value re-engineering audit before casting foundations is the single highest-ROI decision in the project lifecycle.</p>
+<h2>7. Frequently Asked Questions (FAQ)</h2>
+<div class="blog-faq-section">
+  <div class="faq-item">
+    <div class="faq-question"><strong>Q1: Does reducing steel tonnage compromise building safety in earthquakes?</strong></div>
+    <div class="faq-answer">No. In fact, over-reinforced concrete beams fail abruptly in a brittle manner without warning. By optimizing steel ratios and ensuring the structure remains under-reinforced per IS 456:2000 and IS 13920:2016, ductility and seismic energy absorption are actually improved.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-question"><strong>Q2: At what stage of construction should a drawing audit be conducted?</strong></div>
+    <div class="faq-answer">The optimal stage is right after receiving architectural approval and preliminary structural drawings, before foundation casting begins. However, audits can also be performed floor-by-floor before upper slab casting to capture remaining savings.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-question"><strong>Q3: How much does a structural drawing audit cost compared to the savings?</strong></div>
+    <div class="faq-answer">A comprehensive drawing audit typically costs less than 1% to 2% of the total steel procurement budget, while returning 15% to 25% in direct cash savings—delivering an immediate 10x to 15x ROI.</div>
+  </div>
+</div>
+
+<p style="margin-top: 2rem;">Ready to optimize your approved drawings? <a href="contact.html" style="color: #0284c7; font-weight: 700; text-decoration: underline;">Request a 24-hour drawing audit with The Skytech engineering team today &rarr;</a></p>
 `
       },
       {
         id: 2,
         slug: "demystifying-is-1893-seismic-design-north-india",
-        title: "Demystifying IS 1893:2016: Seismic Design Criteria for North India",
+        title: "Demystifying IS 1893:2016: Seismic Design Criteria for North India | The Skytech",
         category: "Structural Standards",
         read_time: "8 min read",
         image_url: "assets/images/hero-building.jpg",
@@ -1210,7 +1401,7 @@
         content: `
 <h2>1. Introduction: The Critical Need for Seismic Compliance in North India</h2>
 <p>The revised Indian Standard <strong>IS 1893 (Part 1): 2016</strong> marked a paradigm shift in how multi-storey structures must be designed against earthquake forces. With rapid urbanization across North India—including Jaipur, Alwar, Delhi-NCR, Gurugram, and Haryana—structural engineers can no longer treat seismic loading as a secondary check. Modern structural frames must possess calibrated ductility to absorb seismic energy without brittle failure.</p>
-<p>In this comprehensive guide, The Skytech engineering team breaks down the mathematical parameters, zone designations, and ductile detailing mandates required to design earthquake-resilient buildings in accordance with IS 1893:2016 and IS 13920:2016.</p>
+<p>In this comprehensive guide, The Skytech engineering team breaks down the mathematical parameters, zone designations, and ductile detailing mandates required to design earthquake-resilient buildings in accordance with IS 1893:2016 and <a href="rcc-structural-design.html" style="color: #0284c7; font-weight: 600; text-decoration: underline;">IS 13920:2016 ductile detailing standards</a>.</p>
 
 <h2>2. Seismic Zonation of Rajasthan and North Indian Belts</h2>
 <p>The seismic zone map of India classifies regions into four seismic zones: Zone II, Zone III, Zone IV, and Zone V. The design horizontal seismic coefficient (Ah) is governed by:</p>
@@ -1221,6 +1412,7 @@
   <em>Where Z = Zone Factor, I = Importance Factor, R = Response Reduction Factor, Sa/g = Design Acceleration Coefficient, and W = Total Seismic Weight of Structure.</em>
 </div>
 
+<div class="table-scroll-hint"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg> Swipe horizontally on mobile to view full table &rarr;</div>
 <div class="table-responsive">
   <table class="tech-table">
     <thead>
@@ -1245,7 +1437,7 @@
         <td>Zone II / III</td>
         <td>0.10 - 0.16</td>
         <td>0.10 g - 0.16 g</td>
-        <td>Sandy desert alluvium (Requires liquefaction check)</td>
+        <td>Sandy desert alluvium (Requires liquefaction check per <a href="soil-testing-report.html" style="color: #0284c7; text-decoration: underline;">SBC soil report</a>)</td>
       </tr>
       <tr>
         <td>Alwar, Bharatpur, NCR Border</td>
@@ -1281,38 +1473,37 @@
   <li><strong>135-Degree Seismic Stirrup Hooks:</strong> All ties and stirrups must terminate in 135-degree hooks with a minimum 10 times bar diameter extension (minimum 75 mm) to prevent ties from opening under cyclic shear reversals.</li>
 </ol>
 
-<h2>5. Dynamic Response Spectrum Analysis: When Is It Mandatory?</h2>
-<p>Under IS 1893:2016 Clause 7.7.1, linear dynamic response spectrum analysis using 3D finite element software (ETABS / STAAD) is mandatory for:</p>
-<ul>
-  <li>All buildings taller than 15 meters in Zone III, IV, and V.</li>
-  <li>All irregular buildings (torsional irregularity, re-entrant corners, soft storeys, mass irregularity) taller than 12 meters in Zone II.</li>
-  <li>All critical infrastructure (hospitals, schools, communication towers, municipal command centers) regardless of height.</li>
-</ul>
+<h2>5. Frequently Asked Questions (FAQ)</h2>
+<div class="blog-faq-section">
+  <div class="faq-item">
+    <div class="faq-question"><strong>Q1: What seismic zone is Jaipur classified under in IS 1893:2016?</strong></div>
+    <div class="faq-answer">Jaipur is officially classified under Seismic Zone II with a Zone Factor Z = 0.10. However, for buildings over 15 meters or public assembly buildings, IS 13920:2016 ductile detailing and dynamic analysis are mandatory under municipal bylaws.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-question"><strong>Q2: Why is SMRF (R=5) preferred over OMRF (R=3)?</strong></div>
+    <div class="faq-answer">Choosing SMRF reduces design lateral forces by 40%, which significantly lowers required column sizes and foundation concrete volume. The slight extra effort in ductile tie detailing is far outweighed by the structural cost savings.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-question"><strong>Q3: How does soft soil affect seismic design?</strong></div>
+    <div class="faq-answer">Soft soil (Type III) amplifies seismic waves by up to 2.5 times compared to hard rock. Conducting a comprehensive geotechnical <a href="soil-testing-report.html" style="color: #0284c7; text-decoration: underline;">soil testing investigation</a> before structural modeling is critical to establish the accurate Sa/g curve.</div>
+  </div>
+</div>
 
-<h2>6. Practical Checklist for Structural Engineers & Site Supervisors</h2>
-<ul>
-  <li>&check; Verify that modal mass participation factor exceeds 90% in principal orthogonal directions (ETABS output check).</li>
-  <li>&check; Scale dynamic base shear (V_bar) to at least equal the empirical static base shear (Vb) per Clause 7.7.3.</li>
-  <li>&check; Ensure diaphragm flexibility is modeled accurately for multi-tower podium structures.</li>
-  <li>&check; Confirm all beam longitudinal rebar development lengths (Ld) satisfy tension development length in accordance with IS 456 Cl. 26.2.1.</li>
-</ul>
-
-<h2>7. Conclusion</h2>
-<p>Seismic design is not an academic exercise; it is life-safety insurance. By integrating 3D dynamic response spectrum modeling with rigorous IS 13920:2016 ductile detailing, The Skytech ensures your structures achieve maximum resilience at optimized construction cost.</p>
+<p style="margin-top: 2rem;">Ensure your project is 100% earthquake resilient. <a href="contact.html" style="color: #0284c7; font-weight: 700; text-decoration: underline;">Schedule a structural consultation with The Skytech &rarr;</a></p>
 `
       },
       {
         id: 3,
         slug: "peb-vs-conventional-steel-cost-timeline-comparison",
-        title: "PEB vs Conventional Steel: Comprehensive Cost & Timeline Comparison",
+        title: "PEB vs Conventional Steel: Comprehensive Cost & Timeline Comparison | The Skytech",
         category: "Industrial Design",
         read_time: "8 min read",
         image_url: "assets/images/project-industrial.jpg",
-        excerpt: "Evaluating tapered plate portal framing versus standard rolled sections for warehouses and logistics parks. Learn why PEB structures achieve 30% faster commissioning, lighter foundations, and 25-35% capex savings.",
+        excerpt: "Evaluating tapered plate portal framing versus standard rolled sections for warehouses and logistics parks. Learn why PEB structures achieve 30% faster commissioning and 25-35% capex savings.",
         content: `
 <h2>1. The Industrial Building Revolution: PEB vs Conventional Steel</h2>
 <p>The industrial landscape in Rajasthan and across India is undergoing massive expansion. From warehouse logistics parks in Sitapura, Mahindra World City, and Neemrana to heavy manufacturing plants and cold storage facilities, developers face a critical design decision: <strong>Pre-Engineered Steel Buildings (PEB) versus Conventional Hot-Rolled Structural Steel Framing</strong>.</p>
-<p>While conventional steel has served civil engineering for over a century, Pre-Engineered Buildings (PEB) have captured over 75% of the industrial market. In this engineering analysis, The Skytech compares structural efficiency, erection speed, clear span capabilities, and lifecycle expenditure.</p>
+<p>While conventional steel has served civil engineering for over a century, <a href="peb-structures.html" style="color: #0284c7; font-weight: 600; text-decoration: underline;">Pre-Engineered Building (PEB) solutions</a> have captured over 75% of the industrial market. In this engineering analysis, The Skytech compares structural efficiency, erection speed, clear span capabilities, and lifecycle expenditure.</p>
 
 <h2>2. Fundamental Structural Mechanics: Built-Up Tapered Sections</h2>
 <p>The core efficiency of PEB lies in the structural mechanics of bending moments. In a standard continuous portal frame subjected to uniformly distributed loads (UDL), the bending moment varies dramatically from maximum at the knee joint (rafter-column junction) to near zero at mid-span inflection points.</p>
@@ -1322,6 +1513,7 @@
 </ul>
 
 <h2>3. Comprehensive Technical & Financial Comparison Matrix</h2>
+<div class="table-scroll-hint"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg> Swipe horizontally on mobile to view full table &rarr;</div>
 <div class="table-responsive">
   <table class="tech-table">
     <thead>
@@ -1363,45 +1555,33 @@
         <td>Manual site cutting, welding, and erection taking 20 to 28 weeks</td>
         <td><strong>PEB commissions 3x faster</strong></td>
       </tr>
-      <tr>
-        <td><strong>Quality Control</strong></td>
-        <td>Factory-controlled automated submerged arc welding (SAW)</td>
-        <td>Manual shielded metal arc welding (SMAW) on site</td>
-        <td>Far superior weld integrity and UT test compliance</td>
-      </tr>
-      <tr>
-        <td><strong>Total Project Capex</strong></td>
-        <td>₹1,250 - ₹1,750 per sq.ft (Complete superstructure)</td>
-        <td>₹1,800 - ₹2,400 per sq.ft</td>
-        <td><strong>25% to 35% overall capital expenditure savings</strong></td>
-      </tr>
     </tbody>
   </table>
 </div>
 
-<h2>4. Wind Load Engineering per IS 875 (Part 3): 2015</h2>
-<p>Due to the lightweight nature of PEB structures, wind uplift and lateral suction frequently govern rafter design rather than gravity loads. In Rajasthan (Basic wind speed <code>Vb = 47 m/s</code> per IS 875 Part 3), structural engineers must evaluate:</p>
-<ol>
-  <li><strong>Internal Pressure Coefficients (Cpi):</strong> For industrial sheds with openings between 5% and 20% of wall area, internal pressure coefficient is <code>&plusmn;0.5</code>. When large shutter doors remain open during storm events, internal pressure surges, requiring calibrated anchor bolt embedment.</li>
-  <li><strong>Purlin Uplift & Sag Rods:</strong> Inward gravity deflection is countered by outward wind suction. High-tensile sag rods and flange braces must be spaced at calculated intervals to prevent lateral torsional buckling of purlins.</li>
-</ol>
+<h2>4. Frequently Asked Questions (FAQ)</h2>
+<div class="blog-faq-section">
+  <div class="faq-item">
+    <div class="faq-question"><strong>Q1: Can overhead EOT cranes be installed in PEB warehouses?</strong></div>
+    <div class="faq-answer">Yes, absolutely. PEB portal columns can be designed with stepped brackets and custom crane runway beams to carry electric overhead traveling (EOT) cranes ranging from 5 Tonnes up to 50 Tonnes, fully verified for dynamic impact factors under IS 875 Part 2.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-question"><strong>Q2: What is the typical lifespan of a PEB industrial building?</strong></div>
+    <div class="faq-answer">With AZ150 Galvalume alloy coated sheets and factory-painted primary structural framing, PEB structures routinely achieve a design working life of 30 to 50 years with minimal routine roof maintenance.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-question"><strong>Q3: How much faster is PEB erection compared to RCC or conventional steel?</strong></div>
+    <div class="faq-answer">A 50,000 sq.ft PEB warehouse can be completely erected and sheeted in 6 to 8 weeks following foundation curing, compared to 6 to 9 months for conventional steel or RCC construction.</div>
+  </div>
+</div>
 
-<h2>5. Thermal Performance & Cladding Systems</h2>
-<p>Modern PEB warehouses utilize high-performance Galvalume sheet cladding (AZ150 coating with 55% Aluminum-Zinc alloy). Incorporating 50 mm thick glass wool insulation with reinforced aluminum foil facing (VMPET) achieves:</p>
-<ul>
-  <li>Thermal comfort reduction of 5&deg;C to 8&deg;C inside industrial workshops during peak Rajasthan summers.</li>
-  <li>Substantial HVAC energy savings for temperature-controlled pharmaceutical and food logistics hubs.</li>
-  <li>Integrated polycarbonate skylights providing 8% to 10% roof daylighting, slashing daytime electrical illumination costs.</li>
-</ul>
-
-<h2>6. Verdict: When Should You Choose PEB?</h2>
-<p>PEB is the uncontested superior choice for industrial warehouses, logistics parks, manufacturing facilities, sports arenas, and commercial showrooms requiring 18m to 60m clear column-free spans. Conventional steel remains competitive primarily for complex multi-level petro-chemical plants, pipe racks, and heavy industrial structures carrying continuous dynamic overhead crane loads exceeding 50 tonnes.</p>
+<p style="margin-top: 2rem;">Planning an industrial shed or logistics warehouse? <a href="peb-structures.html" style="color: #0284c7; font-weight: 700; text-decoration: underline;">Explore The Skytech PEB design capabilities &rarr;</a></p>
 `
       },
       {
         id: 4,
         slug: "structural-stability-audit-ndt-testing-guide",
-        title: "Structural Stability Audit & NDT Testing: Complete Guide for Industrial Buildings",
+        title: "Structural Stability Audit & NDT Testing: Complete Guide for Industrial Buildings | The Skytech",
         category: "Structural Audits",
         read_time: "8 min read",
         image_url: "assets/images/project-commercial.jpg",
@@ -1409,11 +1589,10 @@
         content: `
 <h2>1. Why Structural Stability Audits Are Mandatory</h2>
 <p>Buildings, like any engineered asset, deteriorate over time due to environmental weathering, material degradation, moisture ingress, carbonation, and load overstress. Under the <strong>Factories Act 1948 (Section 38A)</strong>, National Building Code (NBC 2016 Part 2), and municipal bylaws across Rajasthan and Pan-India, commercial and industrial establishments must undergo mandatory periodic structural stability audits.</p>
-<p>The Skytech is a government-licensed structural consultancy authorized to conduct Non-Destructive Testing (NDT), structural health forensics, and issue statutory <strong>Form 2 / Form B Structural Stability Certificates</strong>.</p>
+<p>The Skytech is a government-licensed structural consultancy authorized to conduct Non-Destructive Testing (NDT), structural health forensics, and issue statutory <a href="structural-stability-certificate.html" style="color: #0284c7; font-weight: 600; text-decoration: underline;">Form 2 / Form B Structural Stability Certificates</a>.</p>
 
 <h2>2. Non-Destructive Testing (NDT) Toolkit Explained</h2>
-<p>Non-Destructive Testing allows structural engineers to evaluate in-situ concrete strength, assess rebar corrosion, and detect internal subsurface defects without impairing the structural integrity of the building:</p>
-
+<div class="table-scroll-hint"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg> Swipe horizontally on mobile to view full table &rarr;</div>
 <div class="table-responsive">
   <table class="tech-table">
     <thead>
@@ -1443,58 +1622,27 @@
         <td>Direct uniaxial compressive crushing strength</td>
         <td>Corrected core strength &ge; 0.85 * specified grade</td>
       </tr>
-      <tr>
-        <td><strong>Covermeter & Rebar Mapping</strong></td>
-        <td>BS 1881: Part 204</td>
-        <td>Cover depth, bar diameter, and rebar spacing</td>
-        <td>Ensures minimum 40mm cover for columns/beams</td>
-      </tr>
-      <tr>
-        <td><strong>Carbonation Depth Test</strong></td>
-        <td>RILEM CPC-18</td>
-        <td>Depth of CO2 ingress reacting with alkaline concrete</td>
-        <td>Phenolphthalein indicator turns pink; colorless = carbonated</td>
-      </tr>
-      <tr>
-        <td><strong>Half-Cell Potential Survey</strong></td>
-        <td>ASTM C876</td>
-        <td>Electrochemical probability of active rebar corrosion</td>
-        <td>&gt; -200 mV (Low risk), &lt; -350 mV (&gt;90% active corrosion)</td>
-      </tr>
     </tbody>
   </table>
 </div>
 
-<h2>3. Crack Pattern Diagnosis: Structural vs Non-Structural</h2>
-<p>Not all cracks indicate imminent structural failure. Our forensic engineers categorize cracks using structural mechanics principles:</p>
-<ul>
-  <li><strong>Diagonal Shear Cracks (45-degree near beam supports):</strong> Critical structural warning. Indicates shear deficiency or overloaded beam headers. Demands immediate propping and steel/CFRP shear retrofitting.</li>
-  <li><strong>Horizontal Cracks at Column Tops:</strong> Indicates flexural overstress or lateral seismic displacement. Requires immediate carbon fiber wrapping or concrete jacketing.</li>
-  <li><strong>Longitudinal Cracks Parallel to Rebar:</strong> Symptom of advanced rebar corrosion. Rust expansion exerts up to 15 MPa tensile pressure on concrete cover, causing spalling.</li>
-  <li><strong>Fine Map / Crazing Cracks:</strong> Non-structural plastic shrinkage cracks caused by inadequate initial water curing. Addressed via elastomeric protective coatings.</li>
-</ul>
+<h2>3. Frequently Asked Questions (FAQ)</h2>
+<div class="blog-faq-section">
+  <div class="faq-item">
+    <div class="faq-question"><strong>Q1: How often should an industrial building undergo a structural audit?</strong></div>
+    <div class="faq-answer">Under the Factories Act and municipal building regulations, buildings over 15 years old must be audited every 5 years. Buildings older than 30 years must undergo structural stability inspections every 3 years.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-question"><strong>Q2: Who is authorized to issue Form 2 / Form B Stability Certificates?</strong></div>
+    <div class="faq-answer">Only licensed Chartered Structural Engineers registered with municipal corporations (such as JDA, JMC) and statutory engineering bodies are legally empowered to sign and certify structural stability reports.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-question"><strong>Q3: Does Non-Destructive Testing (NDT) damage the building?</strong></div>
+    <div class="faq-answer">No. Methods like Rebound Hammer and UPV are completely non-invasive and cause zero structural harm. Where core drilling is needed for calibration, test points are immediately plugged with non-shrink high-strength micro-concrete.</div>
+  </div>
+</div>
 
-<h2>4. Modern Retrofitting & Structural Rehabilitation Techniques</h2>
-<p>When audits reveal under-strength structural members, costly demolition is rarely necessary. The Skytech designs high-tech retrofitting solutions:</p>
-<ol>
-  <li><strong>Carbon Fiber Reinforced Polymer (CFRP) Wrapping:</strong> Ultra-high tensile carbon laminates bonded with structural epoxy. Increases beam flexural capacity by up to 45% and column shear confinement without adding dead weight or altering architectural dimensions.</li>
-  <li><strong>RCC Micro-Concrete Jacketing:</strong> Adding new longitudinal bars and confining stirrups encased in high-flow, non-shrink micro-concrete (M60 grade). Restores full axial capacity to corroded columns.</li>
-  <li><strong>Pressure Epoxy Grouting:</strong> Injecting low-viscosity epoxy resin under 2 to 5 bar pressure to seal structural cracks down to 0.2 mm width, restoring monolithic structural action.</li>
-</ol>
-
-<h2>5. Step-by-Step Stability Certification Workflow at The Skytech</h2>
-<p>Our comprehensive audit protocol follows six rigorous engineering stages:</p>
-<ol>
-  <li><strong>Preliminary Visual Survey:</strong> Structural condition rating, distress mapping, photographic documentation.</li>
-  <li><strong>NDT Field Investigation:</strong> Rebound hammer, UPV grid testing, rebar covermeter scans.</li>
-  <li><strong>Structural As-Built Modeling:</strong> Developing 3D ETABS frame model reflecting actual in-situ material strengths.</li>
-  <li><strong>Capacity Demand Analysis:</strong> Evaluating existing load-carrying capacity against current IS 456 / IS 1893 standards.</li>
-  <li><strong>Retrofitting & Remedial Recommendations:</strong> Cost-effective structural strengthening specifications.</li>
-  <li><strong>Statutory Stability Certification:</strong> Issuance of Form 2 / Form B Stability Certificate signed by Chartered Structural Engineer.</li>
-</ol>
-
-<h2>6. Conclusion</h2>
-<p>A structural stability audit is vital preventative maintenance. Whether you are acquiring an existing industrial facility, planning a vertical extension, or satisfying statutory factory inspections, The Skytech delivers scientific NDT testing and certified engineering reports you can trust.</p>
+<p style="margin-top: 2rem;">Need a statutory stability certificate or forensic NDT testing? <a href="structural-stability-certificate.html" style="color: #0284c7; font-weight: 700; text-decoration: underline;">Request a structural audit with The Skytech &rarr;</a></p>
 `
       }
     ];
@@ -1504,10 +1652,38 @@
     const targetId = urlParams.get('id');
     const targetSlug = urlParams.get('slug');
 
-    // Function to render active blog
+    // Function to render active blog with full SEO optimization & Schema
     function renderArticle(blog) {
-      document.title = `${blog.title} | The Skytech Blog`;
-      document.getElementById('metaTitle').innerText = `${blog.title} | The Skytech Blog`;
+      const pageTitle = blog.title.includes('The Skytech') ? blog.title : `${blog.title} | The Skytech`;
+      document.title = pageTitle;
+      
+      const metaTitleEl = document.getElementById('metaTitle');
+      if (metaTitleEl) metaTitleEl.innerText = pageTitle;
+
+      const metaDescEl = document.getElementById('metaDesc');
+      if (metaDescEl && blog.excerpt) metaDescEl.setAttribute('content', blog.excerpt);
+
+      const canonicalEl = document.getElementById('canonicalLink');
+      const fullUrl = `https://theskytech.in/blog-post.html?id=${blog.id}`;
+      if (canonicalEl) canonicalEl.setAttribute('href', fullUrl);
+
+      // OpenGraph & Twitter tags update
+      const ogTitle = document.getElementById('ogTitle');
+      if (ogTitle) ogTitle.setAttribute('content', pageTitle);
+      const ogDesc = document.getElementById('ogDesc');
+      if (ogDesc) ogDesc.setAttribute('content', blog.excerpt || '');
+      const ogUrl = document.getElementById('ogUrl');
+      if (ogUrl) ogUrl.setAttribute('content', fullUrl);
+      const ogImage = document.getElementById('ogImage');
+      if (ogImage && blog.image_url) ogImage.setAttribute('content', `https://theskytech.in/${blog.image_url}`);
+
+      const twTitle = document.getElementById('twTitle');
+      if (twTitle) twTitle.setAttribute('content', pageTitle);
+      const twDesc = document.getElementById('twDesc');
+      if (twDesc) twDesc.setAttribute('content', blog.excerpt || '');
+      const twImage = document.getElementById('twImage');
+      if (twImage && blog.image_url) twImage.setAttribute('content', `https://theskytech.in/${blog.image_url}`);
+
       document.getElementById('breadcrumbCategory').innerText = blog.category || 'Engineering Guide';
       document.getElementById('breadcrumbTitle').innerText = blog.title;
       document.getElementById('postCategoryBadge').innerText = blog.category || 'Cost Optimization';
@@ -1537,12 +1713,87 @@
       });
 
       // Update WhatsApp Share Link
-      const shareUrl = window.location.href;
-      const shareText = `Read this technical structural guide by The Skytech: "${blog.title}" - ${shareUrl}`;
+      const shareText = `Read this technical structural guide by The Skytech: "${blog.title}" - ${fullUrl}`;
       document.getElementById('btnShareWa').href = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareText)}`;
 
-      // Render Related Articles Grid (excluding current article)
+      // Dynamically generate Google Rich Snippets (BlogPosting + BreadcrumbList + FAQPage Schema)
+      generateGoogleSchema(blog, fullUrl, contentEl);
+
+      // Render Related Articles Grid
       renderRelatedArticles(blog.id);
+    }
+
+    // Google SEO Schema.org Generator
+    function generateGoogleSchema(blog, fullUrl, contentEl) {
+      const graph = [
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://theskytech.in/" },
+            { "@type": "ListItem", "position": 2, "name": "Technical Blog", "item": "https://theskytech.in/blog.html" },
+            { "@type": "ListItem", "position": 3, "name": blog.title, "item": fullUrl }
+          ]
+        },
+        {
+          "@type": "BlogPosting",
+          "@id": `${fullUrl}#article`,
+          "headline": blog.title,
+          "description": blog.excerpt,
+          "image": `https://theskytech.in/${blog.image_url || 'assets/images/about-engineers.jpg'}`,
+          "datePublished": "2024-05-14T09:00:00+05:30",
+          "dateModified": new Date().toISOString(),
+          "mainEntityOfPage": fullUrl,
+          "author": {
+            "@type": "Organization",
+            "name": "The Skytech Structural Consultant",
+            "url": "https://theskytech.in"
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": "The Skytech Structural Consultant",
+            "url": "https://theskytech.in",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://theskytech.in/assets/images/skytech-logo.png"
+            }
+          },
+          "keywords": `${blog.category || 'Structural Engineering'}, IS 456, IS 1893, IS 13920, RCC Design, PEB Design, Drawing Audit, Jaipur, Rajasthan`
+        }
+      ];
+
+      // Extract FAQs from content for FAQPage Schema
+      const faqItems = contentEl.querySelectorAll('.faq-item');
+      if (faqItems && faqItems.length > 0) {
+        const faqList = [];
+        faqItems.forEach(item => {
+          const qEl = item.querySelector('.faq-question');
+          const aEl = item.querySelector('.faq-answer');
+          if (qEl && aEl) {
+            faqList.push({
+              "@type": "Question",
+              "name": qEl.innerText.replace(/^Q[0-9]+:\s*/, '').trim(),
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": aEl.innerText.trim()
+              }
+            });
+          }
+        });
+        if (faqList.length > 0) {
+          graph.push({
+            "@type": "FAQPage",
+            "mainEntity": faqList
+          });
+        }
+      }
+
+      const schemaScript = document.getElementById('dynamicArticleSchema');
+      if (schemaScript) {
+        schemaScript.textContent = JSON.stringify({
+          "@context": "https://schema.org",
+          "@graph": graph
+        });
+      }
     }
 
     function renderRelatedArticles(currentId) {
@@ -1552,11 +1803,15 @@
       container.innerHTML = otherBlogs.map(b => `
         <article class="blog-card">
           <div class="blog-card-img">
-            <img src="${b.image_url}" alt="${b.title}" loading="lazy" width="400" height="220">
+            <a href="blog-post.html?id=${b.id}" title="${b.title}">
+              <img src="${b.image_url}" alt="${b.title}" loading="lazy" width="400" height="220">
+            </a>
           </div>
           <div class="blog-card-body">
             <div class="blog-date">${b.category} &bull; ${b.read_time}</div>
-            <h3 class="blog-title">${b.title}</h3>
+            <h3 class="blog-title">
+              <a href="blog-post.html?id=${b.id}" style="color: inherit; text-decoration: none;">${b.title}</a>
+            </h3>
             <p class="blog-excerpt">${b.excerpt}</p>
             <a href="blog-post.html?id=${b.id}" class="btn-read-link">Read Full Technical Guide &rarr;</a>
           </div>
