@@ -187,11 +187,14 @@ button {
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: var(--radius-sm);
-  padding: 2px 5px;
-  color: #94a3b8;
+  padding: 6px 8px;
+  min-width: 32px;
+  min-height: 32px;
+  color: #cbd5e1;
   font-size: 0.6875rem;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   transition: all var(--transition-fast);
   margin-left: 0.25rem;
 }
@@ -1498,7 +1501,7 @@ textarea.form-control {
   align-items: center;
   justify-content: center;
   box-shadow: 0 10px 25px rgba(245, 158, 11, 0.45), 0 0 0 6px rgba(251, 191, 36, 0.25);
-  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, opacity 0.3s ease;
   z-index: 5;
 }
 
@@ -2631,12 +2634,14 @@ textarea.form-control {
   padding: 1.5rem;
   opacity: 0;
   visibility: hidden;
-  transition: all var(--transition-base);
+  pointer-events: none;
+  transition: opacity var(--transition-base);
 }
 
 .modal-overlay.active {
   opacity: 1;
   visibility: visible;
+  pointer-events: auto;
 }
 
 .modal-container {
@@ -2660,8 +2665,10 @@ textarea.form-control {
   position: absolute;
   top: 16px;
   right: 16px;
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
   border-radius: 50%;
   background: rgba(0, 0, 0, 0.08);
   display: flex;
@@ -3515,8 +3522,10 @@ textarea.form-control {
   }
 
   .drawer-close-btn {
-    width: 36px;
-    height: 36px;
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
     border-radius: 50%;
     background: #f1f5f9;
     border: 1px solid #e2e8f0;
@@ -4332,8 +4341,8 @@ textarea:focus-visible {
 
 .hero-stat-label {
   font-size: 0.88rem;
-  font-weight: 500;
-  color: #64748b;
+  font-weight: 600;
+  color: #334155;
   margin-top: 3px;
 }
 
@@ -4533,7 +4542,9 @@ textarea:focus-visible {
   background: var(--slate-300);
   border: none;
   cursor: pointer;
-  padding: 0;
+  padding: 14px 6px;
+  background-clip: content-box;
+  box-sizing: content-box;
   transition: all 0.3s ease;
 }
 
@@ -4773,7 +4784,7 @@ textarea:focus-visible {
   height: 100%;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.75s ease-in-out, visibility 0.75s ease-in-out;
+  transition: opacity 0.75s ease-in-out;
   z-index: 1;
   display: flex;
   align-items: center;
@@ -4876,7 +4887,9 @@ textarea:focus-visible {
   border: none;
   cursor: pointer;
   transition: all 0.3s ease;
-  padding: 0;
+  padding: 14px 6px;
+  background-clip: content-box;
+  box-sizing: content-box;
 }
 
 .hero-dot.active {
