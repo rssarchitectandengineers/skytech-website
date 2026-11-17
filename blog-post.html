@@ -1,0 +1,1635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="metaTitle">Structural Engineering Technical Guide | The Skytech Blog</title>
+  <meta name="description" id="metaDesc" content="Authoritative structural engineering insights by The Skytech: IS code compliance, value re-engineering, seismic design, and PEB industrial structures.">
+  <link rel="canonical" id="canonicalLink" href="https://theskytech.in/blog-post.html">
+
+  <!-- Open Graph / Social Sharing -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" id="ogUrl" content="https://theskytech.in/blog-post.html">
+  <meta property="og:title" id="ogTitle" content="Structural Engineering Technical Guide | The Skytech Blog">
+  <meta property="og:description" id="ogDesc" content="Authoritative structural engineering insights by The Skytech: IS code compliance, value re-engineering, and seismic design.">
+  <meta property="og:image" id="ogImage" content="assets/images/about-engineers.jpg">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" id="twTitle" content="Structural Engineering Technical Guide | The Skytech Blog">
+  <meta name="twitter:description" id="twDesc" content="Technical structural engineering articles by The Skytech.">
+  <meta name="twitter:image" id="twImage" content="assets/images/about-engineers.jpg">
+
+  <link rel="icon" type="image/svg+xml" href="assets/images/skytech-logo.svg">
+  <link rel="stylesheet" href="assets/css/style.css">
+
+  <style>
+    /* --------------------------------------------------------------------------
+       Blog Post Reader Styles
+       -------------------------------------------------------------------------- */
+    .post-header-hero {
+      background: linear-gradient(135deg, var(--navy-950) 0%, var(--navy-900) 100%);
+      color: #ffffff;
+      padding: 3.5rem 0 3rem;
+      border-bottom: 3px solid var(--sky-blue-600);
+      position: relative;
+    }
+    .post-breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      color: var(--slate-400);
+      margin-bottom: 1.25rem;
+      flex-wrap: wrap;
+    }
+    .post-breadcrumb a {
+      color: var(--sky-blue-400);
+      text-decoration: none;
+      transition: color var(--transition-fast);
+    }
+    .post-breadcrumb a:hover {
+      color: #ffffff;
+      text-decoration: underline;
+    }
+    .post-category-tag {
+      display: inline-block;
+      padding: 0.35rem 0.85rem;
+      background: rgba(2, 132, 199, 0.2);
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      color: var(--sky-blue-400);
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border-radius: var(--radius-full);
+      margin-bottom: 1rem;
+    }
+    .post-main-title {
+      font-size: 2.25rem;
+      font-weight: 900;
+      line-height: 1.25;
+      color: #ffffff;
+      margin-bottom: 1.5rem;
+      max-width: 950px;
+    }
+    @media (max-width: 768px) {
+      .post-main-title {
+        font-size: 1.65rem;
+      }
+    }
+    .post-meta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1.25rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+    }
+    .post-author-box {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+    .post-author-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--sky-blue-600);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 1.1rem;
+      border: 2px solid var(--sky-blue-400);
+      overflow: hidden;
+    }
+    .post-author-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .post-author-info {
+      display: flex;
+      flex-direction: column;
+    }
+    .post-author-name {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #ffffff;
+    }
+    .post-author-role {
+      font-size: 0.78rem;
+      color: var(--slate-300);
+    }
+    .post-share-group {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .post-share-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+      padding: 0.45rem 0.85rem;
+      border-radius: var(--radius-md);
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+    .post-share-btn:hover {
+      background: var(--sky-blue-600);
+      border-color: var(--sky-blue-500);
+      color: #ffffff;
+    }
+
+    /* Main Article Container Layout */
+    .post-body-container {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 340px;
+      gap: 3rem;
+      padding: 3rem 0 5rem;
+      align-items: start;
+    }
+    @media (max-width: 992px) {
+      .post-body-container {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+      }
+    }
+
+    /* Featured Image */
+    .post-featured-media {
+      margin-bottom: 2.5rem;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      border: 1px solid var(--slate-200);
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.06);
+    }
+    .post-featured-media img {
+      width: 100%;
+      max-height: 440px;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Article Content Typography (1-2 pages depth) */
+    .post-content-area {
+      font-size: 1.06rem;
+      line-height: 1.82;
+      color: #334155;
+    }
+    .post-content-area h2 {
+      font-size: 1.55rem;
+      font-weight: 800;
+      color: var(--navy-950);
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+      padding-left: 0.85rem;
+      border-left: 4px solid var(--sky-blue-600);
+      line-height: 1.35;
+    }
+    .post-content-area h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--navy-900);
+      margin-top: 1.75rem;
+      margin-bottom: 0.75rem;
+      line-height: 1.4;
+    }
+    .post-content-area p {
+      margin-bottom: 1.35rem;
+    }
+    .post-content-area ul, .post-content-area ol {
+      margin-bottom: 1.5rem;
+      padding-left: 1.5rem;
+    }
+    .post-content-area li {
+      margin-bottom: 0.65rem;
+      line-height: 1.75;
+    }
+    .post-content-area strong {
+      color: var(--navy-950);
+    }
+
+    /* Technical Callout Boxes */
+    .code-callout {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-left: 5px solid var(--sky-blue-600);
+      padding: 1.25rem 1.5rem;
+      border-radius: var(--radius-md);
+      margin: 1.75rem 0;
+      font-size: 0.95rem;
+      color: #1e293b;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
+    }
+    .code-callout strong {
+      color: var(--navy-950);
+      display: inline-block;
+      margin-bottom: 0.35rem;
+    }
+    .code-callout code {
+      background: #e2e8f0;
+      color: #0f172a;
+      padding: 0.2rem 0.45rem;
+      border-radius: 4px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.9em;
+      font-weight: 600;
+      display: inline-block;
+      margin: 0.2rem 0;
+    }
+
+    /* Technical Engineering Comparison Tables */
+    .table-responsive {
+      overflow-x: auto;
+      margin: 2rem 0;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--slate-200);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+    }
+    .tech-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.92rem;
+      text-align: left;
+      background: #ffffff;
+    }
+    .tech-table thead th {
+      background: var(--navy-950);
+      color: #ffffff;
+      padding: 0.95rem 1.15rem;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      border-bottom: 2px solid var(--sky-blue-600);
+    }
+    .tech-table tbody td {
+      padding: 0.85rem 1.15rem;
+      border-bottom: 1px solid var(--slate-200);
+      color: #334155;
+      line-height: 1.55;
+    }
+    .tech-table tbody tr:nth-child(even) {
+      background: #f8fafc;
+    }
+    .tech-table tbody tr:hover {
+      background: #f0f9ff;
+    }
+
+    /* Sidebar Sticky Widget */
+    .post-sidebar {
+      position: sticky;
+      top: 6rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+    .sidebar-card {
+      background: #ffffff;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-xl);
+      padding: 1.75rem;
+      box-shadow: 0 10px 25px -5px rgba(11,21,35,0.05);
+    }
+    .sidebar-card-title {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--navy-950);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      border-bottom: 2px solid var(--slate-100);
+      padding-bottom: 0.75rem;
+    }
+    .toc-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-size: 0.88rem;
+    }
+    .toc-list li {
+      margin-bottom: 0.65rem;
+      line-height: 1.45;
+    }
+    .toc-list a {
+      color: #475569;
+      text-decoration: none;
+      display: block;
+      transition: all var(--transition-fast);
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+    }
+    .toc-list a:hover {
+      color: var(--sky-blue-600);
+      background: #f0f9ff;
+      padding-left: 0.75rem;
+    }
+    .sidebar-cta-card {
+      background: linear-gradient(135deg, var(--navy-950) 0%, var(--navy-900) 100%);
+      color: #ffffff;
+      border-color: var(--navy-800);
+    }
+    .sidebar-cta-card .sidebar-card-title {
+      color: #ffffff;
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+    .sidebar-cta-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      width: 100%;
+      padding: 0.85rem;
+      border-radius: var(--radius-lg);
+      font-weight: 700;
+      font-size: 0.9rem;
+      text-decoration: none;
+      cursor: pointer;
+      margin-top: 0.75rem;
+      transition: all var(--transition-fast);
+    }
+    .btn-audit-cta {
+      background: var(--sky-blue-600);
+      color: #ffffff;
+      border: none;
+    }
+    .btn-audit-cta:hover {
+      background: var(--sky-blue-500);
+      transform: translateY(-2px);
+    }
+    .btn-wa-cta {
+      background: #25d366;
+      color: #ffffff;
+      border: none;
+    }
+    .btn-wa-cta:hover {
+      background: #22c55e;
+      transform: translateY(-2px);
+    }
+
+    /* Bottom Author Bio Card */
+    .post-author-footer-card {
+      background: #f8fafc;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-xl);
+      padding: 2rem;
+      margin-top: 3.5rem;
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+    }
+    @media (max-width: 640px) {
+      .post-author-footer-card {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+
+    /* Related Articles Section */
+    .related-articles-section {
+      background: #f1f5f9;
+      padding: 4rem 0 5rem;
+      border-top: 1px solid var(--slate-200);
+    }
+    .section-title-wrap {
+      margin-bottom: 2.5rem;
+      text-align: center;
+    }
+    .section-title-wrap h2 {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--navy-950);
+      margin-bottom: 0.5rem;
+    }
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+    }
+    .blog-card {
+      background: #ffffff;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      transition: all var(--transition-base);
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+    }
+    .blog-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px -10px rgba(11,21,35,0.12);
+      border-color: var(--sky-blue-400);
+    }
+    .blog-card-img {
+      height: 190px;
+      overflow: hidden;
+    }
+    .blog-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform var(--transition-slow);
+    }
+    .blog-card:hover .blog-card-img img {
+      transform: scale(1.05);
+    }
+    .blog-card-body {
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+    .blog-date {
+      font-size: 0.75rem;
+      color: var(--sky-blue-600);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 0.5rem;
+    }
+    .blog-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--navy-950);
+      line-height: 1.35;
+      margin-bottom: 0.75rem;
+    }
+    .blog-excerpt {
+      font-size: 0.88rem;
+      color: #64748b;
+      line-height: 1.55;
+      margin-bottom: 1.25rem;
+    }
+    .btn-read-link {
+      margin-top: auto;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--sky-blue-600);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .btn-read-link:hover {
+      color: var(--sky-blue-700);
+      text-decoration: underline;
+    }
+
+    /* Reading Progress Bar */
+    #readingProgressBar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 4px;
+      background: var(--sky-blue-500);
+      z-index: 99999;
+      width: 0%;
+      transition: width 0.1s ease-out;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Reading Progress Bar -->
+  <div id="readingProgressBar"></div>
+
+  <!-- Top Contact Bar -->
+  <aside class="top-contact-bar" aria-label="Contact Information Bar">
+    <div class="container">
+      <div class="top-bar-left">
+        <!-- Phone -->
+        <div class="top-contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+          </svg>
+          <a href="tel:+917737243812" id="topPhoneLink">+91-7737243812</a>
+          <button type="button" class="copy-badge-btn" data-copy="+91-7737243812" title="Copy Phone Number" aria-label="Copy Phone Number">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Email -->
+        <div class="top-contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+            <polyline points="22,6 12,13 2,6"></polyline>
+          </svg>
+          <a href="mailto:skytechjpr@gmail.com" id="topEmailLink">skytechjpr@gmail.com</a>
+          <button type="button" class="copy-badge-btn" data-copy="skytechjpr@gmail.com" title="Copy Email Address" aria-label="Copy Email Address">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Social Media Icons -->
+      <div class="top-bar-right">
+        <a href="https://www.youtube.com/@TheSkytechConsultant" target="_blank" rel="noopener noreferrer" class="social-circle-link" title="YouTube" aria-label="YouTube">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33zM9.75 15.02V8.48l5.75 3.27-5.75 3.27z"/>
+          </svg>
+        </a>
+        <a href="https://www.facebook.com/profile.php?id=61596125471450" target="_blank" rel="noopener noreferrer" class="social-circle-link" title="Facebook" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        </a>
+        <a href="https://www.instagram.com/theskytechjpr/" target="_blank" rel="noopener noreferrer" class="social-circle-link" title="Instagram" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+          </svg>
+        </a>
+        <a href="https://wa.me/917737243812" target="_blank" rel="noopener noreferrer" class="social-circle-link top-wa-circle" title="WhatsApp" aria-label="WhatsApp">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm5.79 14.07c-.24.67-1.4 1.24-1.92 1.28-.48.04-1.07.06-3.48-.94-2.88-1.2-4.75-4.14-4.89-4.33-.14-.19-1.18-1.57-1.18-2.99 0-1.42.74-2.12 1.01-2.41.27-.29.59-.36.79-.36.2 0 .4 0 .57.01.19.01.44-.07.69.52.25.6.86 2.1.94 2.25.07.16.12.35.02.55-.1.2-.15.32-.3.5-.15.17-.32.39-.46.52-.15.15-.31.31-.13.62.17.3 1.09 1.79 2.34 2.91 1.61 1.43 2.97 1.87 3.39 2.08.42.2.66.18.91-.11.25-.28 1.07-1.25 1.36-1.68.29-.42.57-.35.96-.21.39.14 2.47 1.17 2.89 1.38.42.21.7.31.81.49.1.18.1.96-.14 1.63z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Sticky Header -->
+  <header class="main-header">
+    <div class="container header-container">
+      <a href="index.html" class="brand-logo-wrap" title="The Skytech Structural Consultant Home">
+        <img src="assets/images/skytech-logo.svg" alt="The Skytech Structural Consultant — Quality Matters" width="240" height="48">
+      </a>
+      <nav class="main-nav">
+        <div class="mobile-drawer-header">
+          <a href="index.html" class="drawer-logo-wrap" title="The Skytech Home">
+            <img src="assets/images/skytech-logo.svg" alt="The Skytech Structural Consultant — Quality Matters" width="165" height="34">
+          </a>
+          <button type="button" class="drawer-close-btn" aria-label="Close Navigation Menu">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+        <ul class="nav-list">
+          <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+          <li class="nav-item has-dropdown has-hierarchy-dropdown">
+            <a href="services.html" class="nav-link" aria-haspopup="true">
+              Engineering Expertise
+              <svg class="dropdown-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </a>
+            <div class="hierarchy-dropdown" role="menu" aria-label="Engineering Expertise Hierarchy">
+              <div class="hierarchy-container">
+                <div class="hierarchy-categories-col">
+                  <div class="hierarchy-cat-group" data-category="structural">
+                    <div class="hierarchy-cat-header" tabindex="0">
+                      <div class="hierarchy-cat-left">
+                        <span class="hierarchy-cat-num">01.</span>
+                        <span class="hierarchy-cat-title">Structural Engineering &amp; Design</span>
+                      </div>
+                      <svg class="hierarchy-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </div>
+                    <div class="hierarchy-sub-menu">
+                      <a href="rcc-structural-design.html" class="hierarchy-sub-link">
+                        <div class="sub-link-body">
+                          <strong>RCC Structural Design</strong>
+                          <p>IS 456 / IS 13920 multi-storey buildings, rafts &amp; shear walls</p>
+                        </div>
+                      </a>
+                      <a href="steel-structural-design.html" class="hierarchy-sub-link">
+                        <div class="sub-link-body">
+                          <strong>Steel Structural Design</strong>
+                          <p>Heavy industrial frames, portal trusses &amp; gantry beams</p>
+                        </div>
+                      </a>
+                      <a href="ms-structures.html" class="hierarchy-sub-link">
+                        <div class="sub-link-body">
+                          <strong>MS Structures</strong>
+                          <p>Mild steel fabrication, mezzanine platforms &amp; pipe racks</p>
+                        </div>
+                      </a>
+                      <a href="peb-structures.html" class="hierarchy-sub-link">
+                        <div class="sub-link-body">
+                          <strong>PEB (Pre-Engineered Building) Structures</strong>
+                          <p>Clear-span industrial sheds, warehouses &amp; logistics hubs</p>
+                        </div>
+                      </a>
+                      <a href="structural-stability-certificate.html" class="hierarchy-sub-link">
+                        <div class="sub-link-body">
+                          <strong>Structural Stability Certificate</strong>
+                          <p>Statutory chartered engineer safety certificates &amp; peer audits</p>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                  <div class="hierarchy-cat-group" data-category="geotech">
+                    <div class="hierarchy-cat-header" tabindex="0">
+                      <div class="hierarchy-cat-left">
+                        <span class="hierarchy-cat-num">02.</span>
+                        <span class="hierarchy-cat-title">Geotechnical &amp; Audits</span>
+                      </div>
+                      <svg class="hierarchy-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </div>
+                    <div class="hierarchy-sub-menu">
+                      <a href="soil-testing-report.html" class="hierarchy-sub-link">
+                        <div class="sub-link-body">
+                          <strong>Soil Testing &amp; SBC Report</strong>
+                          <p>Safe Bearing Capacity investigation &amp; foundation recommendations</p>
+                        </div>
+                      </a>
+                      <a href="structural-audit-rehabilitation.html" class="hierarchy-sub-link">
+                        <div class="sub-link-body">
+                          <strong>Structural Audit &amp; Rehabilitation</strong>
+                          <p>NDT testing, rebound hammer, UPV &amp; retrofitting design</p>
+                        </div>
+                      </a>
+                      <a href="pmc-quality-control.html" class="hierarchy-sub-link">
+                        <div class="sub-link-body">
+                          <strong>PMC &amp; Quality Control</strong>
+                          <p>Site execution monitoring, BBS audit &amp; QA/QC verification</p>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="nav-item"><a href="projects.html" class="nav-link">Projects</a></li>
+          <li class="nav-item"><a href="blog.html" class="nav-link active">Blog</a></li>
+          <li class="nav-item"><a href="contact.html" class="nav-link">Contact Us</a></li>
+        </ul>
+        <div class="mobile-nav-actions">
+          <button type="button" class="btn-portfolio-outline" data-open-portfolio-gate title="Download Portfolio PDF">
+            <span>Download Portfolio</span>
+          </button>
+          <button type="button" class="btn-consultation-primary" data-open-consultation title="Get Free Structural Consultation">
+            <span>Get Free Consultation</span>
+          </button>
+        </div>
+      </nav>
+      <div class="header-actions">
+        <button type="button" class="btn-portfolio-outline" data-open-portfolio-gate id="headerDownloadBtn" title="Download The Skytech Engineering Portfolio PDF">
+          <span>Download Portfolio</span>
+        </button>
+      </div>
+      <div class="header-mobile-right">
+        <button type="button" class="btn-mobile-call-header" id="mobilePortfolioBtn" data-open-portfolio-gate aria-label="Open The Skytech Portfolio">
+          <span>Portfolio</span>
+        </button>
+        <button type="button" class="mobile-nav-toggle" aria-label="Toggle Navigation Menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Post Header Hero -->
+  <section class="post-header-hero">
+    <div class="container">
+      <nav class="post-breadcrumb" aria-label="Breadcrumb">
+        <a href="index.html">Home</a>
+        <span>/</span>
+        <a href="blog.html">Blog</a>
+        <span>/</span>
+        <span id="breadcrumbCategory">Engineering Guide</span>
+        <span>/</span>
+        <span id="breadcrumbTitle" style="color: #ffffff; font-weight: 600;">Article</span>
+      </nav>
+
+      <span class="post-category-tag" id="postCategoryBadge">Cost Optimization</span>
+      <h1 class="post-main-title" id="postMainTitle">How Re-Engineering Approved Drawings Trims 15-25% Steel Tonnage</h1>
+
+      <div class="post-meta-row">
+        <div class="post-author-box">
+          <div class="post-author-avatar">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+          </div>
+          <div class="post-author-info">
+            <span class="post-author-name">Er. Structural Consultant</span>
+            <span class="post-author-role">The Skytech Engineering Team &bull; <span id="postReadTime">7 min read</span></span>
+          </div>
+        </div>
+
+        <div class="post-share-group">
+          <a href="#" class="post-share-btn" id="btnShareWa" target="_blank" rel="noopener noreferrer" title="Share on WhatsApp">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm5.79 14.07c-.24.67-1.4 1.24-1.92 1.28-.48.04-1.07.06-3.48-.94-2.88-1.2-4.75-4.14-4.89-4.33-.14-.19-1.18-1.57-1.18-2.99 0-1.42.74-2.12 1.01-2.41.27-.29.59-.36.79-.36.2 0 .4 0 .57.01.19.01.44-.07.69.52.25.6.86 2.1.94 2.25.07.16.12.35.02.55-.1.2-.15.32-.3.5-.15.17-.32.39-.46.52-.15.15-.31.31-.13.62.17.3 1.09 1.79 2.34 2.91 1.61 1.43 2.97 1.87 3.39 2.08.42.2.66.18.91-.11.25-.28 1.07-1.25 1.36-1.68.29-.42.57-.35.96-.21.39.14 2.47 1.17 2.89 1.38.42.21.7.31.81.49.1.18.1.96-.14 1.63z"/></svg>
+            <span>WhatsApp</span>
+          </a>
+          <button type="button" class="post-share-btn" id="btnCopyArticleLink" title="Copy Article URL">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            <span id="copyBtnText">Copy Link</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Article Body -->
+  <main class="container">
+    <div class="post-body-container">
+      
+      <!-- Left Column: Full 1-2 Page Content -->
+      <article class="post-main-column">
+        
+        <!-- Featured Image -->
+        <div class="post-featured-media">
+          <img id="postFeaturedImage" src="assets/images/about-engineers.jpg" alt="Featured Article Image" width="800" height="440">
+        </div>
+
+        <!-- Full HTML Content (1-2 pages) -->
+        <div class="post-content-area" id="postContentArea">
+          <!-- Populated dynamically via JS -->
+        </div>
+
+        <!-- Author Bio Footer Box -->
+        <div class="post-author-footer-card">
+          <div class="post-author-avatar" style="width: 64px; height: 64px; flex-shrink: 0;">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+          </div>
+          <div>
+            <h4 style="font-size: 1.15rem; font-weight: 800; color: var(--navy-950); margin-bottom: 0.35rem;">Published by The Skytech Engineering Desk</h4>
+            <p style="font-size: 0.88rem; color: #64748b; line-height: 1.6; margin: 0;">
+              The Skytech is a premier structural engineering consultancy in Jaipur, Rajasthan, delivering code-compliant RCC frame design, heavy structural steel, industrial PEB buildings, and forensic stability certificates across North India.
+            </p>
+          </div>
+        </div>
+
+        <!-- Back to All Articles Button -->
+        <div style="margin-top: 2rem;">
+          <a href="blog.html" style="display: inline-flex; align-items: center; gap: 0.5rem; font-weight: 700; color: var(--sky-blue-600); text-decoration: none; font-size: 0.95rem;">
+            <span>&larr; Back to All Engineering Articles</span>
+          </a>
+        </div>
+
+      </article>
+
+      <!-- Right Column: Sticky Sidebar -->
+      <aside class="post-sidebar">
+        
+        <!-- Quick Drawing Audit CTA Card -->
+        <div class="sidebar-card sidebar-cta-card">
+          <div class="sidebar-card-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+            <span>Drawing Re-Audit</span>
+          </div>
+          <p style="font-size: 0.85rem; color: #94a3b8; line-height: 1.55; margin-bottom: 1rem;">
+            Have approved GFC structural drawings? Our licensed engineers audit your design to trim 15-25% steel tonnage without reducing safety margins.
+          </p>
+          <button type="button" class="sidebar-cta-btn btn-audit-cta" data-open-consultation>
+            <span>Request Drawing Audit</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </button>
+          <a href="https://wa.me/917737243812?text=Hello%20The%20Skytech%2C%20I%20want%20to%20get%20my%20structural%20drawings%20audited." target="_blank" rel="noopener noreferrer" class="sidebar-cta-btn btn-wa-cta">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm5.79 14.07c-.24.67-1.4 1.24-1.92 1.28-.48.04-1.07.06-3.48-.94-2.88-1.2-4.75-4.14-4.89-4.33-.14-.19-1.18-1.57-1.18-2.99 0-1.42.74-2.12 1.01-2.41.27-.29.59-.36.79-.36.2 0 .4 0 .57.01.19.01.44-.07.69.52.25.6.86 2.1.94 2.25.07.16.12.35.02.55-.1.2-.15.32-.3.5-.15.17-.32.39-.46.52-.15.15-.31.31-.13.62.17.3 1.09 1.79 2.34 2.91 1.61 1.43 2.97 1.87 3.39 2.08.42.2.66.18.91-.11.25-.28 1.07-1.25 1.36-1.68.29-.42.57-.35.96-.21.39.14 2.47 1.17 2.89 1.38.42.21.7.31.81.49.1.18.1.96-.14 1.63z"/></svg>
+            <span>WhatsApp Quick Audit</span>
+          </a>
+        </div>
+
+        <!-- Table of Contents Card -->
+        <div class="sidebar-card">
+          <div class="sidebar-card-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+            <span>Article Sections</span>
+          </div>
+          <ul class="toc-list" id="sidebarTocList">
+            <!-- Dynamically populated from article H2 tags -->
+          </ul>
+        </div>
+
+        <!-- Governing IS Standards Card -->
+        <div class="sidebar-card">
+          <div class="sidebar-card-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+            <span>Governing IS Codes</span>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: 0.4rem; font-size: 0.78rem;">
+            <span style="background: #e0f2fe; color: #0369a1; padding: 0.3rem 0.6rem; border-radius: 4px; font-weight: 700;">IS 456:2000 (RCC)</span>
+            <span style="background: #e0f2fe; color: #0369a1; padding: 0.3rem 0.6rem; border-radius: 4px; font-weight: 700;">IS 1893:2016 (Seismic)</span>
+            <span style="background: #e0f2fe; color: #0369a1; padding: 0.3rem 0.6rem; border-radius: 4px; font-weight: 700;">IS 13920:2016 (Ductile)</span>
+            <span style="background: #e0f2fe; color: #0369a1; padding: 0.3rem 0.6rem; border-radius: 4px; font-weight: 700;">IS 800:2007 (Steel)</span>
+            <span style="background: #e0f2fe; color: #0369a1; padding: 0.3rem 0.6rem; border-radius: 4px; font-weight: 700;">IS 875:2015 (Wind)</span>
+          </div>
+        </div>
+
+      </aside>
+
+    </div>
+  </main>
+
+  <!-- Related Articles Grid -->
+  <section class="related-articles-section">
+    <div class="container">
+      <div class="section-title-wrap">
+        <span class="hero-badge" style="background: rgba(2, 132, 199, 0.1); color: var(--sky-blue-600); border: 1px solid rgba(2, 132, 199, 0.2);">FURTHER ENGINEERING READING</span>
+        <h2>Explore More Technical Guides</h2>
+        <p style="color: #64748b; font-size: 0.95rem;">Peer-reviewed structural insights by licensed civil &amp; structural consultants.</p>
+      </div>
+
+      <div class="blog-grid" id="relatedArticlesGrid">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Site Footer -->
+  <footer class="site-footer" style="background: #0b1523; color: #94a3b8; padding: 4rem 0 2rem; border-top: 1px solid #1e293b;">
+    <div class="container">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2.5rem; margin-bottom: 3rem;">
+        
+        <div class="footer-brand-col">
+          <a href="index.html" class="footer-brand-badge" title="The Skytech Structural Consultant">
+            <img src="assets/images/skytech-logo.png" alt="The Skytech Structural Consultant — Quality Matters" width="220" height="37">
+          </a>
+          <p class="footer-brand-desc" style="font-size: 0.88rem; line-height: 1.6; color: #94a3b8; margin-top: 0.75rem;">
+            Premier Structural Engineering Consultancy based in Jaipur, delivering IS-compliant RCC, steel framing, PEB structures, and building cost reduction audits across Rajasthan and Pan-India.
+          </p>
+        </div>
+
+        <div>
+          <h4 style="color: #ffffff; font-size: 1rem; font-weight: 700; margin-bottom: 1rem;">Core Engineering Expertise</h4>
+          <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.88rem; line-height: 2;">
+            <li><a href="rcc-structural-design.html" style="color: #94a3b8; text-decoration: none;">RCC Structural Design</a></li>
+            <li><a href="steel-structural-design.html" style="color: #94a3b8; text-decoration: none;">Steel Structural Design</a></li>
+            <li><a href="ms-structures.html" style="color: #94a3b8; text-decoration: none;">MS Structures</a></li>
+            <li><a href="peb-structures.html" style="color: #94a3b8; text-decoration: none;">PEB Building Design</a></li>
+            <li><a href="structural-stability-certificate.html" style="color: #94a3b8; text-decoration: none;">Stability Certification</a></li>
+            <li><a href="soil-testing-report.html" style="color: #94a3b8; text-decoration: none;">Soil Testing &amp; SBC Report</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 style="color: #ffffff; font-size: 1rem; font-weight: 700; margin-bottom: 1rem;">Company &amp; Legal</h4>
+          <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.88rem; line-height: 2;">
+            <li><a href="index.html" style="color: #94a3b8; text-decoration: none;">Home</a></li>
+            <li><a href="services.html" style="color: #94a3b8; text-decoration: none;">All Services Overview</a></li>
+            <li><a href="projects.html" style="color: #94a3b8; text-decoration: none;">Featured Projects</a></li>
+            <li><a href="blog.html" style="color: #94a3b8; text-decoration: none;">Technical Blog</a></li>
+            <li><a href="contact.html" style="color: #94a3b8; text-decoration: none;">Contact Us</a></li>
+            <li><a href="privacy.html" style="color: #94a3b8; text-decoration: none;">Privacy Policy</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 style="color: #ffffff; font-size: 1rem; font-weight: 700; margin-bottom: 1rem;">Headquarters</h4>
+          <p style="font-size: 0.88rem; line-height: 1.6; color: #94a3b8; margin-bottom: 0.75rem;">
+            <strong>The Skytech Structural Consultant</strong><br>
+            Jaipur, Rajasthan, India<br>
+            Phone: <a href="tel:+917737243812" style="color: #38bdf8; text-decoration: none;">+91-7737243812</a><br>
+            Email: <a href="mailto:skytechjpr@gmail.com" style="color: #38bdf8; text-decoration: none;">skytechjpr@gmail.com</a>
+          </p>
+        </div>
+      </div>
+
+      <div style="border-top: 1px solid #1e293b; padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; font-size: 0.82rem; color: #64748b;">
+        <div>&copy; 2026 The Skytech Structural Consultant. All rights reserved. Quality Matters.</div>
+        <div>Compliant with IS 456, IS 800, IS 1893, IS 13920 &amp; NBC 2016 standards.</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Consultation Popup Modal -->
+  <div class="modal-overlay" id="consultationPopupModal" role="dialog" aria-modal="true" aria-labelledby="popupModalTitle">
+    <div class="modal-container">
+      <button type="button" class="modal-close-btn close-modal-btn" aria-label="Close Consultation Modal">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+
+      <div class="consultation-card-inner">
+        <div class="consultation-card-media">
+          <picture>
+            <source srcset="assets/images/consultation-thumb.webp" type="image/webp">
+            <img src="assets/images/consultation-thumb.jpg" alt="Building structural consultation by The Skytech" loading="lazy" width="400" height="400">
+          </picture>
+          <div class="media-overlay-content">
+            <h4 id="popupModalTitle">Get Expert Structural Engineering Consultation</h4>
+            <p>Consult with our licensed civil &amp; structural engineering team in Jaipur for safe, cost-optimized designs.</p>
+            <div style="display: flex; flex-direction: column; gap: 0.5rem; margin-top: 1rem;">
+              <a href="tel:+917737243812" class="btn-play-video" style="text-decoration: none;" title="Call The Skytech Structural Consultant">
+                <span class="play-icon-circle" style="background: #0284c7;">
+                  <svg viewBox="0 0 24 24" fill="currentColor" style="width: 12px; height: 12px;"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 0 0-1.01.24l-2.2 2.2a15.053 15.053 0 0 1-6.59-6.59l2.2-2.21a.96.96 0 0 0 .25-1.01A11.36 11.36 0 0 1 8.5 3.99c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.5c0-.55-.45-1-1-1z"/></svg>
+                </span>
+                <span>Call: +91-7737243812</span>
+              </a>
+              <a href="https://wa.me/917737243812?text=Hello%20The%20Skytech%2C%20I%20would%20like%20to%20enquire%20about%20your%20structural%20consultancy%20services." target="_blank" rel="noopener noreferrer" class="btn-play-video" style="text-decoration: none; border-color: rgba(37,211,102,0.4);" title="Chat with The Skytech on WhatsApp">
+                <span class="play-icon-circle" style="background: #25d366;">
+                  <svg viewBox="0 0 24 24" fill="currentColor" style="width: 12px; height: 12px;"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm5.79 14.07c-.24.67-1.4 1.24-1.92 1.28-.48.04-1.07.06-3.48-.94-2.88-1.2-4.75-4.14-4.89-4.33-.14-.19-1.18-1.57-1.18-2.99 0-1.42.74-2.12 1.01-2.41.27-.29.59-.36.79-.36.2 0 .4 0 .57.01.19.01.44-.07.69.52.25.6.86 2.1.94 2.25.07.16.12.35.02.55-.1.2-.15.32-.3.5-.15.17-.32.39-.46.52-.15.15-.31.31-.13.62.17.3 1.09 1.79 2.34 2.91 1.61 1.43 2.97 1.87 3.39 2.08.42.2.66.18.91-.11.25-.28 1.07-1.25 1.36-1.68.29-.42.57-.35.96-.21.39.14 2.47 1.17 2.89 1.38.42.21.7.31.81.49.1.18.1.96-.14 1.63z"/></svg>
+                </span>
+                <span>WhatsApp Quick Chat</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="consultation-form-wrap">
+          <form class="consultation-enquiry-form" id="consultationEnquiryForm">
+            <div class="form-group">
+              <label class="form-label" for="cFullName">Full Name <span class="req">*</span></label>
+              <input type="text" id="cFullName" name="fullName" class="form-control" placeholder="Enter your full name" required autocomplete="name">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="cPhone">Phone Number <span class="req">*</span></label>
+              <div class="phone-input-group">
+                <select name="countryCode" class="form-control country-code-select" aria-label="Country Code">
+                  <option value="+91" selected>+91 (India)</option>
+                  <option value="+1">+1 (USA)</option>
+                  <option value="+971">+971 (UAE)</option>
+                  <option value="+44">+44 (UK)</option>
+                </select>
+                <input type="tel" id="cPhone" name="phone" class="form-control" placeholder="Enter 10-digit number" required autocomplete="tel">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="cEmail">Email Address (Optional)</label>
+              <input type="email" id="cEmail" name="email" class="form-control" placeholder="name@example.com" autocomplete="email">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="cService">Service Required <span class="req">*</span></label>
+              <select id="cService" name="service" class="form-control" required>
+                <option value="" disabled selected>Select required service</option>
+                <option value="RCC Structural Design">RCC Structural Design</option>
+                <option value="Steel Structure Design">Steel Structure Design</option>
+                <option value="PEB Design">PEB Design (Pre-Engineered Buildings)</option>
+                <option value="Structural Audit">Structural Audit</option>
+                <option value="Structural Stability Assessment">Structural Stability Assessment</option>
+                <option value="Building Cost Reduction">Building Cost Reduction (Approved Drawings)</option>
+                <option value="Other">Other Engineering Services</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="cDetails">Project Details</label>
+              <textarea id="cDetails" name="details" class="form-control" placeholder="Describe plot area, number of floors, building type, location..."></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit-enquiry">
+              <span>Submit Enquiry</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Portfolio Access Lead Modal -->
+  <div class="modal-overlay" id="portfolioLeadModal" role="dialog" aria-modal="true" aria-labelledby="portfolioModalTitle">
+    <div class="modal-container" style="max-width: 480px;">
+      <button type="button" class="modal-close-btn close-modal-btn" aria-label="Close Modal">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+
+      <div class="consultation-card-inner" style="grid-template-columns: 1fr;">
+        <div class="consultation-form-wrap" style="padding: 1.75rem 1.5rem;">
+          <div style="text-align: center; margin-bottom: 1.25rem;">
+            <div style="width: 50px; height: 50px; border-radius: 12px; background: rgba(2, 132, 199, 0.1); color: #0284c7; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 0.75rem;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+              </svg>
+            </div>
+            <h3 id="portfolioModalTitle" style="font-size: 1.25rem; font-weight: 800; color: #0b1523; margin-bottom: 0.35rem;">The Skytech Structural Portfolio</h3>
+            <p style="font-size: 0.85rem; color: #64748b; margin: 0; line-height: 1.5;">Please enter your details to view and download our complete engineering project portfolio.</p>
+          </div>
+
+          <form class="portfolio-lead-form" id="portfolioLeadForm">
+            <div class="form-group">
+              <label class="form-label" for="portfolioFullName">Full Name <span class="req">*</span></label>
+              <input type="text" id="portfolioFullName" name="fullName" class="form-control" placeholder="Enter your full name" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="portfolioPhone">Mobile Number <span class="req">*</span></label>
+              <div class="phone-input-group">
+                <select name="countryCode" class="form-control country-code-select" aria-label="Country Code">
+                  <option value="+91" selected>+91</option>
+                  <option value="+1">+1</option>
+                  <option value="+971">+971</option>
+                  <option value="+44">+44</option>
+                </select>
+                <input type="tel" id="portfolioPhone" name="phone" class="form-control" placeholder="Enter mobile number" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="portfolioEmail">Email ID <span class="req">*</span></label>
+              <input type="email" id="portfolioEmail" name="email" class="form-control" placeholder="name@example.com" autocomplete="email" required>
+            </div>
+
+            <button type="submit" class="btn-submit-enquiry" id="portfolioSubmitBtn" style="margin-top: 0.5rem; justify-content: center; width: 100%;">
+              <span>Submit &amp; Open Portfolio</span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Actions Container -->
+  <div class="floating-actions-container">
+    <button type="button" class="floating-btn floating-back-to-top" id="backToTopBtn" aria-label="Back to Top" title="Scroll to Top">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="18 15 12 9 6 15"></polyline>
+      </svg>
+      <span class="floating-btn-tooltip">Back to Top</span>
+    </button>
+    <a href="https://wa.me/917737243812" target="_blank" rel="noopener noreferrer" class="floating-btn floating-whatsapp" title="WhatsApp Us">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm5.79 14.07c-.24.67-1.4 1.24-1.92 1.28-.48.04-1.07.06-3.48-.94-2.88-1.2-4.75-4.14-4.89-4.33-.14-.19-1.18-1.57-1.18-2.99 0-1.42.74-2.12 1.01-2.41.27-.29.59-.36.79-.36.2 0 .4 0 .57.01.19.01.44-.07.69.52.25.6.86 2.1.94 2.25.07.16.12.35.02.55-.1.2-.15.32-.3.5-.15.17-.32.39-.46.52-.15.15-.31.31-.13.62.17.3 1.09 1.79 2.34 2.91 1.61 1.43 2.97 1.87 3.39 2.08.42.2.66.18.91-.11.25-.28 1.07-1.25 1.36-1.68.29-.42.57-.35.96-.21.39.14 2.47 1.17 2.89 1.38.42.21.7.31.81.49.1.18.1.96-.14 1.63z"/></svg>
+      <span class="floating-btn-tooltip">WhatsApp Us</span>
+    </a>
+    <a href="tel:+917737243812" class="floating-btn floating-call" title="Call Us">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 0 0-1.01.24l-2.2 2.2a15.053 15.053 0 0 1-6.59-6.59l2.2-2.21a.96.96 0 0 0 .25-1.01A11.36 11.36 0 0 1 8.5 3.99c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.5c0-.55-.45-1-1-1z"/></svg>
+      <span class="floating-btn-tooltip">Call +91-7737243812</span>
+    </a>
+    <button type="button" class="floating-btn floating-ai" id="openAiWidgetBtn" title="AI Assistant">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="10" rx="2"></rect><circle cx="12" cy="5" r="2"></circle><path d="M12 7v4"></path><line x1="8" y1="16" x2="8" y2="16"></line><line x1="16" y1="16" x2="16" y2="16"></line></svg>
+      <span class="floating-btn-tooltip">The Skytech AI Assistant</span>
+    </button>
+  </div>
+
+  <!-- AI Assistant Widget -->
+  <aside class="ai-assistant-widget" id="aiAssistantWidget">
+    <div class="ai-header">
+      <div class="ai-header-left">
+        <div class="ai-avatar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+        <div class="ai-title"><h4>The Skytech AI Assistant</h4><span class="ai-status"><span class="ai-status-dot"></span> Online &bull; Expert</span></div>
+      </div>
+      <button type="button" class="ai-close-btn" id="closeAiWidgetBtn">&times;</button>
+    </div>
+    <div class="ai-chat-body" id="aiChatBody">
+      <div class="chat-bubble bot">Hello! Need assistance with structural design, drawing optimization, or scheduling a site visit?</div>
+    </div>
+    <div class="ai-chat-footer">
+      <input type="text" id="aiChatInput" placeholder="Ask about RCC, steel, PEB, cost reduction...">
+      <button type="button" class="btn-send-ai" id="aiSendBtn">&rtrif;</button>
+    </div>
+  </aside>
+
+  <!-- External App Modules -->
+  <script type="module" src="assets/js/main.js"></script>
+  <script type="module" src="assets/js/ai-assistant.js"></script>
+
+  <!-- Blog Article Loader Script -->
+  <script>
+    const SUPABASE_URL = 'https://fzfdddlkclluqpiyjrtx.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_Psu9GXnSc_MXGNgQxP6-Dg_W14RBCVq';
+
+    // Built-in Instant Fallback Dataset (Full 1-2 page articles)
+    const fallbackBlogs = [
+      {
+        id: 1,
+        slug: "re-engineering-approved-drawings-trims-steel-tonnage",
+        title: "How Re-Engineering Approved Drawings Trims 15-25% Steel Tonnage",
+        category: "Cost Optimization",
+        read_time: "7 min read",
+        image_url: "assets/images/about-engineers.jpg",
+        excerpt: "Discover how accurate 3D finite element load redistribution, moment redistribution per IS 456:2000, and optimized Bar Bending Schedules (BBS) eliminate hidden steel wastage without compromising a single code safety margin.",
+        content: `
+<h2>1. Executive Summary: The Structural Steel Dilemma</h2>
+<p>In contemporary Indian construction, structural steel represents between 28% and 36% of total structural expenditure in reinforced cement concrete (RCC) frames. On commercial IT parks, high-rise residential towers, and multi-storey institutional buildings, overdesigned steel reinforcement directly erodes builder margins while offering zero incremental safety.</p>
+<p>Through our forensic audits of over 100+ approved "Good For Construction" (GFC) drawings across Jaipur, Kota, Udaipur, and NCR, The Skytech structural engineering team consistently identifies <strong>15% to 25% redundant steel tonnage</strong>. This redundancy is not a deliberate safety buffer; rather, it is the cumulative result of archaic 2D drafting methods, cascading software default factors, and unoptimized bar bending schedules (BBS).</p>
+
+<h2>2. Root Causes of Overdesign in Standard GFC Drawings</h2>
+<p>Why do standard approved drawings carry hundreds of metric tonnes of unnecessary reinforcement? Our structural audits identify four recurring engineering pitfalls:</p>
+<ul>
+  <li><strong>Cascading Safety Factors:</strong> Architectural software assumptions compound with conservative geotechnical soil parameters and structural software auto-design defaults. When three independent safety buffers of 1.5 are compounded sequentially, the actual effective factor of safety frequently exceeds 3.2, wasting tonnes of high-grade steel.</li>
+  <li><strong>Blanket Peak Envelope Reinforcement:</strong> Many drafting offices apply the maximum negative bending moment steel across the entire span rather than detailing curtailment in accordance with IS 456:2000 Clause 26.2.3.</li>
+  <li><strong>Sub-Optimal Concrete Mix Selection:</strong> Specifying M20 or M25 for columns in G+8 structures forces rebar percentages up to 4.0% to meet axial capacity. Stepping up to M35 or M40 concrete lowers rebar ratios to an optimal 1.8% to 2.2%, yielding dramatic cost savings.</li>
+  <li><strong>Bar Bending Schedule (BBS) Scrap Rate:</strong> Standard site cutting without linear cut optimization generates 7% to 11% scrap rebar. Applying computational cutting algorithms drops scrap loss to under 1.5%.</li>
+</ul>
+
+<h2>3. The 4-Pillar Skytech Value Re-Engineering Methodology</h2>
+<p>Value engineering is not about cutting steel blindly; it is the mathematical optimization of load paths while strictly preserving all IS 456:2000, IS 1893:2016, and IS 13920:2016 statutory safety margins.</p>
+
+<div class="table-responsive">
+  <table class="tech-table">
+    <thead>
+      <tr>
+        <th>Engineering Parameter</th>
+        <th>Standard Approved GFC Drawing</th>
+        <th>The Skytech Value Re-Engineered Design</th>
+        <th>Net Optimization Impact</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Frame Analysis</strong></td>
+        <td>2D Frame Approximations</td>
+        <td>Full 3D Finite Element Spatial Rigidity</td>
+        <td>Accurate load distribution, zero blind spots</td>
+      </tr>
+      <tr>
+        <td><strong>Moment Redistribution</strong></td>
+        <td>0% (Standard software output)</td>
+        <td>20% to 30% redistribution per IS 456 Cl. 37.1</td>
+        <td>Eliminates rebar congestion at beam-column nodes</td>
+      </tr>
+      <tr>
+        <td><strong>Rebar Grade</strong></td>
+        <td>Fe 500 standard rebar</td>
+        <td>Fe 550D High-Ductility TMT Rebar</td>
+        <td>9% to 11% lower steel cross-sectional requirement</td>
+      </tr>
+      <tr>
+        <td><strong>Column Rebar Ratio</strong></td>
+        <td>3.2% - 4.2% (Overcrowded)</td>
+        <td>1.8% - 2.4% (Optimized with M35/M40 concrete)</td>
+        <td>Easier concrete compaction, honeycomb prevention</td>
+      </tr>
+      <tr>
+        <td><strong>BBS Scrap Rate</strong></td>
+        <td>7.5% - 10.0% site wastage</td>
+        <td>Under 1.5% linear cut planning</td>
+        <td>Direct rebar procurement savings</td>
+      </tr>
+      <tr>
+        <td><strong>Average Steel Consumption</strong></td>
+        <td>4.4 - 5.2 kg / sq.ft</td>
+        <td>3.2 - 3.7 kg / sq.ft</td>
+        <td><strong>18% to 24% Total Steel Tonnage Saved</strong></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h2>4. Mathematical Principles: Moment Redistribution per IS 456:2000 Clause 37.1</h2>
+<p>Under Clause 37.1 of IS 456:2000, moment redistribution up to 30% is legally permitted in continuous RCC beams provided ductile detailing requirements are satisfied:</p>
+<div class="code-callout">
+  <strong>IS 456:2000 Clause 37.1.1 Formula:</strong><br>
+  <code>(xu / d) + (% redistribution / 100) &le; 0.6</code><br>
+  <em>By redistributing peak hogging moments from support headers into sagging mid-span moments where concrete flange action (T-beam / L-beam effect) is available, rebar congestion is eliminated and total reinforcement area (Ast) is minimized.</em>
+</div>
+
+<h2>5. Case Study: G+9 Commercial Complex, Jaipur</h2>
+<p>To demonstrate real-world impact, consider a recently audited commercial project in Jaipur:</p>
+<ul>
+  <li><strong>Total Built-Up Area:</strong> 1,12,000 sq.ft (Basement + Ground + 9 Floors).</li>
+  <li><strong>Original Approved Steel Estimate:</strong> 425 Metric Tonnes (3.79 kg/sq.ft).</li>
+  <li><strong>The Skytech Re-Engineered Steel Quantity:</strong> 338 Metric Tonnes (3.01 kg/sq.ft).</li>
+  <li><strong>Net Steel Saved:</strong> <strong>87 Metric Tonnes (20.47% Reduction)</strong>.</li>
+  <li><strong>Total Financial Savings:</strong> <strong>₹56.55 Lakhs</strong> (Calculated at prevailing TMT rate of ₹65,000/MT).</li>
+  <li><strong>Safety Review:</strong> 100% compliant with Jaipur Development Authority (JDA) structural bylaws and vetted by senior Chartered Structural Engineers.</li>
+</ul>
+
+<h2>6. Mandatory Engineering Compliance Checks</h2>
+<p>During every value engineering re-audit, our licensed engineers verify three non-negotiable serviceability limits:</p>
+<ol>
+  <li><strong>Deflection Limit (IS 456 Cl. 23.2):</strong> Final deflection under all loads including temperature, creep, and shrinkage shall not exceed <code>Span / 250</code>, and deflection after erection of partitions shall not exceed <code>Span / 350 or 20 mm</code>.</li>
+  <li><strong>Crack Width Verification (IS 456 Annex F):</strong> Surface crack widths must not exceed 0.3 mm for moderate exposure to prevent carbonation-induced rebar corrosion.</li>
+  <li><strong>Seismic Drift Compliance (IS 1893:2016 Part 1):</strong> Inter-storey drift under design lateral force must remain under <code>0.004 * story height</code>.</li>
+</ol>
+
+<h2>7. Conclusion & Recommendation for Developers</h2>
+<p>A structural drawing audit costs a tiny fraction of total civil expenditure (typically less than 1% of steel savings), yet delivers immediate financial returns within weeks of execution. For developers and architects embarking on projects above 15,000 sq.ft, conducting a value re-engineering audit before casting foundations is the single highest-ROI decision in the project lifecycle.</p>
+`
+      },
+      {
+        id: 2,
+        slug: "demystifying-is-1893-seismic-design-north-india",
+        title: "Demystifying IS 1893:2016: Seismic Design Criteria for North India",
+        category: "Structural Standards",
+        read_time: "8 min read",
+        image_url: "assets/images/hero-building.jpg",
+        excerpt: "A comprehensive practical guide to seismic zone factors (Zone II, III, IV), Response Reduction coefficients (R=5 SMRF), and IS 13920:2016 ductile detailing mandates for high-rise buildings across Rajasthan and North India.",
+        content: `
+<h2>1. Introduction: The Critical Need for Seismic Compliance in North India</h2>
+<p>The revised Indian Standard <strong>IS 1893 (Part 1): 2016</strong> marked a paradigm shift in how multi-storey structures must be designed against earthquake forces. With rapid urbanization across North India—including Jaipur, Alwar, Delhi-NCR, Gurugram, and Haryana—structural engineers can no longer treat seismic loading as a secondary check. Modern structural frames must possess calibrated ductility to absorb seismic energy without brittle failure.</p>
+<p>In this comprehensive guide, The Skytech engineering team breaks down the mathematical parameters, zone designations, and ductile detailing mandates required to design earthquake-resilient buildings in accordance with IS 1893:2016 and IS 13920:2016.</p>
+
+<h2>2. Seismic Zonation of Rajasthan and North Indian Belts</h2>
+<p>The seismic zone map of India classifies regions into four seismic zones: Zone II, Zone III, Zone IV, and Zone V. The design horizontal seismic coefficient (Ah) is governed by:</p>
+<div class="code-callout">
+  <strong>Design Seismic Base Shear Formula (IS 1893:2016 Cl. 6.4.2):</strong><br>
+  <code>Ah = (Z / 2) * (I / R) * (Sa / g)</code><br>
+  <code>Vb = Ah * W</code><br>
+  <em>Where Z = Zone Factor, I = Importance Factor, R = Response Reduction Factor, Sa/g = Design Acceleration Coefficient, and W = Total Seismic Weight of Structure.</em>
+</div>
+
+<div class="table-responsive">
+  <table class="tech-table">
+    <thead>
+      <tr>
+        <th>Region / Belt</th>
+        <th>Seismic Zone</th>
+        <th>Zone Factor (Z)</th>
+        <th>PGA (Peak Ground Acceleration)</th>
+        <th>Soil Type Consideration</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Jaipur, Ajmer, Kota, Udaipur</td>
+        <td>Zone II</td>
+        <td>0.10</td>
+        <td>0.10 g</td>
+        <td>Type II (Medium Soil) / Type I (Rocky Strata)</td>
+      </tr>
+      <tr>
+        <td>Jodhpur, Bikaner, Nagaur</td>
+        <td>Zone II / III</td>
+        <td>0.10 - 0.16</td>
+        <td>0.10 g - 0.16 g</td>
+        <td>Sandy desert alluvium (Requires liquefaction check)</td>
+      </tr>
+      <tr>
+        <td>Alwar, Bharatpur, NCR Border</td>
+        <td>Zone III / IV</td>
+        <td>0.16 - 0.24</td>
+        <td>0.16 g - 0.24 g</td>
+        <td>Type II / Type III soft deep alluvium</td>
+      </tr>
+      <tr>
+        <td>Delhi-NCR, Gurugram, Faridabad</td>
+        <td>Zone IV</td>
+        <td>0.24</td>
+        <td>0.24 g</td>
+        <td>High liquefaction susceptibility in riverbed belts</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h2>3. Response Reduction Factor (R): SMRF vs OMRF Comparison</h2>
+<p>The Response Reduction Factor (R) reflects the capacity of a structural system to deform in a ductile manner under severe ground shaking:</p>
+<ul>
+  <li><strong>Ordinary Moment Resisting Frame (OMRF, R = 3.0):</strong> Permitted strictly in Zone II for low-rise structures. Requires standard IS 456 detailing. Results in significantly higher design base shear (Ah is 66% higher).</li>
+  <li><strong>Special Moment Resisting Frame (SMRF, R = 5.0):</strong> Mandatory for buildings in Zone III, IV, and V, and for all structures exceeding 15 meters in height. Allows a 40% reduction in design base shear force, but strictly mandates ductile detailing in accordance with <strong>IS 13920:2016</strong>.</li>
+</ul>
+
+<h2>4. Critical Ductile Detailing Rules Under IS 13920:2016</h2>
+<p>Ductility is the ability of an RCC member to undergo large lateral displacements without sudden brittle collapse. The Skytech enforces these critical site detailing rules:</p>
+<ol>
+  <li><strong>Strong-Column Weak-Beam Concept (IS 13920 Cl. 7.2):</strong> The sum of nominal flexural strengths of columns meeting at a joint must be at least 1.4 times the sum of nominal flexural strengths of beams: <code>&sum; Mc &ge; 1.4 * &sum; Mb</code>. This forces plastic hinges to form in beams rather than columns, preventing catastrophic soft-storey collapse.</li>
+  <li><strong>Special Confining Reinforcement (Plastic Hinge Length lo):</strong> Columns must have closely spaced confining hoops over length <code>lo</code> above and below floor beams, where <code>lo</code> is the maximum of: column depth, 1/6th of clear height, or 450 mm. Maximum hoop pitch must not exceed <code>b/4 or 100 mm</code>.</li>
+  <li><strong>Lap Splice Locations:</strong> Column rebar laps must strictly be located in the central half of the column height, outside the plastic hinge zone. Never lap rebars within 1.5 times beam depth from the joint!</li>
+  <li><strong>135-Degree Seismic Stirrup Hooks:</strong> All ties and stirrups must terminate in 135-degree hooks with a minimum 10 times bar diameter extension (minimum 75 mm) to prevent ties from opening under cyclic shear reversals.</li>
+</ol>
+
+<h2>5. Dynamic Response Spectrum Analysis: When Is It Mandatory?</h2>
+<p>Under IS 1893:2016 Clause 7.7.1, linear dynamic response spectrum analysis using 3D finite element software (ETABS / STAAD) is mandatory for:</p>
+<ul>
+  <li>All buildings taller than 15 meters in Zone III, IV, and V.</li>
+  <li>All irregular buildings (torsional irregularity, re-entrant corners, soft storeys, mass irregularity) taller than 12 meters in Zone II.</li>
+  <li>All critical infrastructure (hospitals, schools, communication towers, municipal command centers) regardless of height.</li>
+</ul>
+
+<h2>6. Practical Checklist for Structural Engineers & Site Supervisors</h2>
+<ul>
+  <li>&check; Verify that modal mass participation factor exceeds 90% in principal orthogonal directions (ETABS output check).</li>
+  <li>&check; Scale dynamic base shear (V_bar) to at least equal the empirical static base shear (Vb) per Clause 7.7.3.</li>
+  <li>&check; Ensure diaphragm flexibility is modeled accurately for multi-tower podium structures.</li>
+  <li>&check; Confirm all beam longitudinal rebar development lengths (Ld) satisfy tension development length in accordance with IS 456 Cl. 26.2.1.</li>
+</ul>
+
+<h2>7. Conclusion</h2>
+<p>Seismic design is not an academic exercise; it is life-safety insurance. By integrating 3D dynamic response spectrum modeling with rigorous IS 13920:2016 ductile detailing, The Skytech ensures your structures achieve maximum resilience at optimized construction cost.</p>
+`
+      },
+      {
+        id: 3,
+        slug: "peb-vs-conventional-steel-cost-timeline-comparison",
+        title: "PEB vs Conventional Steel: Comprehensive Cost & Timeline Comparison",
+        category: "Industrial Design",
+        read_time: "8 min read",
+        image_url: "assets/images/project-industrial.jpg",
+        excerpt: "Evaluating tapered plate portal framing versus standard rolled sections for warehouses and logistics parks. Learn why PEB structures achieve 30% faster commissioning, lighter foundations, and 25-35% capex savings.",
+        content: `
+<h2>1. The Industrial Building Revolution: PEB vs Conventional Steel</h2>
+<p>The industrial landscape in Rajasthan and across India is undergoing massive expansion. From warehouse logistics parks in Sitapura, Mahindra World City, and Neemrana to heavy manufacturing plants and cold storage facilities, developers face a critical design decision: <strong>Pre-Engineered Steel Buildings (PEB) versus Conventional Hot-Rolled Structural Steel Framing</strong>.</p>
+<p>While conventional steel has served civil engineering for over a century, Pre-Engineered Buildings (PEB) have captured over 75% of the industrial market. In this engineering analysis, The Skytech compares structural efficiency, erection speed, clear span capabilities, and lifecycle expenditure.</p>
+
+<h2>2. Fundamental Structural Mechanics: Built-Up Tapered Sections</h2>
+<p>The core efficiency of PEB lies in the structural mechanics of bending moments. In a standard continuous portal frame subjected to uniformly distributed loads (UDL), the bending moment varies dramatically from maximum at the knee joint (rafter-column junction) to near zero at mid-span inflection points.</p>
+<ul>
+  <li><strong>Conventional Steel Inefficiency:</strong> Standard hot-rolled sections (such as ISMB 400, ISMB 500, or ISMC channels) possess uniform cross-sectional dimensions along their entire length. This means 60% of the steel section is structurally underutilized throughout regions of low bending moment.</li>
+  <li><strong>PEB Tapered Plate Efficiency:</strong> PEB primary frames are fabricated from custom built-up plates where flange widths, web depths, and plate thicknesses taper in direct proportion to the bending moment envelope. Steel is placed exactly where stress demands it, trimming <strong>25% to 35% of total structural weight</strong>.</li>
+</ul>
+
+<h2>3. Comprehensive Technical & Financial Comparison Matrix</h2>
+<div class="table-responsive">
+  <table class="tech-table">
+    <thead>
+      <tr>
+        <th>Comparison Parameter</th>
+        <th>Pre-Engineered Building (PEB)</th>
+        <th>Conventional Hot-Rolled Steel</th>
+        <th>Engineering Advantage</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Primary Frame Section</strong></td>
+        <td>Tapered built-up I-sections (High tensile steel, fy = 345 MPa)</td>
+        <td>Standard rolled ISMB/ISMC beams (fy = 250 MPa)</td>
+        <td>PEB delivers higher strength-to-weight ratio</td>
+      </tr>
+      <tr>
+        <td><strong>Secondary Framing</strong></td>
+        <td>Cold-formed high-tensile Z and C purlins (fy = 345 MPa)</td>
+        <td>Hot-rolled ISMC channels or angles (fy = 250 MPa)</td>
+        <td>40% lighter secondary framing in PEB</td>
+      </tr>
+      <tr>
+        <td><strong>Clear Span Capability</strong></td>
+        <td>Up to 60 meters unobstructed without internal columns</td>
+        <td>Typically 18 to 24 meters before requiring internal posts</td>
+        <td>PEB maximizes internal warehouse logistics volume</td>
+      </tr>
+      <tr>
+        <td><strong>Foundation Reactions</strong></td>
+        <td>Pinned base frames produce lower foundation overturning moment</td>
+        <td>Fixed base frames transmit large overturning moments</td>
+        <td>PEB saves 20% to 30% in foundation RCC volume</td>
+      </tr>
+      <tr>
+        <td><strong>Fabrication & Erection Time</strong></td>
+        <td>Factory CNC fabrication; bolted site erection in 6 to 10 weeks</td>
+        <td>Manual site cutting, welding, and erection taking 20 to 28 weeks</td>
+        <td><strong>PEB commissions 3x faster</strong></td>
+      </tr>
+      <tr>
+        <td><strong>Quality Control</strong></td>
+        <td>Factory-controlled automated submerged arc welding (SAW)</td>
+        <td>Manual shielded metal arc welding (SMAW) on site</td>
+        <td>Far superior weld integrity and UT test compliance</td>
+      </tr>
+      <tr>
+        <td><strong>Total Project Capex</strong></td>
+        <td>₹1,250 - ₹1,750 per sq.ft (Complete superstructure)</td>
+        <td>₹1,800 - ₹2,400 per sq.ft</td>
+        <td><strong>25% to 35% overall capital expenditure savings</strong></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h2>4. Wind Load Engineering per IS 875 (Part 3): 2015</h2>
+<p>Due to the lightweight nature of PEB structures, wind uplift and lateral suction frequently govern rafter design rather than gravity loads. In Rajasthan (Basic wind speed <code>Vb = 47 m/s</code> per IS 875 Part 3), structural engineers must evaluate:</p>
+<ol>
+  <li><strong>Internal Pressure Coefficients (Cpi):</strong> For industrial sheds with openings between 5% and 20% of wall area, internal pressure coefficient is <code>&plusmn;0.5</code>. When large shutter doors remain open during storm events, internal pressure surges, requiring calibrated anchor bolt embedment.</li>
+  <li><strong>Purlin Uplift & Sag Rods:</strong> Inward gravity deflection is countered by outward wind suction. High-tensile sag rods and flange braces must be spaced at calculated intervals to prevent lateral torsional buckling of purlins.</li>
+</ol>
+
+<h2>5. Thermal Performance & Cladding Systems</h2>
+<p>Modern PEB warehouses utilize high-performance Galvalume sheet cladding (AZ150 coating with 55% Aluminum-Zinc alloy). Incorporating 50 mm thick glass wool insulation with reinforced aluminum foil facing (VMPET) achieves:</p>
+<ul>
+  <li>Thermal comfort reduction of 5&deg;C to 8&deg;C inside industrial workshops during peak Rajasthan summers.</li>
+  <li>Substantial HVAC energy savings for temperature-controlled pharmaceutical and food logistics hubs.</li>
+  <li>Integrated polycarbonate skylights providing 8% to 10% roof daylighting, slashing daytime electrical illumination costs.</li>
+</ul>
+
+<h2>6. Verdict: When Should You Choose PEB?</h2>
+<p>PEB is the uncontested superior choice for industrial warehouses, logistics parks, manufacturing facilities, sports arenas, and commercial showrooms requiring 18m to 60m clear column-free spans. Conventional steel remains competitive primarily for complex multi-level petro-chemical plants, pipe racks, and heavy industrial structures carrying continuous dynamic overhead crane loads exceeding 50 tonnes.</p>
+`
+      },
+      {
+        id: 4,
+        slug: "structural-stability-audit-ndt-testing-guide",
+        title: "Structural Stability Audit & NDT Testing: Complete Guide for Industrial Buildings",
+        category: "Structural Audits",
+        read_time: "8 min read",
+        image_url: "assets/images/project-commercial.jpg",
+        excerpt: "How structural health audits, Rebound Hammer, UPV non-destructive testing, and capacity rating protect commercial and industrial assets, ensure regulatory compliance, and prevent catastrophic failures.",
+        content: `
+<h2>1. Why Structural Stability Audits Are Mandatory</h2>
+<p>Buildings, like any engineered asset, deteriorate over time due to environmental weathering, material degradation, moisture ingress, carbonation, and load overstress. Under the <strong>Factories Act 1948 (Section 38A)</strong>, National Building Code (NBC 2016 Part 2), and municipal bylaws across Rajasthan and Pan-India, commercial and industrial establishments must undergo mandatory periodic structural stability audits.</p>
+<p>The Skytech is a government-licensed structural consultancy authorized to conduct Non-Destructive Testing (NDT), structural health forensics, and issue statutory <strong>Form 2 / Form B Structural Stability Certificates</strong>.</p>
+
+<h2>2. Non-Destructive Testing (NDT) Toolkit Explained</h2>
+<p>Non-Destructive Testing allows structural engineers to evaluate in-situ concrete strength, assess rebar corrosion, and detect internal subsurface defects without impairing the structural integrity of the building:</p>
+
+<div class="table-responsive">
+  <table class="tech-table">
+    <thead>
+      <tr>
+        <th>NDT Test Method</th>
+        <th>Standard Code</th>
+        <th>Core Engineering Parameter Measured</th>
+        <th>Acceptance & Quality Benchmark</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Rebound Hammer Test</strong></td>
+        <td>IS 13311 (Part 2): 1992</td>
+        <td>Surface compressive strength & hardness index</td>
+        <td>Rebound Number &gt; 30 (Good), &gt; 40 (Excellent)</td>
+      </tr>
+      <tr>
+        <td><strong>Ultrasonic Pulse Velocity (UPV)</strong></td>
+        <td>IS 13311 (Part 1): 1992</td>
+        <td>Concrete homogeneity, density, cracks & void detection</td>
+        <td>Pulse Velocity &gt; 4.5 km/s (Excellent), 3.5-4.5 km/s (Good)</td>
+      </tr>
+      <tr>
+        <td><strong>Concrete Core Extraction</strong></td>
+        <td>IS 516 (Part 4): 2021</td>
+        <td>Direct uniaxial compressive crushing strength</td>
+        <td>Corrected core strength &ge; 0.85 * specified grade</td>
+      </tr>
+      <tr>
+        <td><strong>Covermeter & Rebar Mapping</strong></td>
+        <td>BS 1881: Part 204</td>
+        <td>Cover depth, bar diameter, and rebar spacing</td>
+        <td>Ensures minimum 40mm cover for columns/beams</td>
+      </tr>
+      <tr>
+        <td><strong>Carbonation Depth Test</strong></td>
+        <td>RILEM CPC-18</td>
+        <td>Depth of CO2 ingress reacting with alkaline concrete</td>
+        <td>Phenolphthalein indicator turns pink; colorless = carbonated</td>
+      </tr>
+      <tr>
+        <td><strong>Half-Cell Potential Survey</strong></td>
+        <td>ASTM C876</td>
+        <td>Electrochemical probability of active rebar corrosion</td>
+        <td>&gt; -200 mV (Low risk), &lt; -350 mV (&gt;90% active corrosion)</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h2>3. Crack Pattern Diagnosis: Structural vs Non-Structural</h2>
+<p>Not all cracks indicate imminent structural failure. Our forensic engineers categorize cracks using structural mechanics principles:</p>
+<ul>
+  <li><strong>Diagonal Shear Cracks (45-degree near beam supports):</strong> Critical structural warning. Indicates shear deficiency or overloaded beam headers. Demands immediate propping and steel/CFRP shear retrofitting.</li>
+  <li><strong>Horizontal Cracks at Column Tops:</strong> Indicates flexural overstress or lateral seismic displacement. Requires immediate carbon fiber wrapping or concrete jacketing.</li>
+  <li><strong>Longitudinal Cracks Parallel to Rebar:</strong> Symptom of advanced rebar corrosion. Rust expansion exerts up to 15 MPa tensile pressure on concrete cover, causing spalling.</li>
+  <li><strong>Fine Map / Crazing Cracks:</strong> Non-structural plastic shrinkage cracks caused by inadequate initial water curing. Addressed via elastomeric protective coatings.</li>
+</ul>
+
+<h2>4. Modern Retrofitting & Structural Rehabilitation Techniques</h2>
+<p>When audits reveal under-strength structural members, costly demolition is rarely necessary. The Skytech designs high-tech retrofitting solutions:</p>
+<ol>
+  <li><strong>Carbon Fiber Reinforced Polymer (CFRP) Wrapping:</strong> Ultra-high tensile carbon laminates bonded with structural epoxy. Increases beam flexural capacity by up to 45% and column shear confinement without adding dead weight or altering architectural dimensions.</li>
+  <li><strong>RCC Micro-Concrete Jacketing:</strong> Adding new longitudinal bars and confining stirrups encased in high-flow, non-shrink micro-concrete (M60 grade). Restores full axial capacity to corroded columns.</li>
+  <li><strong>Pressure Epoxy Grouting:</strong> Injecting low-viscosity epoxy resin under 2 to 5 bar pressure to seal structural cracks down to 0.2 mm width, restoring monolithic structural action.</li>
+</ol>
+
+<h2>5. Step-by-Step Stability Certification Workflow at The Skytech</h2>
+<p>Our comprehensive audit protocol follows six rigorous engineering stages:</p>
+<ol>
+  <li><strong>Preliminary Visual Survey:</strong> Structural condition rating, distress mapping, photographic documentation.</li>
+  <li><strong>NDT Field Investigation:</strong> Rebound hammer, UPV grid testing, rebar covermeter scans.</li>
+  <li><strong>Structural As-Built Modeling:</strong> Developing 3D ETABS frame model reflecting actual in-situ material strengths.</li>
+  <li><strong>Capacity Demand Analysis:</strong> Evaluating existing load-carrying capacity against current IS 456 / IS 1893 standards.</li>
+  <li><strong>Retrofitting & Remedial Recommendations:</strong> Cost-effective structural strengthening specifications.</li>
+  <li><strong>Statutory Stability Certification:</strong> Issuance of Form 2 / Form B Stability Certificate signed by Chartered Structural Engineer.</li>
+</ol>
+
+<h2>6. Conclusion</h2>
+<p>A structural stability audit is vital preventative maintenance. Whether you are acquiring an existing industrial facility, planning a vertical extension, or satisfying statutory factory inspections, The Skytech delivers scientific NDT testing and certified engineering reports you can trust.</p>
+`
+      }
+    ];
+
+    // Read URL query parameters (?id=... or ?slug=...)
+    const urlParams = new URLSearchParams(window.location.search);
+    const targetId = urlParams.get('id');
+    const targetSlug = urlParams.get('slug');
+
+    // Function to render active blog
+    function renderArticle(blog) {
+      document.title = `${blog.title} | The Skytech Blog`;
+      document.getElementById('metaTitle').innerText = `${blog.title} | The Skytech Blog`;
+      document.getElementById('breadcrumbCategory').innerText = blog.category || 'Engineering Guide';
+      document.getElementById('breadcrumbTitle').innerText = blog.title;
+      document.getElementById('postCategoryBadge').innerText = blog.category || 'Cost Optimization';
+      document.getElementById('postMainTitle').innerText = blog.title;
+      document.getElementById('postReadTime').innerText = blog.read_time || '7 min read';
+      
+      const imgEl = document.getElementById('postFeaturedImage');
+      if (blog.image_url) {
+        imgEl.src = blog.image_url;
+        imgEl.alt = blog.title;
+      }
+
+      // Render full 1-2 page content
+      const contentEl = document.getElementById('postContentArea');
+      contentEl.innerHTML = blog.content;
+
+      // Populate Table of Contents
+      const tocList = document.getElementById('sidebarTocList');
+      tocList.innerHTML = '';
+      const h2Elements = contentEl.querySelectorAll('h2');
+      h2Elements.forEach((h2, index) => {
+        const id = 'sec-' + (index + 1);
+        h2.id = id;
+        const li = document.createElement('li');
+        li.innerHTML = `<a href="#${id}">${h2.innerText}</a>`;
+        tocList.appendChild(li);
+      });
+
+      // Update WhatsApp Share Link
+      const shareUrl = window.location.href;
+      const shareText = `Read this technical structural guide by The Skytech: "${blog.title}" - ${shareUrl}`;
+      document.getElementById('btnShareWa').href = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareText)}`;
+
+      // Render Related Articles Grid (excluding current article)
+      renderRelatedArticles(blog.id);
+    }
+
+    function renderRelatedArticles(currentId) {
+      const container = document.getElementById('relatedArticlesGrid');
+      const otherBlogs = fallbackBlogs.filter(b => String(b.id) !== String(currentId)).slice(0, 3);
+      
+      container.innerHTML = otherBlogs.map(b => `
+        <article class="blog-card">
+          <div class="blog-card-img">
+            <img src="${b.image_url}" alt="${b.title}" loading="lazy" width="400" height="220">
+          </div>
+          <div class="blog-card-body">
+            <div class="blog-date">${b.category} &bull; ${b.read_time}</div>
+            <h3 class="blog-title">${b.title}</h3>
+            <p class="blog-excerpt">${b.excerpt}</p>
+            <a href="blog-post.html?id=${b.id}" class="btn-read-link">Read Full Technical Guide &rarr;</a>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    // Copy Article Link feedback handler
+    const copyBtn = document.getElementById('btnCopyArticleLink');
+    if (copyBtn) {
+      copyBtn.addEventListener('click', () => {
+        navigator.clipboard.writeText(window.location.href).then(() => {
+          const txt = document.getElementById('copyBtnText');
+          txt.innerText = 'Copied!';
+          setTimeout(() => { txt.innerText = 'Copy Link'; }, 2000);
+        });
+      });
+    }
+
+    // Scroll Reading Progress Bar Handler
+    window.addEventListener('scroll', () => {
+      const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      const bar = document.getElementById('readingProgressBar');
+      if (bar) bar.style.width = scrolled + '%';
+    });
+
+    // Main Fetch Routine
+    async function loadBlogPost() {
+      // 1. Initial Match from Fallback (instant zero-delay rendering)
+      let matchedBlog = null;
+      if (targetId) {
+        matchedBlog = fallbackBlogs.find(b => String(b.id) === String(targetId));
+      } else if (targetSlug) {
+        matchedBlog = fallbackBlogs.find(b => b.slug === targetSlug);
+      }
+      
+      // Default to first article if not specified
+      if (!matchedBlog) {
+        matchedBlog = fallbackBlogs[0];
+      }
+      renderArticle(matchedBlog);
+
+      // 2. Fetch from Supabase (for dynamic updates or new articles created in Admin)
+      try {
+        let queryUrl = `${SUPABASE_URL}/rest/v1/blogs?status=eq.published`;
+        if (targetId) {
+          queryUrl += `&id=eq.${targetId}`;
+        } else if (targetSlug) {
+          queryUrl += `&slug=eq.${targetSlug}`;
+        }
+
+        const res = await fetch(queryUrl, {
+          headers: {
+            'apikey': SUPABASE_KEY,
+            'Authorization': `Bearer ${SUPABASE_KEY}`
+          }
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.length > 0) {
+            renderArticle(data[0]);
+          }
+        }
+      } catch (err) {
+        console.warn('Supabase blog fetch notice:', err);
+      }
+    }
+
+    // Initialize on page load
+    loadBlogPost();
+  </script>
+</body>
+</html>

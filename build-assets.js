@@ -24,3 +24,4 @@ fs.writeFileSync('assets/js/main.min.js', minJs.code, 'utf8');
 console.log(`JS: ${(jsSource.length / 1024).toFixed(1)} KB -> ${(minJs.code.length / 1024).toFixed(1)} KB (Saved ${((jsSource.length - minJs.code.length) / 1024).toFixed(1)} KB)`);
 
 console.log('Build complete!');
+

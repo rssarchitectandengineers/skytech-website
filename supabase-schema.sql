@@ -170,3 +170,4 @@ VALUES
 
 ('PEB vs Conventional Steel: Cost & Speed Comparison for Warehouses', 'peb-vs-conventional-steel-cost-speed-comparison-warehouses', 'Industrial Design', 'Compare fabrication timelines, foundation loads, crane girder provisions, and total project lifecycle costs for industrial sheds.', 'When planning an industrial shed or logistics warehouse in Sitapura or Vishwakarma industrial areas, choosing between Pre-Engineered Buildings (PEB) and conventional structural steel shapes makes a 20-30% difference in initial capex and delivery timeline. PEB frames leverage tapered built-up sections with high-strength steel (345 MPa), reducing overall dead load on foundations and speeding up erection to under 90 days.', '5 min read', 'assets/images/hero-slide-5.webp', 'published')
 ON CONFLICT DO NOTHING;
+
