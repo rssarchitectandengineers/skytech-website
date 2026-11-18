@@ -463,8 +463,9 @@
         </button>
       </form>
 
-      <p style="font-size: 0.72rem; color: var(--slate-400); margin-top: 1rem;">
-        Default Owner PIN: <strong>7737</strong> &bull; Employee PIN: <strong>1234</strong>
+      <p style="font-size: 0.75rem; color: var(--slate-400); margin-top: 1rem; line-height: 1.4;">
+        🔒 <strong>The Skytech Portal</strong> &bull; Authorized Personnel Only<br>
+        <span style="font-size: 0.7rem; color: var(--slate-500);">Forgot PIN? Contact Owner at +91-7737243812</span>
       </p>
     </div>
   </div>
@@ -612,6 +613,50 @@
           <label class="form-label">Supabase Cloud Database</label>
           <input type="text" class="form-input" value="https://fzfdddlkclluqpiyjrtx.supabase.co (Active • Mumbai)" readonly>
         </div>
+      </div>
+
+      <!-- Security & PIN Management Card -->
+      <div class="item-card" style="margin-top: 1.25rem;">
+        <h3 style="font-size: 1rem; margin-bottom: 0.5rem; color: #fff; display: flex; align-items: center; gap: 0.5rem;">
+          <span>🔐</span> Admin Security &amp; Login PINs
+        </h3>
+        <p style="font-size: 0.8rem; color: var(--slate-400); margin-bottom: 1.25rem; line-height: 1.5;">
+          Change your Owner and Employee login PINs directly from your browser. Changes take effect immediately.
+        </p>
+
+        <form id="changePinForm" onsubmit="event.preventDefault(); handleUpdatePins();">
+          <div class="form-group">
+            <label class="form-label">Current Owner PIN *</label>
+            <input type="password" id="currentPinCheck" class="form-input" placeholder="Enter current Owner PIN" required>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="form-group">
+              <label class="form-label">New Owner PIN *</label>
+              <input type="password" id="newOwnerPin" class="form-input" placeholder="New PIN (min 4 chars)" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Confirm New Owner PIN *</label>
+              <input type="password" id="confirmOwnerPin" class="form-input" placeholder="Confirm new PIN" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">New Employee PIN (Optional)</label>
+            <input type="password" id="newEmployeePin" class="form-input" placeholder="Leave blank to keep unchanged">
+          </div>
+
+          <div id="pinStatusMsg" style="display: none; padding: 0.65rem 0.85rem; border-radius: 8px; font-size: 0.85rem; font-weight: 500; margin-bottom: 1rem;"></div>
+
+          <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+            <button type="submit" class="btn-action">
+              Save New PINs
+            </button>
+            <button type="button" class="btn-lead" style="background: var(--slate-800); color: var(--slate-300);" onclick="resetPinsToDefault()">
+              Reset to Default (7737)
+            </button>
+          </div>
+        </form>
       </div>
     </section>
 
@@ -792,7 +837,15 @@
     let projectsData = [];
     let blogsData = [];
 
-    // Login Management
+    // Login Management & Dynamic Security PINs
+    function getStoredOwnerPin() {
+      return localStorage.getItem('skytech_custom_owner_pin') || '7737';
+    }
+
+    function getStoredEmployeePin() {
+      return localStorage.getItem('skytech_custom_employee_pin') || '1234';
+    }
+
     function selectRole(role) {
       currentRole = role;
       document.getElementById('btnRoleOwner').classList.toggle('active', role === 'owner');
@@ -805,16 +858,86 @@
       if (errBox) errBox.style.display = 'none';
 
       const pin = document.getElementById('passcodeInput').value.trim();
-      if (currentRole === 'owner' && pin === '7737') {
+      const validOwnerPin = getStoredOwnerPin();
+      const validEmployeePin = getStoredEmployeePin();
+
+      if (currentRole === 'owner' && pin === validOwnerPin) {
         completeLogin('owner');
-      } else if (currentRole === 'employee' && pin === '1234') {
+      } else if (currentRole === 'employee' && pin === validEmployeePin) {
         completeLogin('employee');
       } else {
         if (errBox) {
-          errBox.innerText = '❌ Invalid PIN! Please enter 7737 for Owner.';
+          errBox.innerText = '❌ Invalid PIN! Please enter the correct ' + (currentRole === 'owner' ? 'Owner' : 'Employee') + ' Security PIN.';
           errBox.style.display = 'block';
         } else {
-          alert('Invalid PIN! Please enter 7737 for Owner.');
+          alert('Invalid PIN!');
+        }
+      }
+    }
+
+    function handleUpdatePins() {
+      const currentInput = document.getElementById('currentPinCheck').value.trim();
+      const newOwner = document.getElementById('newOwnerPin').value.trim();
+      const confirmOwner = document.getElementById('confirmOwnerPin').value.trim();
+      const newEmp = document.getElementById('newEmployeePin').value.trim();
+      const msgBox = document.getElementById('pinStatusMsg');
+
+      const expectedOwnerPin = getStoredOwnerPin();
+
+      if (currentInput !== expectedOwnerPin) {
+        msgBox.style.display = 'block';
+        msgBox.style.background = 'rgba(239, 68, 68, 0.15)';
+        msgBox.style.color = '#f87171';
+        msgBox.style.border = '1px solid rgba(239, 68, 68, 0.3)';
+        msgBox.innerText = '❌ Current Owner PIN is incorrect. Authorization failed.';
+        return;
+      }
+
+      if (!newOwner || newOwner.length < 4) {
+        msgBox.style.display = 'block';
+        msgBox.style.background = 'rgba(239, 68, 68, 0.15)';
+        msgBox.style.color = '#f87171';
+        msgBox.style.border = '1px solid rgba(239, 68, 68, 0.3)';
+        msgBox.innerText = '❌ New Owner PIN must be at least 4 characters/digits.';
+        return;
+      }
+
+      if (newOwner !== confirmOwner) {
+        msgBox.style.display = 'block';
+        msgBox.style.background = 'rgba(239, 68, 68, 0.15)';
+        msgBox.style.color = '#f87171';
+        msgBox.style.border = '1px solid rgba(239, 68, 68, 0.3)';
+        msgBox.innerText = '❌ New Owner PIN and Confirmation PIN do not match.';
+        return;
+      }
+
+      // Save to localStorage
+      localStorage.setItem('skytech_custom_owner_pin', newOwner);
+      if (newEmp && newEmp.length >= 4) {
+        localStorage.setItem('skytech_custom_employee_pin', newEmp);
+      }
+
+      msgBox.style.display = 'block';
+      msgBox.style.background = 'rgba(16, 185, 129, 0.15)';
+      msgBox.style.color = '#34d399';
+      msgBox.style.border = '1px solid rgba(16, 185, 129, 0.3)';
+      msgBox.innerText = '✅ Success! Your new Security PIN has been saved. Please remember your new PIN: ' + newOwner;
+
+      document.getElementById('changePinForm').reset();
+    }
+
+    function resetPinsToDefault() {
+      if (confirm('Are you sure you want to reset PINs back to factory defaults (Owner: 7737, Employee: 1234)?')) {
+        localStorage.removeItem('skytech_custom_owner_pin');
+        localStorage.removeItem('skytech_custom_employee_pin');
+        const msgBox = document.getElementById('pinStatusMsg');
+        msgBox.style.display = 'block';
+        msgBox.style.background = 'rgba(56, 189, 248, 0.15)';
+        msgBox.style.color = '#38bdf8';
+        msgBox.style.border = '1px solid rgba(56, 189, 248, 0.3)';
+        msgBox.innerText = '🔄 PINs reset to default: Owner (7737), Employee (1234).';
+        if (document.getElementById('changePinForm')) {
+          document.getElementById('changePinForm').reset();
         }
       }
     }
