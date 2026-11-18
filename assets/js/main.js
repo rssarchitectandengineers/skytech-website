@@ -367,9 +367,10 @@ function initConsultationPopup() {
 
   const closeBtns = popupModal.querySelectorAll('.close-modal-btn');
 
-  // Auto-open after 3.2 seconds if not dismissed in this session
+  // Auto-open after 3.2 seconds if not dismissed in this session (skip on blog post reader so user can read article)
+  const isBlogReader = window.location.pathname.includes('blog-post.html');
   const hasDismissed = sessionStorage.getItem('skytech_consultation_dismissed');
-  if (!hasDismissed) {
+  if (!hasDismissed && !isBlogReader) {
     setTimeout(() => {
       if (!sessionStorage.getItem('skytech_consultation_dismissed')) {
         openModal(popupModal);
@@ -717,12 +718,62 @@ const PROJECTS_DATA = [
   }
 ];
 
+let ACTIVE_PROJECTS = [...PROJECTS_DATA];
+
+async function fetchLiveProjects() {
+  const SUPABASE_URL = 'https://fzfdddlkclluqpiyjrtx.supabase.co';
+  const SUPABASE_KEY = 'sb_publishable_Psu9GXnSc_MXGNgQxP6-Dg_W14RBCVq';
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/projects?status=eq.published&order=created_at.desc`, {
+      headers: {
+        'apikey': SUPABASE_KEY,
+        'Authorization': `Bearer ${SUPABASE_KEY}`
+      }
+    });
+    if (!res.ok) return;
+    const remote = await res.json();
+    if (!remote || remote.length === 0) return;
+
+    const mappedRemote = remote.map(p => ({
+      id: p.id,
+      title: p.title,
+      category: p.category,
+      categoryName: p.category_name || (p.category.charAt(0).toUpperCase() + p.category.slice(1)),
+      location: p.location || 'Jaipur, Rajasthan',
+      image: p.image_url || 'assets/images/project-commercial.jpg',
+      area: p.area || 'Custom Scope',
+      floors: p.floors || 'Engineered Structure',
+      system: p.system || (p.description ? p.description.slice(0, 75) + '...' : 'Engineered RCC / Steel Frame per IS Codes'),
+      steelSavings: p.steel_savings || 'Optimized Structural Design',
+      codes: 'IS 456, IS 1893, IS 800, NBC 2016',
+      description: p.description || 'Structural consultancy and engineering design by The Skytech.'
+    }));
+
+    // Merge: Put newly added remote projects first, avoid duplicate IDs
+    const remoteIds = new Set(mappedRemote.map(x => x.id));
+    const combined = [...mappedRemote, ...PROJECTS_DATA.filter(x => !remoteIds.has(x.id))];
+    ACTIVE_PROJECTS = combined;
+
+    // Refresh current filter view
+    const activePill = document.querySelector('.filter-pill.active');
+    const filterValue = activePill ? activePill.getAttribute('data-filter') : 'all';
+    if (filterValue === 'all') {
+      renderProjects(ACTIVE_PROJECTS);
+    } else {
+      renderProjects(ACTIVE_PROJECTS.filter(p => p.category === filterValue));
+    }
+  } catch (err) {
+    console.warn('Live projects sync notice:', err);
+  }
+}
+
 function initProjectFilters() {
   const filterPills = document.querySelectorAll('.filter-pill');
   const projectsGrid = document.getElementById('projectsGrid');
   if (!projectsGrid) return;
 
-  renderProjects(PROJECTS_DATA);
+  renderProjects(ACTIVE_PROJECTS);
+  fetchLiveProjects();
 
   filterPills.forEach(pill => {
     pill.addEventListener('click', () => {
@@ -731,9 +782,9 @@ function initProjectFilters() {
 
       const filterValue = pill.getAttribute('data-filter');
       if (filterValue === 'all') {
-        renderProjects(PROJECTS_DATA);
+        renderProjects(ACTIVE_PROJECTS);
       } else {
-        const filtered = PROJECTS_DATA.filter(p => p.category === filterValue);
+        const filtered = ACTIVE_PROJECTS.filter(p => p.category === filterValue);
         renderProjects(filtered);
       }
     });
@@ -756,7 +807,7 @@ function initProjectFilters() {
     const btn = e.target.closest('[data-view-project]');
     if (btn) {
       const prjId = btn.getAttribute('data-view-project');
-      const found = PROJECTS_DATA.find(x => x.id === prjId);
+      const found = ACTIVE_PROJECTS.find(x => x.id === prjId);
       if (found) showProjectModalDetails(found);
     }
   });
@@ -766,13 +817,19 @@ function renderProjects(projects) {
   const grid = document.getElementById('projectsGrid');
   if (!grid) return;
 
-  grid.innerHTML = projects.map(p => `
+  grid.innerHTML = projects.map(p => {
+    const isRemote = (p.image || '').startsWith('http');
+    const imgHtml = isRemote
+      ? `<img src="${p.image}" alt="${p.title} - Structural Design by The Skytech" loading="lazy" width="400" height="200" style="object-fit:cover; width:100%; height:100%;" decoding="async">`
+      : `<picture>
+          <source srcset="${(p.image || '').replace('.jpg', '.webp')}" type="image/webp">
+          <img src="${p.image}" alt="${p.title} - Structural Design by The Skytech" loading="lazy" width="400" height="200" decoding="async">
+        </picture>`;
+
+    return `
     <article class="project-card" data-project-id="${p.id}">
       <div class="project-card-image">
-        <picture>
-          <source srcset="${p.image.replace('.jpg', '.webp')}" type="image/webp">
-          <img src="${p.image}" alt="${p.title} - Structural Design by The Skytech" loading="lazy" width="400" height="200" decoding="async">
-        </picture>
+        ${imgHtml}
         <span class="project-category-tag">${p.categoryName}</span>
       </div>
       <div class="project-card-body">
@@ -786,7 +843,7 @@ function renderProjects(projects) {
         </div>
         <div class="project-specs-list">
           <div><strong>Area:</strong> ${p.area}</div>
-          <div><strong>System:</strong> ${p.system.split('with')[0]}</div>
+          <div><strong>System:</strong> ${(p.system || '').split('with')[0]}</div>
           <div style="color: #0284c7; font-weight: 700;">★ ${p.steelSavings}</div>
         </div>
         <button type="button" class="btn-view-project" data-view-project="${p.id}">
@@ -794,7 +851,8 @@ function renderProjects(projects) {
         </button>
       </div>
     </article>
-  `).join('');
+  `;
+  }).join('');
 }
 
 /* -------------------------------------------------------------
@@ -818,12 +876,17 @@ function showProjectModalDetails(project) {
   const container = document.getElementById('projectModalBody');
   if (!modal || !container) return;
 
+  const isRemote = (project.image || '').startsWith('http');
+  const imgMarkup = isRemote
+    ? `<img src="${project.image}" alt="${project.title}" style="width: 100%; height: 100%; object-fit: cover;" decoding="async">`
+    : `<picture>
+        <source srcset="${(project.image || '').replace('.jpg', '.webp')}" type="image/webp">
+        <img src="${project.image}" alt="${project.title}" style="width: 100%; height: 100%; object-fit: cover;" decoding="async">
+      </picture>`;
+
   container.innerHTML = `
     <div style="position: relative; height: 280px; overflow: hidden; border-radius: 14px 14px 0 0;">
-      <picture>
-        <source srcset="${project.image.replace('.jpg', '.webp')}" type="image/webp">
-        <img src="${project.image}" alt="${project.title}" style="width: 100%; height: 100%; object-fit: cover;" decoding="async">
-      </picture>
+      ${imgMarkup}
       <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(11,21,35,0.92)); padding: 1.5rem; color: #fff;">
         <span class="project-category-tag" style="position: static; display: inline-block; margin-bottom: 0.5rem;">${project.categoryName}</span>
         <h3 style="font-size: 1.6rem; font-weight: 800; color: #fff;">${project.title}</h3>

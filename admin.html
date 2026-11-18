@@ -284,29 +284,47 @@
     .status-published { background: rgba(16, 185, 129, 0.2); color: var(--emerald-500); }
     .status-closed { background: rgba(16, 185, 129, 0.3); color: #fff; }
 
-    /* Modals */
-    .modal-backdrop {
+    /* Modals & Overlays */
+    .modal-backdrop, .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.8);
-      backdrop-filter: blur(4px);
-      z-index: 200;
+      background: rgba(3, 7, 18, 0.88);
+      backdrop-filter: blur(8px);
+      z-index: 9999;
       display: none;
       align-items: center;
       justify-content: center;
       padding: 1rem;
     }
-    .modal-backdrop.active { display: flex; }
+    .modal-backdrop.active, .modal-overlay.active { display: flex !important; }
     .modal-box {
       background: var(--navy-900);
       border: 1px solid var(--navy-700);
       border-radius: var(--radius);
       width: 100%;
-      max-width: 550px;
+      max-width: 580px;
       max-height: 90vh;
       overflow-y: auto;
       padding: 1.5rem;
-      box-shadow: var(--shadow);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+      animation: modalFadeIn 0.2s ease-out;
+    }
+    .modal-dialog {
+      background: #0f1d30;
+      border: 1px solid #1e293b;
+      border-radius: var(--radius-lg);
+      width: 100%;
+      max-width: 860px;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.9);
+      overflow: hidden;
+      animation: modalFadeIn 0.2s ease-out;
+    }
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: scale(0.97); }
+      to { opacity: 1; transform: scale(1); }
     }
     .modal-header {
       display: flex;
@@ -322,7 +340,45 @@
       font-size: 1.5rem;
       cursor: pointer;
       line-height: 1;
+      padding: 0.25rem;
     }
+    .modal-close:hover { color: #fff; }
+
+    /* Technical Tables inside Preview */
+    .tech-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+      margin: 1rem 0;
+      background: #070e18;
+      border: 1px solid #1e293b;
+      color: #cbd5e1;
+    }
+    .tech-table th, .tech-table td {
+      padding: 0.65rem 0.85rem;
+      border: 1px solid #1e293b;
+      text-align: left;
+    }
+    .tech-table th {
+      background: #020617;
+      color: #38bdf8;
+      font-weight: 700;
+    }
+    .table-responsive {
+      overflow-x: auto;
+      margin: 1rem 0;
+      border-radius: 8px;
+    }
+    .blog-faq-section {
+      background: #070e18;
+      border: 1px solid #1e293b;
+      border-radius: 8px;
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+    .faq-item { margin-bottom: 0.75rem; }
+    .faq-question { color: #38bdf8; margin-bottom: 0.25rem; font-weight: 600; }
+    .faq-answer { color: #cbd5e1; font-size: 0.88rem; line-height: 1.5; }
 
     /* Forms */
     .form-group { margin-bottom: 1rem; }
@@ -565,10 +621,7 @@
           <span>✍️</span> AI SEO Blog Hub
         </h2>
         <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-          <button type="button" class="btn-action" onclick="openAddBlogModal()">
-            + Write Custom Blog
-          </button>
-          <button type="button" class="btn-action btn-amber" onclick="generateAiBlogPrompt()">
+          <button type="button" class="btn-action btn-amber" onclick="generateNewAiBlog()" id="btnGenerateBlog" style="padding: 0.75rem 1.25rem; font-size: 0.95rem; font-weight: 700; box-shadow: 0 4px 14px rgba(245, 158, 11, 0.4);">
             ✨ Generate 1-2 Page AI Blog
           </button>
         </div>
@@ -576,12 +629,8 @@
 
       <div style="background: rgba(14, 165, 233, 0.1); border: 1px solid rgba(14, 165, 233, 0.25); border-radius: var(--radius-lg); padding: 0.85rem 1.15rem; margin-bottom: 1.25rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem;">
         <div style="font-size: 0.85rem; color: #e2e8f0;">
-          <strong style="color: #38bdf8;">🟢 Google SEO Ready:</strong> 1-2 pages (~1,200 words), internal links, zero text/photo cutting on mobile, and FAQPage Schema.
+          <strong style="color: #38bdf8;">🟢 Google SEO Ready:</strong> Generates unique 1-2 page (~1,200 words) engineering guides with IS Code tables &amp; FAQ Schema. Preview first, then publish with 1 click!
         </div>
-        <label style="font-size: 0.82rem; color: #a5f3fc; display: flex; align-items: center; gap: 0.45rem; cursor: pointer; user-select: none;">
-          <input type="checkbox" id="chkAutoPublishBlog" checked style="accent-color: #0284c7; width: 16px; height: 16px;">
-          <span><strong>Auto-Publish Live on Website</strong></span>
-        </label>
       </div>
 
       <div class="card-list" id="blogsList">
@@ -743,76 +792,45 @@
   </div>
 
   
-  <!-- Modal: Preview Full Blog Article (1-2 pages) -->
+  <!-- Modal: Preview Full Blog Article (1-2 pages) & 1-Click Publisher -->
   <div class="modal-overlay" id="previewBlogModal">
-    <div class="modal-dialog" style="max-width: 800px; max-height: 90vh; display: flex; flex-direction: column;">
-      <div class="modal-header">
-        <h3 class="modal-title" id="previewModalTitle">Blog Article Preview</h3>
+    <div class="modal-dialog">
+      <div class="modal-header" style="padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--navy-700); margin-bottom: 0;">
+        <div>
+          <h3 class="modal-title" id="previewModalTitle">AI SEO Article Preview</h3>
+          <p style="font-size: 0.78rem; color: var(--slate-400); margin: 0.25rem 0 0;" id="previewModalSubtitle">
+            Review full 1-2 page article content before publishing live to Google &amp; website.
+          </p>
+        </div>
         <button type="button" class="modal-close" onclick="closeModal('previewBlogModal')">&times;</button>
       </div>
-      <div style="padding: 1.5rem; overflow-y: auto; flex-grow: 1; background: #0b1523; color: #cbd5e1; border-radius: 0 0 12px 12px;">
+
+      <div style="padding: 1.25rem 1.5rem; overflow-y: auto; flex-grow: 1; background: #070e18; color: #cbd5e1;">
         <div style="display: flex; gap: 0.75rem; align-items: center; margin-bottom: 1rem; flex-wrap: wrap;">
           <span class="status-badge status-published" id="previewBadgeCategory">Category</span>
-          <span style="font-size: 0.8rem; color: var(--slate-400);" id="previewReadTime">7 min read</span>
-          <span style="font-size: 0.8rem; color: var(--sky-400);" id="previewWordCount">~1,100 words (1-2 pages)</span>
+          <span style="font-size: 0.8rem; color: var(--slate-400);" id="previewReadTime">8 min read</span>
+          <span style="font-size: 0.8rem; color: var(--sky-400); font-weight: 600;" id="previewWordCount">~1,250 words (1.8 pages)</span>
+          <span style="font-size: 0.75rem; color: #34d399; background: rgba(52, 211, 153, 0.1); padding: 0.2rem 0.5rem; border-radius: 4px;">✅ Google Schema &amp; IS Codes Ready</span>
         </div>
+
+        <div id="previewExcerptBox" style="background: rgba(14, 165, 233, 0.08); border-left: 3px solid #0284c7; padding: 0.75rem 1rem; margin-bottom: 1.25rem; font-size: 0.88rem; color: #bae6fd; border-radius: 4px;"></div>
+
         <div id="previewModalBody" style="line-height: 1.8; font-size: 0.95rem; color: #e2e8f0;"></div>
       </div>
-      <div style="padding: 1rem 1.5rem; background: #0f1d30; border-top: 1px solid var(--slate-700); display: flex; justify-content: space-between; align-items: center;">
-        <span style="font-size: 0.8rem; color: var(--slate-400);">The Skytech IS-Compliant Technical Article</span>
-        <div style="display: flex; gap: 0.5rem;" id="previewModalActions">
-          <button type="button" class="btn-lead" style="background: var(--slate-700); color: #fff;" onclick="closeModal('previewBlogModal')">Close</button>
+
+      <div style="padding: 1rem 1.5rem; background: #0b1523; border-top: 1px solid #1e293b; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem;">
+        <div style="font-size: 0.8rem; color: var(--slate-400);">
+          The Skytech IS-Compliant Technical Article
+        </div>
+        <div style="display: flex; gap: 0.6rem; flex-wrap: wrap;" id="previewModalActions">
+          <!-- Dynamic action buttons injected here -->
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Modal: Add / Compose Custom 1-2 Page Blog -->
-  <div class="modal-overlay" id="addBlogModal">
-    <div class="modal-dialog" style="max-width: 720px; max-height: 90vh; overflow-y: auto;">
-      <div class="modal-header">
-        <h3 class="modal-title">Write / Publish Engineering Blog</h3>
-        <button type="button" class="modal-close" onclick="closeModal('addBlogModal')">&times;</button>
-      </div>
-      <form id="addBlogForm" onsubmit="submitNewBlog(event)">
-        <div class="form-group">
-          <label class="form-label">Article Title *</label>
-          <input type="text" id="customBlogTitle" class="form-input" placeholder="e.g. Design of Raft Foundations on Sandy Silt per IS 2950" required>
-        </div>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-          <div class="form-group">
-            <label class="form-label">Category *</label>
-            <select id="customBlogCategory" class="form-select" required>
-              <option value="Cost Optimization">Cost Optimization</option>
-              <option value="Structural Standards">Structural Standards</option>
-              <option value="Industrial Design">Industrial Design</option>
-              <option value="Structural Audits">Structural Audits</option>
-              <option value="Foundation Engineering">Foundation Engineering</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Read Time</label>
-            <input type="text" id="customBlogReadTime" class="form-input" value="7 min read" required>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Summary / Excerpt (2-3 sentences) *</label>
-          <textarea id="customBlogExcerpt" class="form-textarea" rows="2" placeholder="Brief technical summary that appears on card previews..." required></textarea>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Featured Image URL</label>
-          <input type="text" id="customBlogImage" class="form-input" value="assets/images/about-engineers.jpg">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Full Article Content (HTML with &lt;h2&gt;, &lt;p&gt;, &lt;ul&gt;, tables) - 1-2 Pages *</label>
-          <textarea id="customBlogContent" class="form-textarea" rows="12" style="font-family: monospace; font-size: 0.88rem;" placeholder="Enter complete 1-2 page HTML article content..." required></textarea>
-        </div>
-        <button type="submit" class="btn-action" style="width: 100%; justify-content: center; padding: 0.75rem;">
-          Save &amp; Publish Article
-        </button>
-      </form>
-    </div>
-  </div>
+  <!-- Load Exhaustive Pre-Compiled AI Engineering Blog Catalog -->
+  <script src="assets/js/admin-blog-catalog.js"></script>
 
   <!-- =========================================================================
        6. Application Logic
@@ -1128,8 +1146,58 @@
       }
     }
 
+    // Helper: Client-Side Image Resizer & Compressor (for fast mobile & desktop uploads)
+    async function compressImageIfNeeded(file) {
+      if (!file || !file.type || !file.type.startsWith('image/')) return file;
+      if (file.size < 400 * 1024) return file; // Under 400KB, no compression needed
+
+      return new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const img = new Image();
+          img.onload = () => {
+            const maxDim = 1280;
+            let width = img.width;
+            let height = img.height;
+            if (width > maxDim || height > maxDim) {
+              if (width > height) {
+                height = Math.round((height * maxDim) / width);
+                width = maxDim;
+              } else {
+                width = Math.round((width * maxDim) / height);
+                height = maxDim;
+              }
+            }
+            const canvas = document.createElement('canvas');
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, width, height);
+            canvas.toBlob((blob) => {
+              if (blob) {
+                resolve(new File([blob], file.name.replace(/\.[^.]+$/, '.jpg'), { type: 'image/jpeg' }));
+              } else {
+                resolve(file);
+              }
+            }, 'image/jpeg', 0.82);
+          };
+          img.onerror = () => resolve(file);
+          img.src = e.target.result;
+        };
+        reader.onerror = () => resolve(file);
+        reader.readAsDataURL(file);
+      });
+    }
+
     async function submitNewProject(e) {
       e.preventDefault();
+      const submitBtn = e.target.querySelector('button[type="submit"]');
+      const originalBtnText = submitBtn ? submitBtn.innerText : 'Submit Project';
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerText = '⏳ Uploading Photo & Saving Project...';
+      }
+
       const title = document.getElementById('prjTitle').value.trim();
       const category = document.getElementById('prjCategory').value;
       const categoryName = document.getElementById('prjCategory').options[document.getElementById('prjCategory').selectedIndex].text;
@@ -1139,48 +1207,64 @@
       const description = document.getElementById('prjDescription').value.trim();
       const videoUrl = document.getElementById('prjVideoUrl').value.trim();
 
-      // Image upload handling
+      // Image upload handling with compression & robust fallback
       const fileInput = document.getElementById('prjPhotoFile');
-      let imageUrl = 'assets/images/project-commercial.jpg';
-
-      if (fileInput.files.length > 0) {
-        const file = fileInput.files[0];
-        const fileName = `${Date.now()}-${file.name.replace(/[^a-zA-Z0-9.-]/g, '_')}`;
-        try {
-          const { data: uploadData, error: uploadErr } = await sbClient.storage.from('skytech-media').upload(fileName, file);
-          if (!uploadErr) {
-            const { data: publicUrlData } = sbClient.storage.from('skytech-media').getPublicUrl(fileName);
-            imageUrl = publicUrlData.publicUrl;
-          }
-        } catch (err) {
-          console.warn('Media upload notice:', err);
-        }
-      }
-
-      const status = currentRole === 'owner' ? 'published' : 'draft_pending_approval';
+      let imageUrl = `assets/images/project-${category}.jpg`;
 
       try {
-        const { error } = await sbClient.from('projects').insert([{
+        if (fileInput && fileInput.files && fileInput.files.length > 0) {
+          const originalFile = fileInput.files[0];
+          const fileToUpload = await compressImageIfNeeded(originalFile);
+          const fileName = `${Date.now()}-${fileToUpload.name.replace(/[^a-zA-Z0-9.-]/g, '_')}`;
+          
+          try {
+            const { data: uploadData, error: uploadErr } = await sbClient.storage.from('skytech-media').upload(fileName, fileToUpload);
+            if (!uploadErr) {
+              const { data: publicUrlData } = sbClient.storage.from('skytech-media').getPublicUrl(fileName);
+              if (publicUrlData && publicUrlData.publicUrl) {
+                imageUrl = publicUrlData.publicUrl;
+              }
+            } else {
+              console.warn('Media upload warning (using fallback photo):', uploadErr);
+            }
+          } catch (uploadException) {
+            console.warn('Storage network error:', uploadException);
+          }
+        }
+
+        const status = currentRole === 'owner' ? 'published' : 'draft_pending_approval';
+
+        const { data, error } = await sbClient.from('projects').insert([{
           title,
           category,
           category_name: categoryName,
           location,
-          area,
-          steel_savings: steelSavings,
-          description,
+          area: area || 'Custom Area',
+          steel_savings: steelSavings || 'Optimized Structural Design',
+          description: description || 'Structural consultancy and design by The Skytech.',
           image_url: imageUrl,
           video_url: videoUrl || null,
           status,
           submitted_by: currentRole === 'owner' ? 'Owner' : 'Employee'
-        }]);
+        }]).select();
 
         if (error) throw error;
-        alert(currentRole === 'owner' ? 'Project published live successfully!' : 'Project submitted as Draft! Owner will review and approve.');
+
+        alert(currentRole === 'owner' 
+          ? '✅ Project published live successfully!\n\nIt is now live on the website (projects.html).' 
+          : '✅ Project submitted as Draft!\n\nOwner will review and approve.');
+        
         closeModal('addProjectModal');
         document.getElementById('addProjectForm').reset();
         fetchProjects();
+
       } catch (err) {
         alert('Could not save project: ' + err.message);
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerText = originalBtnText;
+        }
       }
     }
 
@@ -1209,8 +1293,116 @@
     // --------------------------------------------------------------------------
     // 3. AI SEO BLOG HUB (1-2 Page Deep Engineering Content)
     // --------------------------------------------------------------------------
-    function openAddBlogModal() {
-      document.getElementById('addBlogModal').classList.add('active');
+    let currentStagedBlog = null;
+
+    function generateNewAiBlog() {
+      const btn = document.getElementById('btnGenerateBlog');
+      if (btn) btn.innerText = '⏳ Generating 1-2 Page Article...';
+
+      // 1. Gather all existing blog titles
+      const existingTitles = (blogsData || []).map(b => (b.title || '').toLowerCase().trim());
+
+      // 2. Look for an unused topic from the curated catalog
+      const catalog = window.AI_BLOG_CATALOG || [];
+      let selectedTopic = null;
+
+      for (let topic of catalog) {
+        const titleLower = topic.title.toLowerCase().trim();
+        const slugLower = topic.slug.toLowerCase().trim();
+        const alreadyExists = existingTitles.some(ext => ext === titleLower || ext.includes(slugLower));
+        if (!alreadyExists) {
+          selectedTopic = topic;
+          break;
+        }
+      }
+
+      // 3. If all catalog topics exist, synthesize a procedural unique topic
+      if (!selectedTopic) {
+        if (typeof window.generateProceduralBlogTopic === 'function') {
+          selectedTopic = window.generateProceduralBlogTopic(existingTitles);
+        } else {
+          selectedTopic = {
+            title: `Structural Value Engineering & Optimization Guide ${Date.now().toString().slice(-4)} | The Skytech`,
+            slug: `structural-value-engineering-${Date.now()}`,
+            category: 'Cost Optimization',
+            read_time: '8 min read',
+            image_url: 'assets/images/about-engineers.jpg',
+            excerpt: 'Comprehensive structural analysis of material reduction and safety margins per IS 456 and IS 1893.',
+            content: `<h2>1. Technical Overview</h2><p>Engineering analysis and structural evaluation by The Skytech.</p>`
+          };
+        }
+      }
+
+      currentStagedBlog = selectedTopic;
+
+      // 4. Open the dedicated Preview Modal
+      document.getElementById('previewModalTitle').innerText = selectedTopic.title;
+      document.getElementById('previewModalSubtitle').innerText = '✨ AI SEO Article Generated! Review full 1-2 page content below before publishing.';
+      document.getElementById('previewBadgeCategory').innerText = selectedTopic.category;
+      document.getElementById('previewReadTime').innerText = selectedTopic.read_time;
+
+      const charCount = (selectedTopic.content || '').length;
+      const wordCount = (selectedTopic.content || '').replace(/<[^>]*>/g, '').split(/\s+/).length;
+      document.getElementById('previewWordCount').innerText = `~${wordCount} words (${(charCount / 3500).toFixed(1)} pages)`;
+
+      const excerptBox = document.getElementById('previewExcerptBox');
+      if (excerptBox) {
+        excerptBox.innerHTML = `<strong>Summary / Excerpt:</strong> ${escapeHtml(selectedTopic.excerpt)}`;
+        excerptBox.style.display = 'block';
+      }
+
+      document.getElementById('previewModalBody').innerHTML = selectedTopic.content;
+
+      // Render Action Buttons
+      const actionsDiv = document.getElementById('previewModalActions');
+      actionsDiv.innerHTML = `
+        <button type="button" class="btn-lead" style="background:var(--emerald-600); color:#fff; font-weight:700; padding:0.6rem 1.25rem;" onclick="publishStagedBlog('published')">
+          🚀 Publish Live to Website &amp; Google
+        </button>
+        <button type="button" class="btn-lead" style="background:var(--amber-500); color:#000; font-weight:600;" onclick="publishStagedBlog('draft_pending_approval')">
+          💾 Save as Draft
+        </button>
+        <button type="button" class="btn-lead" style="background:#0284c7; color:#fff;" onclick="generateNewAiBlog()">
+          🔄 Generate Another Topic
+        </button>
+        <button type="button" class="btn-lead" style="background:var(--slate-700); color:#fff;" onclick="closeModal('previewBlogModal')">
+          Discard
+        </button>
+      `;
+
+      openModal('previewBlogModal');
+
+      if (btn) btn.innerText = '✨ Generate 1-2 Page AI Blog';
+    }
+
+    async function publishStagedBlog(targetStatus) {
+      if (!currentStagedBlog) return alert('No blog article currently staged.');
+
+      try {
+        const { data, error } = await sbClient.from('blogs').insert([{
+          title: currentStagedBlog.title,
+          slug: currentStagedBlog.slug || currentStagedBlog.title.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+          category: currentStagedBlog.category,
+          excerpt: currentStagedBlog.excerpt,
+          content: currentStagedBlog.content.trim(),
+          read_time: currentStagedBlog.read_time,
+          image_url: currentStagedBlog.image_url,
+          status: targetStatus,
+          is_ai_generated: true,
+          submitted_by: 'Skytech AI Engine',
+          approved_by: targetStatus === 'published' ? (currentRole === 'owner' ? 'Owner' : 'Auto-Pilot') : null
+        }]).select();
+
+        if (error) throw error;
+
+        closeModal('previewBlogModal');
+        const statusText = targetStatus === 'published' ? '🟢 Published Live on Website & Google!' : '🟡 Saved as Draft (Awaiting Approval).';
+        alert(`✅ Article Successfully Saved!\n\nTitle: "${currentStagedBlog.title}"\nStatus: ${statusText}\nLength: ${currentStagedBlog.content.length} characters (1-2 pages)\n\nYou can view it live in the Blog section!`);
+        currentStagedBlog = null;
+        fetchBlogs();
+      } catch (err) {
+        alert('Could not publish article: ' + err.message);
+      }
     }
 
     function previewBlog(id) {
@@ -1218,12 +1410,19 @@
       if (!blog) return alert('Blog not found!');
 
       document.getElementById('previewModalTitle').innerText = blog.title;
+      document.getElementById('previewModalSubtitle').innerText = 'Saved Article in Database';
       document.getElementById('previewBadgeCategory').innerText = blog.category || 'Structural Engineering';
       document.getElementById('previewReadTime').innerText = blog.read_time || '7 min read';
       
       const charCount = (blog.content || '').length;
       const wordCount = (blog.content || '').replace(/<[^>]*>/g, '').split(/\s+/).length;
       document.getElementById('previewWordCount').innerText = `~${wordCount} words (${(charCount / 3500).toFixed(1)} pages)`;
+
+      const excerptBox = document.getElementById('previewExcerptBox');
+      if (excerptBox) {
+        excerptBox.innerHTML = `<strong>Summary / Excerpt:</strong> ${escapeHtml(blog.excerpt || '')}`;
+        excerptBox.style.display = 'block';
+      }
 
       document.getElementById('previewModalBody').innerHTML = blog.content || '<p>No content available.</p>';
 
@@ -1235,42 +1434,7 @@
         <button type="button" class="btn-lead" style="background:var(--slate-700); color:#fff;" onclick="closeModal('previewBlogModal')">Close</button>
       `;
 
-      document.getElementById('previewBlogModal').classList.add('active');
-    }
-
-    async function submitNewBlog(e) {
-      e.preventDefault();
-      const title = document.getElementById('customBlogTitle').value.trim();
-      const category = document.getElementById('customBlogCategory').value;
-      const read_time = document.getElementById('customBlogReadTime').value.trim();
-      const excerpt = document.getElementById('customBlogExcerpt').value.trim();
-      const image_url = document.getElementById('customBlogImage').value.trim() || 'assets/images/about-engineers.jpg';
-      const content = document.getElementById('customBlogContent').value.trim();
-      const status = currentRole === 'owner' ? 'published' : 'draft_pending_approval';
-
-      try {
-        const { error } = await sbClient.from('blogs').insert([{
-          title,
-          slug: title.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
-          category,
-          read_time,
-          excerpt,
-          image_url,
-          content,
-          status,
-          is_ai_generated: false,
-          submitted_by: currentRole === 'owner' ? 'Owner' : 'Employee',
-          approved_by: currentRole === 'owner' ? 'Owner' : null
-        }]);
-
-        if (error) throw error;
-        alert(currentRole === 'owner' ? 'Blog article live published successfully!' : 'Blog saved as Draft! Awaiting Owner Approval.');
-        closeModal('addBlogModal');
-        document.getElementById('addBlogForm').reset();
-        fetchBlogs();
-      } catch (err) {
-        alert('Could not save blog: ' + err.message);
-      }
+      openModal('previewBlogModal');
     }
     async function fetchBlogs() {
       const container = document.getElementById('blogsList');
@@ -1322,322 +1486,6 @@
 
       } catch (err) {
         console.warn('Blogs fetch:', err);
-      }
-    }
-
-    async function generateAiBlogPrompt() {
-      const autoPublishChecked = document.getElementById('chkAutoPublishBlog')?.checked ?? true;
-      const targetStatus = autoPublishChecked ? 'published' : (currentRole === 'owner' ? 'published' : 'draft_pending_approval');
-
-      // 5 Exhaustive 1-2 Page Technical Articles with Google SEO, FAQs & Internal Links
-      const topics = [
-        {
-          title: "How Re-Engineering Approved Drawings Trims 15-25% Steel Tonnage | The Skytech",
-          category: "Cost Optimization",
-          read_time: "7 min read",
-          image_url: "assets/images/about-engineers.jpg",
-          excerpt: "Discover how accurate 3D finite element load redistribution, moment redistribution per IS 456:2000, and optimized Bar Bending Schedules (BBS) eliminate hidden steel wastage without compromising code safety margins.",
-          content: `<h2>1. Executive Summary: The Structural Steel Tonnage Crisis in Indian Construction</h2>
-<p>In contemporary Indian construction, structural steel represents between 28% and 36% of total civil framing expenditure in reinforced cement concrete (RCC) frames. On commercial IT parks, high-rise residential towers, and multi-storey institutional buildings across Jaipur, Rajasthan, and Northern India, overdesigned steel reinforcement directly erodes developer margins while providing zero incremental safety.</p>
-<p>Through our forensic audits of over 100+ approved "Good For Construction" (GFC) drawings, The Skytech structural engineering consultancy consistently identifies <strong>15% to 25% redundant steel tonnage</strong>. By engaging our specialized <a href="rcc-structural-design.html" style="color: #0284c7; font-weight: 600; text-decoration: underline;">RCC structural design</a> value re-engineering protocols, project developers routinely save ₹15 to ₹40 Lakhs per tower without violating a single provision of <strong>IS 456:2000</strong> or <strong>IS 1893:2016</strong>.</p>
-
-<h2>2. Root Causes of Overdesign in Standard GFC Drawings</h2>
-<ul>
-  <li><strong>Cascading Safety Factors:</strong> Architectural software assumptions compound with conservative geotechnical soil parameters and structural software auto-design defaults.</li>
-  <li><strong>Blanket Peak Envelope Reinforcement:</strong> Applying maximum negative bending moment steel across the entire span rather than detailing curtailment per IS 456:2000 Cl. 26.2.3.</li>
-  <li><strong>Sub-Optimal Concrete Mix Selection:</strong> Specifying M20 or M25 for columns in G+8 structures forces rebar percentages up to 4.0% to meet axial capacity.</li>
-  <li><strong>BBS Scrap Rate:</strong> Standard site cutting without linear optimization generates 7% to 11% scrap rebar.</li>
-</ul>
-
-<h2>3. The 4-Pillar Skytech Value Re-Engineering Methodology</h2>
-<div class="table-scroll-hint"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg> Swipe horizontally on mobile to view full table &rarr;</div>
-<div class="table-responsive">
-  <table class="tech-table">
-    <thead>
-      <tr>
-        <th>Engineering Parameter</th>
-        <th>Standard Approved GFC Drawing</th>
-        <th>The Skytech Value Re-Engineered Design</th>
-        <th>Net Optimization Impact</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><strong>Frame Analysis</strong></td>
-        <td>2D Frame Approximations</td>
-        <td>Full 3D Finite Element Spatial Rigidity</td>
-        <td>Accurate load distribution, zero blind spots</td>
-      </tr>
-      <tr>
-        <td><strong>Moment Redistribution</strong></td>
-        <td>0% (Standard software output)</td>
-        <td>20% to 30% redistribution per IS 456 Cl. 37.1</td>
-        <td>Eliminates rebar congestion at beam-column nodes</td>
-      </tr>
-      <tr>
-        <td><strong>Rebar Grade</strong></td>
-        <td>Fe 500 standard rebar</td>
-        <td>Fe 550D High-Ductility TMT Rebar</td>
-        <td>9% to 11% lower steel cross-sectional requirement</td>
-      </tr>
-      <tr>
-        <td><strong>Column Rebar Ratio</strong></td>
-        <td>3.2% - 4.2% (Overcrowded)</td>
-        <td>1.8% - 2.4% (Optimized with M35/M40 concrete)</td>
-        <td>Easier concrete compaction, honeycomb prevention</td>
-      </tr>
-      <tr>
-        <td><strong>Average Steel Consumption</strong></td>
-        <td>4.4 - 5.2 kg / sq.ft</td>
-        <td>3.2 - 3.7 kg / sq.ft</td>
-        <td><strong>18% to 24% Total Steel Tonnage Saved</strong></td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-<h2>4. Mathematical Principles: Moment Redistribution per IS 456:2000 Clause 37.1</h2>
-<div class="code-callout">
-  <strong>IS 456:2000 Clause 37.1.1 Formula:</strong><br>
-  <code>(xu / d) + (% redistribution / 100) &le; 0.6</code><br>
-  <em>By redistributing peak hogging moments from support headers into sagging mid-span moments where concrete flange action is available, rebar congestion is eliminated and total reinforcement area is minimized.</em>
-</div>
-
-<h2>5. Case Study: G+9 Commercial Complex in Jaipur, Rajasthan</h2>
-<ul>
-  <li><strong>Total Built-Up Area:</strong> 1,12,000 sq.ft (Basement + Ground + 9 Floors).</li>
-  <li><strong>Original Approved Steel Estimate:</strong> 425 Metric Tonnes (3.79 kg/sq.ft).</li>
-  <li><strong>The Skytech Re-Engineered Steel Quantity:</strong> 338 Metric Tonnes (3.01 kg/sq.ft).</li>
-  <li><strong>Net Steel Saved:</strong> <strong>87 Metric Tonnes (20.47% Reduction)</strong>.</li>
-  <li><strong>Total Financial Savings:</strong> <strong>₹56.55 Lakhs</strong> (Calculated at ₹65,000/MT).</li>
-</ul>
-
-<h2>6. Frequently Asked Questions (FAQ)</h2>
-<div class="blog-faq-section">
-  <div class="faq-item">
-    <div class="faq-question"><strong>Q1: Does reducing steel tonnage compromise building safety in earthquakes?</strong></div>
-    <div class="faq-answer">No. In fact, over-reinforced concrete beams fail abruptly in a brittle manner. Under-reinforced sections provide high ductility and energy dissipation per IS 13920:2016.</div>
-  </div>
-  <div class="faq-item">
-    <div class="faq-question"><strong>Q2: At what stage of construction should a drawing audit be conducted?</strong></div>
-    <div class="faq-answer">Right after receiving architectural approval and preliminary structural drawings, before foundation casting begins.</div>
-  </div>
-  <div class="faq-item">
-    <div class="faq-question"><strong>Q3: How much does a structural drawing audit cost compared to savings?</strong></div>
-    <div class="faq-answer">A drawing audit costs under 2% of rebar procurement while returning 15% to 25% cash savings, delivering an immediate 10x ROI.</div>
-  </div>
-</div>`
-        },
-        {
-          title: "Demystifying IS 1893:2016: Seismic Design Criteria for North India | The Skytech",
-          category: "Structural Standards",
-          read_time: "8 min read",
-          image_url: "assets/images/hero-building.jpg",
-          excerpt: "A comprehensive practical guide to seismic zone factors (Zone II, III, IV), Response Reduction coefficients (R=5 SMRF), and IS 13920:2016 ductile detailing mandates for high-rise buildings across Rajasthan and North India.",
-          content: `<h2>1. Introduction: The Critical Need for Seismic Compliance in North India</h2>
-<p>The revised Indian Standard <strong>IS 1893 (Part 1): 2016</strong> marked a paradigm shift in how multi-storey structures must be designed against earthquake forces. With rapid urbanization across North India—including Jaipur, Alwar, Delhi-NCR, Gurugram, and Haryana—structural engineers can no longer treat seismic loading as a secondary check. Modern structural frames must possess calibrated ductility to absorb seismic energy without brittle failure.</p>
-<p>In this comprehensive guide, The Skytech engineering team breaks down the mathematical parameters, zone designations, and ductile detailing mandates required to design earthquake-resilient buildings in accordance with IS 1893:2016 and <a href="rcc-structural-design.html" style="color: #0284c7; font-weight: 600; text-decoration: underline;">IS 13920:2016 ductile detailing standards</a>.</p>
-
-<h2>2. Seismic Zonation of Rajasthan and North Indian Belts</h2>
-<div class="code-callout">
-  <strong>Design Seismic Base Shear Formula (IS 1893:2016 Cl. 6.4.2):</strong><br>
-  <code>Ah = (Z / 2) * (I / R) * (Sa / g)</code><br>
-  <code>Vb = Ah * W</code><br>
-  <em>Where Z = Zone Factor, I = Importance Factor, R = Response Reduction Factor, Sa/g = Design Acceleration Coefficient, and W = Total Seismic Weight of Structure.</em>
-</div>
-
-<div class="table-scroll-hint"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg> Swipe horizontally on mobile to view full table &rarr;</div>
-<div class="table-responsive">
-  <table class="tech-table">
-    <thead>
-      <tr>
-        <th>Region / Belt</th>
-        <th>Seismic Zone</th>
-        <th>Zone Factor (Z)</th>
-        <th>PGA (Peak Ground Acceleration)</th>
-        <th>Soil Type Consideration</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Jaipur, Ajmer, Kota, Udaipur</td>
-        <td>Zone II</td>
-        <td>0.10</td>
-        <td>0.10 g</td>
-        <td>Type II (Medium Soil) / Type I (Rocky Strata)</td>
-      </tr>
-      <tr>
-        <td>Jodhpur, Bikaner, Nagaur</td>
-        <td>Zone II / III</td>
-        <td>0.10 - 0.16</td>
-        <td>0.10 g - 0.16 g</td>
-        <td>Sandy desert alluvium (Requires liquefaction check per <a href="soil-testing-report.html" style="color: #0284c7; text-decoration: underline;">SBC soil report</a>)</td>
-      </tr>
-      <tr>
-        <td>Alwar, Bharatpur, NCR Border</td>
-        <td>Zone III / IV</td>
-        <td>0.16 - 0.24</td>
-        <td>0.16 g - 0.24 g</td>
-        <td>Type II / Type III soft deep alluvium</td>
-      </tr>
-      <tr>
-        <td>Delhi-NCR, Gurugram, Faridabad</td>
-        <td>Zone IV</td>
-        <td>0.24</td>
-        <td>0.24 g</td>
-        <td>High liquefaction susceptibility in riverbed belts</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-<h2>3. Frequently Asked Questions (FAQ)</h2>
-<div class="blog-faq-section">
-  <div class="faq-item">
-    <div class="faq-question"><strong>Q1: What seismic zone is Jaipur classified under in IS 1893:2016?</strong></div>
-    <div class="faq-answer">Jaipur is officially classified under Seismic Zone II with a Zone Factor Z = 0.10. However, for buildings over 15 meters or public assembly buildings, IS 13920:2016 ductile detailing is mandatory under municipal bylaws.</div>
-  </div>
-  <div class="faq-item">
-    <div class="faq-question"><strong>Q2: Why is SMRF (R=5) preferred over OMRF (R=3)?</strong></div>
-    <div class="faq-answer">Choosing SMRF reduces design lateral forces by 40%, which significantly lowers required column sizes and foundation concrete volume.</div>
-  </div>
-</div>`
-        },
-        {
-          title: "PEB vs Conventional Steel: Comprehensive Cost & Timeline Comparison | The Skytech",
-          category: "Industrial Design",
-          read_time: "8 min read",
-          image_url: "assets/images/project-industrial.jpg",
-          excerpt: "Evaluating tapered plate portal framing versus standard rolled sections for warehouses and logistics parks. Learn why PEB structures achieve 30% faster commissioning and 25-35% capex savings.",
-          content: `<h2>1. The Industrial Building Revolution: PEB vs Conventional Steel</h2>
-<p>The industrial landscape in Rajasthan and across India is undergoing massive expansion. From warehouse logistics parks in Sitapura, Mahindra World City, and Neemrana to heavy manufacturing plants and cold storage facilities, developers face a critical design decision: <strong>Pre-Engineered Steel Buildings (PEB) versus Conventional Hot-Rolled Structural Steel Framing</strong>.</p>
-<p>While conventional steel has served civil engineering for over a century, <a href="peb-structures.html" style="color: #0284c7; font-weight: 600; text-decoration: underline;">Pre-Engineered Building (PEB) solutions</a> have captured over 75% of the industrial market.</p>
-
-<h2>2. Comprehensive Technical & Financial Comparison Matrix</h2>
-<div class="table-scroll-hint"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg> Swipe horizontally on mobile to view full table &rarr;</div>
-<div class="table-responsive">
-  <table class="tech-table">
-    <thead>
-      <tr>
-        <th>Comparison Parameter</th>
-        <th>Pre-Engineered Building (PEB)</th>
-        <th>Conventional Hot-Rolled Steel</th>
-        <th>Engineering Advantage</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><strong>Primary Frame Section</strong></td>
-        <td>Tapered built-up I-sections (High tensile steel, fy = 345 MPa)</td>
-        <td>Standard rolled ISMB/ISMC beams (fy = 250 MPa)</td>
-        <td>PEB delivers higher strength-to-weight ratio</td>
-      </tr>
-      <tr>
-        <td><strong>Clear Span Capability</strong></td>
-        <td>Up to 60 meters unobstructed without internal columns</td>
-        <td>Typically 18 to 24 meters before requiring internal posts</td>
-        <td>PEB maximizes internal warehouse logistics volume</td>
-      </tr>
-      <tr>
-        <td><strong>Foundation Reactions</strong></td>
-        <td>Pinned base frames produce lower foundation overturning moment</td>
-        <td>Fixed base frames transmit large overturning moments</td>
-        <td>PEB saves 20% to 30% in foundation RCC volume</td>
-      </tr>
-      <tr>
-        <td><strong>Fabrication & Erection Time</strong></td>
-        <td>Factory CNC fabrication; bolted site erection in 6 to 10 weeks</td>
-        <td>Manual site cutting, welding, and erection taking 20 to 28 weeks</td>
-        <td><strong>PEB commissions 3x faster</strong></td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-<h2>3. Frequently Asked Questions (FAQ)</h2>
-<div class="blog-faq-section">
-  <div class="faq-item">
-    <div class="faq-question"><strong>Q1: Can overhead EOT cranes be installed in PEB warehouses?</strong></div>
-    <div class="faq-answer">Yes, absolutely. PEB portal columns can be designed with stepped brackets and custom crane runway beams to carry electric overhead traveling (EOT) cranes up to 50 Tonnes.</div>
-  </div>
-  <div class="faq-item">
-    <div class="faq-question"><strong>Q2: What is the typical lifespan of a PEB industrial building?</strong></div>
-    <div class="faq-answer">With AZ150 Galvalume alloy coated sheets and factory-painted framing, PEB structures routinely achieve a design working life of 30 to 50 years.</div>
-  </div>
-</div>`
-        },
-        {
-          title: "Structural Stability Audit & NDT Testing: Complete Guide for Industrial Buildings | The Skytech",
-          category: "Structural Audits",
-          read_time: "8 min read",
-          image_url: "assets/images/project-commercial.jpg",
-          excerpt: "How structural health audits, Rebound Hammer, UPV non-destructive testing, and capacity rating protect commercial and industrial assets, ensure regulatory compliance, and prevent catastrophic failures.",
-          content: `<h2>1. Why Structural Stability Audits Are Mandatory</h2>
-<p>Under the <strong>Factories Act 1948 (Section 38A)</strong>, National Building Code (NBC 2016 Part 2), and municipal bylaws across Rajasthan and Pan-India, commercial and industrial establishments must undergo mandatory periodic structural stability audits.</p>
-<p>The Skytech is a government-licensed structural consultancy authorized to conduct Non-Destructive Testing (NDT), structural health forensics, and issue statutory <a href="structural-stability-certificate.html" style="color: #0284c7; font-weight: 600; text-decoration: underline;">Form 2 / Form B Structural Stability Certificates</a>.</p>
-
-<h2>2. Non-Destructive Testing (NDT) Toolkit Explained</h2>
-<div class="table-scroll-hint"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg> Swipe horizontally on mobile to view full table &rarr;</div>
-<div class="table-responsive">
-  <table class="tech-table">
-    <thead>
-      <tr>
-        <th>NDT Test Method</th>
-        <th>Standard Code</th>
-        <th>Core Engineering Parameter Measured</th>
-        <th>Acceptance & Quality Benchmark</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><strong>Rebound Hammer Test</strong></td>
-        <td>IS 13311 (Part 2): 1992</td>
-        <td>Surface compressive strength & hardness index</td>
-        <td>Rebound Number &gt; 30 (Good), &gt; 40 (Excellent)</td>
-      </tr>
-      <tr>
-        <td><strong>Ultrasonic Pulse Velocity (UPV)</strong></td>
-        <td>IS 13311 (Part 1): 1992</td>
-        <td>Concrete homogeneity, density, cracks & void detection</td>
-        <td>Pulse Velocity &gt; 4.5 km/s (Excellent), 3.5-4.5 km/s (Good)</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-<h2>3. Frequently Asked Questions (FAQ)</h2>
-<div class="blog-faq-section">
-  <div class="faq-item">
-    <div class="faq-question"><strong>Q1: Who is authorized to issue Form 2 / Form B Stability Certificates?</strong></div>
-    <div class="faq-answer">Only licensed Chartered Structural Engineers registered with municipal corporations (such as JDA, JMC) and statutory engineering bodies are legally empowered to certify stability reports.</div>
-  </div>
-</div>`
-        }
-      ];
-
-      const picked = topics[Math.floor(Math.random() * topics.length)];
-
-      try {
-        const { error } = await sbClient.from('blogs').insert([{
-          title: picked.title,
-          slug: picked.title.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
-          category: picked.category,
-          excerpt: picked.excerpt,
-          content: picked.content.trim(),
-          read_time: picked.read_time,
-          image_url: picked.image_url,
-          status: targetStatus,
-          is_ai_generated: true,
-          submitted_by: 'Skytech AI Engine',
-          approved_by: targetStatus === 'published' ? 'Auto-Pilot System' : null
-        }]);
-
-        if (error) throw error;
-        const statusText = targetStatus === 'published' ? '🟢 PUBLISHED LIVE ON GOOGLE & WEBSITE' : '🟡 SAVED AS DRAFT (AWAITING APPROVAL)';
-        alert(`🚀 AI SEO Engineering Blog Generated!\n\nTitle: "${picked.title}"\nStatus: ${statusText}\nLength: ${picked.content.length} characters (1-2 pages)\n\nFull article with Google Schema, FAQs, and mobile-friendly tables is now live on the website!`);
-        fetchBlogs();
-      } catch (err) {
-        alert('Could not generate AI blog: ' + err.message);
       }
     }
 
