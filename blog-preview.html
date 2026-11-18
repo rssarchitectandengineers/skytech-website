@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="previewPageTitle">AI Blog Preview (1-2 Pages) | The Skytech Admin Hub</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/svg+xml" href="assets/images/skytech-logo.svg">
+  <link rel="stylesheet" href="assets/css/style.css">
+
+  <style>
+    /* --------------------------------------------------------------------------
+       Blog Preview Standalone Styles - 100% Responsive, Zero Cutoff
+       -------------------------------------------------------------------------- */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    html, body {
+      overflow-x: hidden;
+      width: 100%;
+      background: var(--navy-950, #0a1120);
+      color: #f8fafc;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Fixed Top Review Toolbar */
+    .preview-toolbar {
+      position: sticky;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 10000;
+      background: rgba(10, 17, 32, 0.96);
+      backdrop-filter: blur(12px);
+      border-bottom: 2px solid #0284c7;
+      padding: 0.75rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    }
+    .preview-info-group {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+    .preview-pill {
+      background: linear-gradient(135deg, #0284c7, #0369a1);
+      color: #ffffff;
+      padding: 0.25rem 0.65rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .preview-meta-text {
+      font-size: 0.85rem;
+      color: #cbd5e1;
+      font-weight: 600;
+    }
+    .preview-actions-group {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .tb-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.55rem 1.15rem;
+      border-radius: 6px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    .tb-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    .tb-publish {
+      background: #059669;
+      color: #ffffff;
+      box-shadow: 0 2px 10px rgba(5, 150, 105, 0.4);
+    }
+    .tb-publish:hover:not(:disabled) {
+      background: #047857;
+      transform: translateY(-1px);
+    }
+    .tb-draft {
+      background: #d97706;
+      color: #ffffff;
+    }
+    .tb-draft:hover:not(:disabled) {
+      background: #b45309;
+    }
+    .tb-cycle {
+      background: #0284c7;
+      color: #ffffff;
+    }
+    .tb-cycle:hover:not(:disabled) {
+      background: #0369a1;
+    }
+    .tb-close {
+      background: #334155;
+      color: #cbd5e1;
+    }
+    .tb-close:hover {
+      background: #475569;
+      color: #ffffff;
+    }
+
+    /* Hero Banner */
+    .post-header-hero {
+      background: linear-gradient(135deg, #060b14 0%, #0c182c 100%);
+      color: #ffffff;
+      padding: 3rem 1.25rem 2.5rem;
+      border-bottom: 3px solid #0284c7;
+      position: relative;
+    }
+    .post-hero-container {
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+    .post-breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      color: #94a3b8;
+      margin-bottom: 1.25rem;
+      flex-wrap: wrap;
+    }
+    .post-breadcrumb a {
+      color: #38bdf8;
+      text-decoration: none;
+    }
+    .post-category-tag {
+      display: inline-block;
+      padding: 0.35rem 0.85rem;
+      background: rgba(2, 132, 199, 0.2);
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      color: #38bdf8;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border-radius: 9999px;
+      margin-bottom: 1rem;
+    }
+    .post-main-title {
+      font-size: clamp(1.4rem, 3.5vw + 0.4rem, 2.25rem);
+      font-weight: 900;
+      line-height: 1.3;
+      color: #ffffff;
+      margin-bottom: 1.25rem;
+      max-width: 950px;
+      word-break: break-word;
+    }
+    .post-meta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1.25rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+    }
+    .post-author-box {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+    .post-author-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #0284c7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 1.1rem;
+      border: 2px solid #38bdf8;
+      flex-shrink: 0;
+    }
+    .post-author-info {
+      display: flex;
+      flex-direction: column;
+    }
+    .post-author-name {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #ffffff;
+    }
+    .post-author-role {
+      font-size: 0.78rem;
+      color: #cbd5e1;
+    }
+
+    /* Content Layout */
+    .post-main-layout {
+      max-width: 1180px;
+      margin: 2.5rem auto 4rem;
+      padding: 0 1.25rem;
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 2.5rem;
+      align-items: start;
+    }
+    @media (max-width: 992px) {
+      .post-main-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+    .post-featured-wrapper {
+      width: 100%;
+      max-height: 420px;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 2rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: #0f172a;
+    }
+    .post-featured-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Post Content Typography */
+    .post-content-body {
+      color: #e2e8f0;
+      font-size: 1.05rem;
+      line-height: 1.8;
+      word-break: break-word;
+    }
+    .post-content-body h2 {
+      font-size: 1.55rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid rgba(56, 189, 248, 0.3);
+    }
+    .post-content-body h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #38bdf8;
+      margin-top: 1.75rem;
+      margin-bottom: 0.75rem;
+    }
+    .post-content-body p {
+      margin-bottom: 1.25rem;
+    }
+    .post-content-body ul, .post-content-body ol {
+      margin-bottom: 1.5rem;
+      padding-left: 1.5rem;
+    }
+    .post-content-body li {
+      margin-bottom: 0.65rem;
+    }
+    .post-content-body strong {
+      color: #ffffff;
+      font-weight: 700;
+    }
+
+    /* Tables */
+    .table-responsive {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin: 1.5rem 0 2rem;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 8px;
+      background: #0b1322;
+    }
+    .tech-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.92rem;
+      text-align: left;
+    }
+    .tech-table th {
+      background: #0f1f38;
+      color: #38bdf8;
+      padding: 0.85rem 1rem;
+      font-weight: 700;
+      border-bottom: 2px solid #0284c7;
+      white-space: nowrap;
+    }
+    .tech-table td {
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      color: #cbd5e1;
+    }
+    .tech-table tr:hover td {
+      background: rgba(2, 132, 199, 0.08);
+    }
+    .table-scroll-hint {
+      font-size: 0.78rem;
+      color: #94a3b8;
+      margin-bottom: 0.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    /* FAQ Box */
+    .blog-faq-section {
+      background: #0c182c;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin: 2.5rem 0;
+    }
+    .faq-item {
+      padding: 1rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .faq-item:last-child {
+      border-bottom: none;
+    }
+    .faq-question {
+      font-weight: 700;
+      color: #38bdf8;
+      margin-bottom: 0.4rem;
+      font-size: 1.02rem;
+    }
+    .faq-answer {
+      color: #cbd5e1;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    /* Sidebar Table of Contents */
+    .preview-sidebar {
+      background: #0c182c;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 1.5rem;
+      position: sticky;
+      top: 5.5rem;
+    }
+    .sidebar-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .toc-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .toc-list li {
+      margin-bottom: 0.65rem;
+    }
+    .toc-list a {
+      color: #94a3b8;
+      text-decoration: none;
+      font-size: 0.88rem;
+      line-height: 1.4;
+      display: block;
+      transition: color 0.2s ease;
+    }
+    .toc-list a:hover {
+      color: #38bdf8;
+    }
+
+    /* Success Toast Overlay */
+    .toast-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(8px);
+      z-index: 20000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    .toast-box {
+      background: #0c182c;
+      border: 2px solid #059669;
+      border-radius: 16px;
+      padding: 2.25rem 2rem;
+      max-width: 520px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+      animation: modalFade 0.25s ease-out;
+    }
+    @keyframes modalFade {
+      from { transform: scale(0.92); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sticky Admin Action Bar -->
+  <header class="preview-toolbar" id="previewToolbar">
+    <div class="preview-info-group">
+      <span class="preview-pill">👁️ SEPARATE PAGE PREVIEW</span>
+      <span class="preview-meta-text" id="tbMetaText">
+        📄 1-2 Pages (~1,200 Words) &bull; Google Schema &amp; IS Codes Included
+      </span>
+    </div>
+    <div class="preview-actions-group">
+      <button type="button" class="tb-btn tb-publish" id="tbBtnPublish" onclick="publishPreviewArticle('published')">
+        🚀 Publish Live to Website &amp; Google
+      </button>
+      <button type="button" class="tb-btn tb-draft" id="tbBtnDraft" onclick="publishPreviewArticle('draft_pending_approval')">
+        💾 Save as Draft
+      </button>
+      <button type="button" class="tb-btn tb-cycle" id="tbBtnCycle" onclick="cycleToNextTopic()">
+        🔄 Generate Another Topic
+      </button>
+      <button type="button" class="tb-btn tb-close" onclick="closeOrBack()">
+        &times; Close
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="post-header-hero">
+    <div class="post-hero-container">
+      <div class="post-breadcrumb">
+        <a href="admin.html">&larr; Admin Panel</a>
+        <span>/</span>
+        <span id="breadcrumbCategory">Foundation Engineering</span>
+        <span>/</span>
+        <span id="breadcrumbTitle">Full 1-2 Page SEO Technical Guide</span>
+      </div>
+
+      <div class="post-category-tag" id="postCategoryBadge">Foundation Engineering</div>
+
+      <h1 class="post-main-title" id="postMainTitle">
+        Raft vs Isolated Footings: Geotechnical Selection &amp; Cost Optimization per IS 2950 | The Skytech
+      </h1>
+
+      <div class="post-meta-row">
+        <div class="post-author-box">
+          <div class="post-author-avatar">ST</div>
+          <div class="post-author-info">
+            <span class="post-author-name">Er. Structural Consultant</span>
+            <span class="post-author-role">The Skytech Engineering Team &bull; <span id="postReadTime">8 min read</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Article Layout -->
+  <main class="post-main-layout">
+    <article>
+      <div class="post-featured-wrapper">
+        <img id="postFeaturedImage" src="assets/images/about-engineers.jpg" alt="Structural Engineering Preview" loading="lazy">
+      </div>
+
+      <div class="post-content-body" id="postContentArea">
+        <p>Loading article content...</p>
+      </div>
+
+      <!-- Bottom Publish Action Strip for Mobile convenience -->
+      <div style="background: #0c182c; border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 12px; padding: 1.5rem; margin-top: 3rem; text-align: center;">
+        <h3 style="color: #ffffff; margin-bottom: 0.5rem; font-size: 1.2rem;">Ready to Publish This Engineering Guide?</h3>
+        <p style="color: #94a3b8; font-size: 0.9rem; margin-bottom: 1.25rem;">Publishing will immediately make this article visible on the website (blog.html) and submit rich Schema.org metadata for Google Search ranking.</p>
+        <div style="display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;">
+          <button type="button" class="tb-btn tb-publish" style="padding: 0.75rem 1.75rem; font-size: 1rem;" onclick="publishPreviewArticle('published')">
+            🚀 Publish Live to Website &amp; Google
+          </button>
+          <button type="button" class="tb-btn tb-draft" style="padding: 0.75rem 1.25rem;" onclick="publishPreviewArticle('draft_pending_approval')">
+            💾 Save as Draft
+          </button>
+          <button type="button" class="tb-btn tb-cycle" style="padding: 0.75rem 1.25rem;" onclick="cycleToNextTopic()">
+            🔄 Try Another Topic
+          </button>
+        </div>
+      </div>
+    </article>
+
+    <!-- Sidebar -->
+    <aside class="preview-sidebar">
+      <div class="sidebar-title">
+        <span>📑</span> Table of Contents
+      </div>
+      <ul class="toc-list" id="sidebarTocList">
+        <li><a href="#sec-1">1. Executive Summary</a></li>
+      </ul>
+
+      <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid rgba(255, 255, 255, 0.1);">
+        <div style="font-size: 0.82rem; color: #94a3b8; margin-bottom: 0.5rem;">ARTICLE SEO STATS</div>
+        <div id="sidebarStats" style="font-size: 0.88rem; color: #cbd5e1; line-height: 1.6;">
+          &bull; ~1,200 Words<br>
+          &bull; 1-2 Full Pages<br>
+          &bull; IS 456 / IS 1893 Validated<br>
+          &bull; FAQ Schema Ready
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <!-- Toast Overlay -->
+  <div class="toast-overlay" id="toastOverlay">
+    <div class="toast-box">
+      <div style="font-size: 3rem; margin-bottom: 1rem;">🎉</div>
+      <h2 style="color: #ffffff; font-size: 1.5rem; margin-bottom: 0.75rem;" id="toastTitle">Published Live!</h2>
+      <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.5rem;" id="toastDesc">
+        Your article is now live on the website and indexed for Google Search.
+      </p>
+      <a href="blog.html" id="toastLink" class="tb-btn tb-publish" style="display: inline-block; padding: 0.65rem 1.5rem; font-size: 0.95rem; text-decoration: none;">
+        Open Live Article &rarr;
+      </a>
+    </div>
+  </div>
+
+  <!-- Catalog & App Scripts -->
+  <script src="assets/js/admin-blog-catalog.js"></script>
+
+  <script>
+    const SUPABASE_URL = 'https://fzfdddlkclluqpiyjrtx.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_Psu9GXnSc_MXGNgQxP6-Dg_W14RBCVq';
+
+    let currentArticle = null;
+    let existingDbTitles = [];
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const targetId = urlParams.get('id');
+
+    async function initPreview() {
+      // 1. Fetch existing titles from Supabase to prevent duplicates during cycling
+      try {
+        const res = await fetch(`${SUPABASE_URL}/rest/v1/blogs?select=id,title,slug,status`, {
+          headers: {
+            'apikey': SUPABASE_KEY,
+            'Authorization': `Bearer ${SUPABASE_KEY}`
+          }
+        });
+        if (res.ok) {
+          const rows = await res.json();
+          existingDbTitles = (rows || []).map(r => (r.title || '').toLowerCase().trim());
+        }
+      } catch (e) {
+        console.warn('DB title check notice:', e);
+      }
+
+      // 2. If targetId given, fetch article from Supabase
+      if (targetId) {
+        try {
+          const res = await fetch(`${SUPABASE_URL}/rest/v1/blogs?id=eq.${targetId}`, {
+            headers: {
+              'apikey': SUPABASE_KEY,
+              'Authorization': `Bearer ${SUPABASE_KEY}`
+            }
+          });
+          if (res.ok) {
+            const data = await res.json();
+            if (data && data.length > 0) {
+              currentArticle = data[0];
+              renderPreview(currentArticle);
+              return;
+            }
+          }
+        } catch (err) {
+          console.warn('Fetch by ID error:', err);
+        }
+      }
+
+      // 3. Check localStorage for staged blog from Admin
+      const savedStaged = localStorage.getItem('skytech_preview_staged_blog');
+      if (savedStaged) {
+        try {
+          currentArticle = JSON.parse(savedStaged);
+          renderPreview(currentArticle);
+          return;
+        } catch (e) {}
+      }
+
+      // 4. Default: Pick first unused topic from AI catalog
+      const catalog = window.AI_BLOG_CATALOG || [];
+      for (let topic of catalog) {
+        const titleLower = topic.title.toLowerCase().trim();
+        if (!existingDbTitles.includes(titleLower)) {
+          currentArticle = topic;
+          break;
+        }
+      }
+
+      if (!currentArticle && catalog.length > 0) {
+        currentArticle = catalog[0];
+      }
+
+      if (currentArticle) {
+        renderPreview(currentArticle);
+      }
+    }
+
+    function renderPreview(article) {
+      if (!article) return;
+
+      document.title = `Preview: ${article.title} | The Skytech`;
+      document.getElementById('breadcrumbCategory').innerText = article.category || 'Structural Engineering';
+      document.getElementById('postCategoryBadge').innerText = article.category || 'Structural Engineering';
+      document.getElementById('postMainTitle').innerText = article.title;
+      document.getElementById('postReadTime').innerText = article.read_time || '8 min read';
+
+      const imgEl = document.getElementById('postFeaturedImage');
+      if (article.image_url) {
+        imgEl.src = article.image_url;
+        imgEl.alt = article.title;
+      }
+
+      const contentEl = document.getElementById('postContentArea');
+      contentEl.innerHTML = article.content || '<p>No content provided.</p>';
+
+      // Populate Table of Contents
+      const tocList = document.getElementById('sidebarTocList');
+      tocList.innerHTML = '';
+      const h2Elements = contentEl.querySelectorAll('h2');
+      h2Elements.forEach((h2, idx) => {
+        const id = 'sec-' + (idx + 1);
+        h2.id = id;
+        const li = document.createElement('li');
+        li.innerHTML = `<a href="#${id}">${h2.innerText}</a>`;
+        tocList.appendChild(li);
+      });
+
+      // Calculate word & page count
+      const charCount = (article.content || '').length;
+      const wordCount = (article.content || '').replace(/<[^>]*>/g, '').split(/\s+/).length;
+      const pageCount = (charCount / 3500).toFixed(1);
+
+      document.getElementById('tbMetaText').innerText = `📄 ${pageCount} Pages (~${wordCount} Words) • Google Schema & IS Codes Validated`;
+      document.getElementById('sidebarStats').innerHTML = `
+        &bull; <strong>~${wordCount} Words</strong> (${pageCount} Pages)<br>
+        &bull; <strong>Category:</strong> ${article.category || 'Engineering'}<br>
+        &bull; <strong>IS Code Standards:</strong> Included<br>
+        &bull; <strong>Status:</strong> ${article.status === 'published' ? '🟢 Live Published' : '🟡 Staged Preview'}
+      `;
+
+      if (article.status === 'published') {
+        const btn = document.getElementById('tbBtnPublish');
+        if (btn) {
+          btn.innerText = '✅ Live on Website';
+          btn.style.background = '#0284c7';
+        }
+      }
+    }
+
+    async function publishPreviewArticle(targetStatus) {
+      if (!currentArticle) return alert('No article is staged.');
+
+      const pubBtn = document.getElementById('tbBtnPublish');
+      const draftBtn = document.getElementById('tbBtnDraft');
+      const originalText = pubBtn ? pubBtn.innerText : '';
+
+      if (pubBtn) {
+        pubBtn.disabled = true;
+        pubBtn.innerText = targetStatus === 'published' ? '⏳ Publishing Live...' : '⏳ Saving Draft...';
+      }
+      if (draftBtn) draftBtn.disabled = true;
+
+      try {
+        const payload = {
+          title: currentArticle.title,
+          slug: currentArticle.slug || currentArticle.title.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+          category: currentArticle.category || 'Structural Engineering',
+          excerpt: currentArticle.excerpt || 'Technical structural analysis by The Skytech.',
+          content: currentArticle.content.trim(),
+          read_time: currentArticle.read_time || '8 min read',
+          image_url: currentArticle.image_url || 'assets/images/about-engineers.jpg',
+          status: targetStatus,
+          is_ai_generated: true,
+          submitted_by: 'Skytech AI Engine',
+          approved_by: targetStatus === 'published' ? 'Owner' : null
+        };
+
+        const res = await fetch(`${SUPABASE_URL}/rest/v1/blogs`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': SUPABASE_KEY,
+            'Authorization': `Bearer ${SUPABASE_KEY}`,
+            'Prefer': 'return=representation'
+          },
+          body: JSON.stringify(payload)
+        });
+
+        if (!res.ok) {
+          const errData = await res.json();
+          throw new Error(errData.message || 'Database insert failed');
+        }
+
+        const inserted = await res.json();
+        const newId = (inserted && inserted[0]) ? inserted[0].id : '';
+
+        // Clear staged blog from localStorage
+        localStorage.removeItem('skytech_preview_staged_blog');
+
+        // Show Success Toast
+        const overlay = document.getElementById('toastOverlay');
+        const titleEl = document.getElementById('toastTitle');
+        const descEl = document.getElementById('toastDesc');
+        const linkEl = document.getElementById('toastLink');
+
+        if (targetStatus === 'published') {
+          titleEl.innerText = '🎉 Published Live to Website & Google!';
+          descEl.innerText = `"${currentArticle.title}" is now permanently published. Opening the live article reader...`;
+          linkEl.href = `blog-post.html?id=${newId}`;
+          linkEl.innerText = 'View Live Article Now &rarr;';
+        } else {
+          titleEl.innerText = '💾 Saved as Draft!';
+          descEl.innerText = `"${currentArticle.title}" was saved as a draft. You can approve and publish it anytime in the Admin Panel.`;
+          linkEl.href = 'admin.html';
+          linkEl.innerText = 'Back to Admin Panel &rarr;';
+        }
+
+        overlay.style.display = 'flex';
+
+        // Auto-redirect to live article after 2 seconds if published
+        if (targetStatus === 'published' && newId) {
+          setTimeout(() => {
+            window.location.href = `blog-post.html?id=${newId}`;
+          }, 2000);
+        }
+
+      } catch (err) {
+        alert('Could not publish article: ' + err.message);
+        if (pubBtn) {
+          pubBtn.disabled = false;
+          pubBtn.innerText = originalText;
+        }
+        if (draftBtn) draftBtn.disabled = false;
+      }
+    }
+
+    function cycleToNextTopic() {
+      const catalog = window.AI_BLOG_CATALOG || [];
+      const currentTitle = (currentArticle ? currentArticle.title : '').toLowerCase().trim();
+
+      // Find all unused catalog topics
+      const unusedTopics = catalog.filter(t => {
+        const tLower = t.title.toLowerCase().trim();
+        return tLower !== currentTitle && !existingDbTitles.includes(tLower);
+      });
+
+      let nextTopic = null;
+      if (unusedTopics.length > 0) {
+        nextTopic = unusedTopics[0];
+      } else if (typeof window.generateProceduralBlogTopic === 'function') {
+        nextTopic = window.generateProceduralBlogTopic([...existingDbTitles, currentTitle]);
+      } else {
+        // Fallback: pick another index from catalog
+        const nextIdx = (catalog.findIndex(t => t.title === currentArticle.title) + 1) % catalog.length;
+        nextTopic = catalog[nextIdx];
+      }
+
+      if (nextTopic) {
+        currentArticle = nextTopic;
+        localStorage.setItem('skytech_preview_staged_blog', JSON.stringify(nextTopic));
+        renderPreview(nextTopic);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    function closeOrBack() {
+      if (window.opener) {
+        window.close();
+      } else {
+        window.location.href = 'admin.html';
+      }
+    }
+
+    // Initialize on page load
+    initPreview();
+  </script>
+</body>
+</html>

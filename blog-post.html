@@ -1257,6 +1257,7 @@
   </aside>
 
   <!-- External App Modules -->
+  <script src="assets/js/admin-blog-catalog.js"></script>
   <script type="module" src="assets/js/main.js"></script>
   <script type="module" src="assets/js/ai-assistant.js"></script>
 
@@ -1700,6 +1701,17 @@
       const contentEl = document.getElementById('postContentArea');
       contentEl.innerHTML = blog.content;
 
+      // If viewing a draft, display draft badge at top of content
+      if (blog.status === 'draft_pending_approval') {
+        const draftNotice = document.createElement('div');
+        draftNotice.style.cssText = 'background: rgba(245, 158, 11, 0.15); border: 1px solid #f59e0b; color: #f59e0b; padding: 0.85rem 1.25rem; border-radius: 8px; margin-bottom: 1.5rem; font-weight: 700; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem;';
+        draftNotice.innerHTML = `
+          <div>🟡 <strong>Draft Article Preview</strong> (Awaiting Owner Live Approval)</div>
+          <a href="admin.html" style="color: #f59e0b; text-decoration: underline; font-size: 0.85rem; font-weight: 700;">Open Admin to Approve &rarr;</a>
+        `;
+        contentEl.prepend(draftNotice);
+      }
+
       // Populate Table of Contents
       const tocList = document.getElementById('sidebarTocList');
       tocList.innerHTML = '';
@@ -1798,25 +1810,30 @@
 
     function renderRelatedArticles(currentId) {
       const container = document.getElementById('relatedArticlesGrid');
-      const otherBlogs = fallbackBlogs.filter(b => String(b.id) !== String(currentId)).slice(0, 3);
+      if (!container) return;
+      const combined = [...fallbackBlogs, ...(window.AI_BLOG_CATALOG || [])];
+      const otherBlogs = combined.filter(b => String(b.id || b.slug) !== String(currentId)).slice(0, 3);
       
-      container.innerHTML = otherBlogs.map(b => `
+      container.innerHTML = otherBlogs.map(b => {
+        const linkHref = b.id ? `blog-post.html?id=${b.id}` : `blog-post.html?slug=${b.slug}`;
+        return `
         <article class="blog-card">
           <div class="blog-card-img">
-            <a href="blog-post.html?id=${b.id}" title="${b.title}">
-              <img src="${b.image_url}" alt="${b.title}" loading="lazy" width="400" height="220">
+            <a href="${linkHref}" title="${b.title}">
+              <img src="${b.image_url}" alt="${b.title}" loading="lazy" width="400" height="220" onerror="this.onerror=null; this.src='assets/images/about-engineers.jpg';">
             </a>
           </div>
           <div class="blog-card-body">
             <div class="blog-date">${b.category} &bull; ${b.read_time}</div>
             <h3 class="blog-title">
-              <a href="blog-post.html?id=${b.id}" style="color: inherit; text-decoration: none;">${b.title}</a>
+              <a href="${linkHref}" style="color: inherit; text-decoration: none;">${b.title}</a>
             </h3>
             <p class="blog-excerpt">${b.excerpt}</p>
-            <a href="blog-post.html?id=${b.id}" class="btn-read-link">Read Full Technical Guide &rarr;</a>
+            <a href="${linkHref}" class="btn-read-link">Read Full Technical Guide &rarr;</a>
           </div>
         </article>
-      `).join('');
+      `;
+      }).join('');
     }
 
     // Copy Article Link feedback handler
@@ -1840,29 +1857,48 @@
       if (bar) bar.style.width = scrolled + '%';
     });
 
-    // Main Fetch Routine
+    // Main Fetch Routine with Zero Blind Fallbacks
     async function loadBlogPost() {
-      // 1. Initial Match from Fallback (instant zero-delay rendering)
+      const combinedFallbacks = [...fallbackBlogs, ...(window.AI_BLOG_CATALOG || [])];
       let matchedBlog = null;
-      if (targetId) {
-        matchedBlog = fallbackBlogs.find(b => String(b.id) === String(targetId));
-      } else if (targetSlug) {
-        matchedBlog = fallbackBlogs.find(b => b.slug === targetSlug);
-      }
-      
-      // Default to first article if not specified
-      if (!matchedBlog) {
-        matchedBlog = fallbackBlogs[0];
-      }
-      renderArticle(matchedBlog);
 
-      // 2. Fetch from Supabase (for dynamic updates or new articles created in Admin)
+      if (targetId) {
+        matchedBlog = combinedFallbacks.find(b => String(b.id) === String(targetId));
+      } else if (targetSlug) {
+        matchedBlog = combinedFallbacks.find(b => b.slug === targetSlug);
+      }
+
+      // If matched locally, render immediately for instant speed
+      if (matchedBlog) {
+        renderArticle(matchedBlog);
+      } else if (targetId || targetSlug) {
+        // Show high-quality skeleton loading state rather than showing the wrong article!
+        const titleEl = document.getElementById('postMainTitle');
+        if (titleEl) titleEl.innerText = 'Loading Structural Engineering Technical Guide...';
+        const contentEl = document.getElementById('postContentArea');
+        if (contentEl) {
+          contentEl.innerHTML = `
+            <div style="padding: 4rem 1.5rem; text-align: center; color: var(--slate-300);">
+              <div style="font-size: 2.8rem; margin-bottom: 1.25rem;">⏳</div>
+              <h3 style="color: #ffffff; font-size: 1.35rem; margin-bottom: 0.5rem;">Fetching Full 1-2 Page Engineering Guide</h3>
+              <p style="color: var(--slate-400); max-width: 550px; margin: 0 auto;">Retrieving complete structural calculations, IS code parameters, and drawings audit from database...</p>
+            </div>
+          `;
+        }
+      } else {
+        // Default only when no specific ID or Slug is requested in URL
+        renderArticle(fallbackBlogs[0]);
+      }
+
+      // Supabase Live Fetch (always queries specific ID if targetId is given)
       try {
-        let queryUrl = `${SUPABASE_URL}/rest/v1/blogs?status=eq.published`;
+        let queryUrl = '';
         if (targetId) {
-          queryUrl += `&id=eq.${targetId}`;
+          queryUrl = `${SUPABASE_URL}/rest/v1/blogs?id=eq.${targetId}`;
         } else if (targetSlug) {
-          queryUrl += `&slug=eq.${targetSlug}`;
+          queryUrl = `${SUPABASE_URL}/rest/v1/blogs?slug=eq.${targetSlug}`;
+        } else {
+          queryUrl = `${SUPABASE_URL}/rest/v1/blogs?status=eq.published&order=created_at.desc&limit=1`;
         }
 
         const res = await fetch(queryUrl, {
@@ -1876,6 +1912,21 @@
           const data = await res.json();
           if (data && data.length > 0) {
             renderArticle(data[0]);
+          } else if (!matchedBlog && (targetId || targetSlug)) {
+            // Not found
+            const titleEl = document.getElementById('postMainTitle');
+            if (titleEl) titleEl.innerText = 'Technical Article Under Review | The Skytech';
+            const contentEl = document.getElementById('postContentArea');
+            if (contentEl) {
+              contentEl.innerHTML = `
+                <div style="padding: 3.5rem 1.5rem; text-align: center; color: var(--slate-300);">
+                  <div style="font-size: 2.8rem; margin-bottom: 1rem;">📋</div>
+                  <h3 style="color: #ffffff; font-size: 1.3rem; margin-bottom: 0.75rem;">Article Not Found or Draft Under Review</h3>
+                  <p style="color: var(--slate-400); max-width: 580px; margin: 0 auto 1.5rem;">The article you are looking for may have been archived or is awaiting publication.</p>
+                  <a href="blog.html" class="btn-lead" style="display: inline-block; background: var(--sky-blue-600); color: #fff; text-decoration: none; padding: 0.65rem 1.5rem; border-radius: 6px; font-weight: 700;">&larr; Browse All Technical Blogs</a>
+                </div>
+              `;
+            }
           }
         }
       } catch (err) {

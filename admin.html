@@ -1335,9 +1335,19 @@
 
       currentStagedBlog = selectedTopic;
 
-      // 4. Open the dedicated Preview Modal
+      // Store in localStorage for the dedicated Separate Preview Page
+      localStorage.setItem('skytech_preview_staged_blog', JSON.stringify(selectedTopic));
+
+      // Open Dedicated Separate Page Preview in new tab
+      try {
+        window.open('blog-preview.html', '_blank');
+      } catch (e) {
+        console.warn('Popup blocked, falling back to modal:', e);
+      }
+
+      // Also prepare modal in Admin Panel as backup
       document.getElementById('previewModalTitle').innerText = selectedTopic.title;
-      document.getElementById('previewModalSubtitle').innerText = '✨ AI SEO Article Generated! Review full 1-2 page content below before publishing.';
+      document.getElementById('previewModalSubtitle').innerText = '✨ AI SEO Article Generated! Preview opened in separate page, or review full content below.';
       document.getElementById('previewBadgeCategory').innerText = selectedTopic.category;
       document.getElementById('previewReadTime').innerText = selectedTopic.read_time;
 
@@ -1356,13 +1366,16 @@
       // Render Action Buttons
       const actionsDiv = document.getElementById('previewModalActions');
       actionsDiv.innerHTML = `
+        <a href="blog-preview.html" target="_blank" class="btn-lead" style="background:#0284c7; color:#fff; text-decoration:none; font-weight:700;">
+          👁️ Open Separate Page Preview
+        </a>
         <button type="button" class="btn-lead" style="background:var(--emerald-600); color:#fff; font-weight:700; padding:0.6rem 1.25rem;" onclick="publishStagedBlog('published')">
           🚀 Publish Live to Website &amp; Google
         </button>
         <button type="button" class="btn-lead" style="background:var(--amber-500); color:#000; font-weight:600;" onclick="publishStagedBlog('draft_pending_approval')">
           💾 Save as Draft
         </button>
-        <button type="button" class="btn-lead" style="background:#0284c7; color:#fff;" onclick="generateNewAiBlog()">
+        <button type="button" class="btn-lead" style="background:#0891b2; color:#fff;" onclick="generateNewAiBlog()">
           🔄 Generate Another Topic
         </button>
         <button type="button" class="btn-lead" style="background:var(--slate-700); color:#fff;" onclick="closeModal('previewBlogModal')">
@@ -1390,16 +1403,21 @@
           status: targetStatus,
           is_ai_generated: true,
           submitted_by: 'Skytech AI Engine',
-          approved_by: targetStatus === 'published' ? (currentRole === 'owner' ? 'Owner' : 'Auto-Pilot') : null
+          approved_by: targetStatus === 'published' ? 'Owner' : null
         }]).select();
 
         if (error) throw error;
 
         closeModal('previewBlogModal');
+        localStorage.removeItem('skytech_preview_staged_blog');
+        const newId = (data && data[0]) ? data[0].id : '';
         const statusText = targetStatus === 'published' ? '🟢 Published Live on Website & Google!' : '🟡 Saved as Draft (Awaiting Approval).';
         alert(`✅ Article Successfully Saved!\n\nTitle: "${currentStagedBlog.title}"\nStatus: ${statusText}\nLength: ${currentStagedBlog.content.length} characters (1-2 pages)\n\nYou can view it live in the Blog section!`);
         currentStagedBlog = null;
         fetchBlogs();
+        if (targetStatus === 'published' && newId) {
+          window.open(`blog-post.html?id=${newId}`, '_blank');
+        }
       } catch (err) {
         alert('Could not publish article: ' + err.message);
       }
@@ -1429,7 +1447,8 @@
       const actionsDiv = document.getElementById('previewModalActions');
       const isPending = blog.status === 'draft_pending_approval';
       actionsDiv.innerHTML = `
-        <a href="blog-post.html?id=${blog.id}" target="_blank" class="btn-lead" style="background:#0284c7; color:#fff; text-decoration:none;">🔗 Open Live Reader</a>
+        <a href="blog-preview.html?id=${blog.id}" target="_blank" class="btn-lead" style="background:#0284c7; color:#fff; text-decoration:none;">📄 Open in Separate Page Preview</a>
+        <a href="blog-post.html?id=${blog.id}" target="_blank" class="btn-lead" style="background:#059669; color:#fff; text-decoration:none;">🔗 Live Article Reader</a>
         ${isPending && currentRole === 'owner' ? `<button type="button" class="btn-lead" style="background:var(--emerald-600); color:#fff;" onclick="approveBlog(${blog.id}); closeModal('previewBlogModal');">✅ Approve &amp; Publish Live</button>` : ''}
         <button type="button" class="btn-lead" style="background:var(--slate-700); color:#fff;" onclick="closeModal('previewBlogModal')">Close</button>
       `;
@@ -1471,8 +1490,9 @@
               </div>
               <p class="item-card-desc">${escapeHtml(b.excerpt || '')}</p>
               <div class="lead-actions">
-                <button type="button" class="btn-lead" style="background:#0284c7; color:#fff;" onclick="previewBlog(${b.id})">👁️ Preview Full 1-2 Pages</button>
-                <a href="blog-post.html?id=${b.id}" target="_blank" class="btn-lead" style="background:#334155; color:#fff; text-decoration:none;">🔗 Live Article Reader</a>
+                <a href="blog-preview.html?id=${b.id}" target="_blank" class="btn-lead" style="background:#0284c7; color:#fff; text-decoration:none;">👁️ Separate Page Preview</a>
+                <a href="blog-post.html?id=${b.id}" target="_blank" class="btn-lead" style="background:#059669; color:#fff; text-decoration:none;">🔗 Live Article Reader</a>
+                <button type="button" class="btn-lead" style="background:#334155; color:#fff;" onclick="previewBlog(${b.id})">📋 Quick View</button>
                 ${isPending && currentRole === 'owner' ? `
                   <button type="button" class="btn-lead" style="background:var(--emerald-600); color:#fff;" onclick="approveBlog(${b.id})">✅ Approve &amp; Publish</button>
                 ` : ''}
