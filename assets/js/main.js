@@ -817,13 +817,15 @@ function renderProjects(projects) {
   const grid = document.getElementById('projectsGrid');
   if (!grid) return;
 
+  const fallbackSrc = 'assets/images/project-commercial.jpg';
+
   grid.innerHTML = projects.map(p => {
     const isRemote = (p.image || '').startsWith('http');
     const imgHtml = isRemote
-      ? `<img src="${p.image}" alt="${p.title} - Structural Design by The Skytech" loading="lazy" width="400" height="200" style="object-fit:cover; width:100%; height:100%;" decoding="async">`
+      ? `<img src="${p.image}" alt="${p.title} - Structural Design by The Skytech" loading="lazy" width="400" height="200" style="object-fit:cover; width:100%; height:100%;" decoding="async" onerror="this.onerror=null; this.src='${fallbackSrc}';">`
       : `<picture>
           <source srcset="${(p.image || '').replace('.jpg', '.webp')}" type="image/webp">
-          <img src="${p.image}" alt="${p.title} - Structural Design by The Skytech" loading="lazy" width="400" height="200" decoding="async">
+          <img src="${p.image}" alt="${p.title} - Structural Design by The Skytech" loading="lazy" width="400" height="200" decoding="async" onerror="this.onerror=null; this.src='${fallbackSrc}';">
         </picture>`;
 
     return `
@@ -877,11 +879,12 @@ function showProjectModalDetails(project) {
   if (!modal || !container) return;
 
   const isRemote = (project.image || '').startsWith('http');
+  const fallbackSrc = 'assets/images/project-commercial.jpg';
   const imgMarkup = isRemote
-    ? `<img src="${project.image}" alt="${project.title}" style="width: 100%; height: 100%; object-fit: cover;" decoding="async">`
+    ? `<img src="${project.image}" alt="${project.title}" style="width: 100%; height: 100%; object-fit: cover;" decoding="async" onerror="this.onerror=null; this.src='${fallbackSrc}';">`
     : `<picture>
         <source srcset="${(project.image || '').replace('.jpg', '.webp')}" type="image/webp">
-        <img src="${project.image}" alt="${project.title}" style="width: 100%; height: 100%; object-fit: cover;" decoding="async">
+        <img src="${project.image}" alt="${project.title}" style="width: 100%; height: 100%; object-fit: cover;" decoding="async" onerror="this.onerror=null; this.src='${fallbackSrc}';">
       </picture>`;
 
   container.innerHTML = `
