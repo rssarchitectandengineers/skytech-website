@@ -3,7 +3,10 @@
  * Quality Matters | Jaipur, Rajasthan
  */
 
+import { initSiteCms } from './site-cms.js';
+
 document.addEventListener('DOMContentLoaded', () => {
+  initSiteCms();
   initStickyHeader();
   initMobileNav();
   initHeroSlider();

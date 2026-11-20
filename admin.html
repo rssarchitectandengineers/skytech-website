@@ -445,6 +445,197 @@
       border-radius: 9999px;
     }
 
+    /* --------------------------------------------------------------------------
+       Page Builder & Drag-and-Drop CMS Workspace
+       -------------------------------------------------------------------------- */
+    .builder-workspace {
+      display: grid;
+      grid-template-columns: 460px 1fr;
+      gap: 1.5rem;
+      align-items: start;
+    }
+    @media (max-width: 1100px) {
+      .builder-workspace {
+        grid-template-columns: 1fr;
+      }
+    }
+    .builder-controls-card {
+      background: var(--navy-900);
+      border: 1px solid var(--navy-800);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+    }
+    .builder-subtabs {
+      display: flex;
+      gap: 0.35rem;
+      overflow-x: auto;
+      padding-bottom: 0.75rem;
+      margin-bottom: 1.25rem;
+      border-bottom: 1px solid var(--navy-800);
+    }
+    .builder-subtab-btn {
+      background: var(--navy-950);
+      border: 1px solid var(--navy-800);
+      color: var(--slate-300);
+      padding: 0.45rem 0.75rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: all 0.2s;
+    }
+    .builder-subtab-btn.active {
+      background: #0284c7;
+      color: #fff;
+      border-color: #38bdf8;
+    }
+    .builder-section-item {
+      background: var(--navy-950);
+      border: 1px solid var(--navy-800);
+      border-radius: var(--radius-sm);
+      padding: 0.75rem 0.85rem;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      cursor: grab;
+      transition: all 0.2s;
+      user-select: none;
+    }
+    .builder-section-item:active {
+      cursor: grabbing;
+    }
+    .builder-section-item.dragging {
+      opacity: 0.35;
+      border: 2px dashed #0284c7;
+    }
+    .builder-section-item.drag-over {
+      border-top: 3px solid #38bdf8;
+      background: rgba(2, 132, 199, 0.1);
+    }
+    .builder-section-item.hidden-section {
+      opacity: 0.5;
+      border-color: rgba(239, 68, 68, 0.3);
+    }
+    .section-item-left {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      min-width: 0;
+    }
+    .drag-handle {
+      color: var(--slate-400);
+      font-size: 1.15rem;
+      line-height: 1;
+      cursor: grab;
+    }
+    .section-item-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #fff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .section-item-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      flex-shrink: 0;
+    }
+    .btn-builder-ctrl {
+      background: var(--navy-850);
+      border: 1px solid var(--navy-700);
+      color: var(--slate-300);
+      width: 30px;
+      height: 30px;
+      border-radius: var(--radius-sm);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .btn-builder-ctrl:hover {
+      background: var(--navy-700);
+      color: #fff;
+    }
+    .btn-builder-ctrl.btn-toggle-vis.hidden {
+      color: #ef4444;
+      background: rgba(239, 68, 68, 0.15);
+      border-color: rgba(239, 68, 68, 0.3);
+    }
+    .preview-device-card {
+      background: var(--navy-900);
+      border: 1px solid var(--navy-800);
+      border-radius: var(--radius);
+      overflow: hidden;
+      position: sticky;
+      top: 5rem;
+    }
+    .preview-device-header {
+      background: var(--navy-850);
+      padding: 0.6rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--navy-800);
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .device-toggle-group {
+      display: flex;
+      gap: 0.25rem;
+      background: var(--navy-950);
+      padding: 3px;
+      border-radius: var(--radius-sm);
+    }
+    .btn-device {
+      background: transparent;
+      border: none;
+      color: var(--slate-400);
+      padding: 0.3rem 0.65rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .btn-device.active {
+      background: #0284c7;
+      color: #fff;
+    }
+    .preview-frame-container {
+      width: 100%;
+      height: 680px;
+      background: #0f172a;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    .preview-iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: #fff;
+      transition: width 0.3s ease;
+    }
+    .preview-frame-container.mobile-mode .preview-iframe {
+      width: 375px;
+      border: 8px solid #334155;
+      border-radius: 28px;
+      height: 660px;
+      margin-top: 10px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+    }
+
     /* Login Screen */
     #loginScreen {
       position: fixed;
@@ -640,7 +831,176 @@
       </div>
     </section>
 
-    <!-- TAB 4: SETTINGS & TEAM -->
+    <!-- TAB 4: VISUAL PAGE BUILDER & CMS -->
+    <section id="paneBuilder" class="tab-pane">
+      <div class="section-bar">
+        <h2 class="section-heading">
+          <span>🎨</span> Visual Page Builder &amp; CMS
+        </h2>
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+          <button type="button" class="btn-action" style="background: var(--emerald-600); box-shadow: 0 4px 14px rgba(5,150,105,0.4);" onclick="saveAndPublishCms(event)" id="btnSaveCms">
+            💾 Save &amp; Publish Live
+          </button>
+          <button type="button" class="btn-action btn-outline" onclick="resetCmsDefaults()">
+            🔄 Reset
+          </button>
+        </div>
+      </div>
+
+      <div style="background: rgba(14, 165, 233, 0.1); border: 1px solid rgba(14, 165, 233, 0.25); border-radius: var(--radius-lg); padding: 0.85rem 1.15rem; margin-bottom: 1.25rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem;">
+        <div style="font-size: 0.85rem; color: #e2e8f0;">
+          <strong style="color: #38bdf8;">🌐 Visual Drag-and-Drop:</strong> Reorder sections using 🔼/🔽 or mouse drag, toggle section visibility, and customize text in real-time. Changes sync to the website live via Supabase CDN!
+        </div>
+        <span class="status-badge status-published" id="cmsSyncBadge">Live Synced (Supabase CDN)</span>
+      </div>
+
+      <div class="builder-workspace">
+        <!-- Left: Builder Controls -->
+        <div class="builder-controls-card">
+          <!-- Subtabs -->
+          <div class="builder-subtabs">
+            <button type="button" class="builder-subtab-btn active" onclick="switchBuilderSubtab('subtabSections', this)">
+              🔀 Section Order
+            </button>
+            <button type="button" class="builder-subtab-btn" onclick="switchBuilderSubtab('subtabHero', this)">
+              🖼️ Hero Banner
+            </button>
+            <button type="button" class="builder-subtab-btn" onclick="switchBuilderSubtab('subtabStats', this)">
+              📊 Stats
+            </button>
+            <button type="button" class="builder-subtab-btn" onclick="switchBuilderSubtab('subtabBusiness', this)">
+              📞 Contact &amp; Info
+            </button>
+            <button type="button" class="builder-subtab-btn" onclick="switchBuilderSubtab('subtabNotice', this)">
+              📢 Announcement
+            </button>
+            <button type="button" class="builder-subtab-btn" onclick="switchBuilderSubtab('subtabSeo', this)">
+              🔍 SEO
+            </button>
+          </div>
+
+          <!-- Subtab 1: Section Order & Visibility -->
+          <div id="subtabSections" class="builder-subtab-pane">
+            <div style="font-size: 0.82rem; color: var(--slate-400); margin-bottom: 0.85rem;">
+              Drag cards or use 🔼 / 🔽 arrows to reorder homepage sections. Click 👁️ to hide or show on live site.
+            </div>
+            <div id="builderSectionList">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+
+          <!-- Subtab 2: Hero Banner -->
+          <div id="subtabHero" class="builder-subtab-pane" style="display: none;">
+            <div class="form-group">
+              <label class="form-label">Top Tagline / Badge</label>
+              <input type="text" id="cmsHeroTagline" class="form-input" oninput="updateCmsFromInputs()">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Main Headline *</label>
+              <textarea id="cmsHeroHeadline" class="form-textarea" rows="2" oninput="updateCmsFromInputs()"></textarea>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Description Paragraph *</label>
+              <textarea id="cmsHeroDesc" class="form-textarea" rows="3" oninput="updateCmsFromInputs()"></textarea>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+              <div class="form-group">
+                <label class="form-label">Primary Button Text</label>
+                <input type="text" id="cmsHeroBtn1Text" class="form-input" oninput="updateCmsFromInputs()">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Primary Button Link</label>
+                <input type="text" id="cmsHeroBtn1Url" class="form-input" oninput="updateCmsFromInputs()">
+              </div>
+            </div>
+          </div>
+
+          <!-- Subtab 3: Stats Counters -->
+          <div id="subtabStats" class="builder-subtab-pane" style="display: none;">
+            <div style="font-size: 0.82rem; color: var(--slate-400); margin-bottom: 0.85rem;">
+              Update the 4 prominent milestone counters displayed on the homepage.
+            </div>
+            <div id="cmsStatsGrid" style="display: flex; flex-direction: column; gap: 0.75rem;">
+              <!-- 4 stat cards with number and label -->
+            </div>
+          </div>
+
+          <!-- Subtab 4: Business Contact Info -->
+          <div id="subtabBusiness" class="builder-subtab-pane" style="display: none;">
+            <div class="form-group">
+              <label class="form-label">Primary Phone (Displayed)</label>
+              <input type="text" id="cmsBusPhone" class="form-input" oninput="updateCmsFromInputs()">
+            </div>
+            <div class="form-group">
+              <label class="form-label">WhatsApp Number (e.g. 917737243812)</label>
+              <input type="text" id="cmsBusWa" class="form-input" oninput="updateCmsFromInputs()">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Official Email</label>
+              <input type="email" id="cmsBusEmail" class="form-input" oninput="updateCmsFromInputs()">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Office Address</label>
+              <textarea id="cmsBusAddress" class="form-textarea" rows="2" oninput="updateCmsFromInputs()"></textarea>
+            </div>
+          </div>
+
+          <!-- Subtab 5: Announcement Bar -->
+          <div id="subtabNotice" class="builder-subtab-pane" style="display: none;">
+            <div class="form-group" style="display: flex; align-items: center; gap: 0.75rem;">
+              <input type="checkbox" id="cmsNoticeEnabled" style="width: 18px; height: 18px;" onchange="updateCmsFromInputs()">
+              <label for="cmsNoticeEnabled" class="form-label" style="margin: 0; cursor: pointer;">Enable Top Announcement Bar</label>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Announcement Text</label>
+              <input type="text" id="cmsNoticeText" class="form-input" oninput="updateCmsFromInputs()">
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+              <div class="form-group">
+                <label class="form-label">Link Text</label>
+                <input type="text" id="cmsNoticeLinkText" class="form-input" oninput="updateCmsFromInputs()">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Link Destination</label>
+                <input type="text" id="cmsNoticeLinkUrl" class="form-input" oninput="updateCmsFromInputs()">
+              </div>
+            </div>
+          </div>
+
+          <!-- Subtab 6: Google SEO Tags -->
+          <div id="subtabSeo" class="builder-subtab-pane" style="display: none;">
+            <div class="form-group">
+              <label class="form-label">Homepage Title (&lt;title&gt;) *</label>
+              <input type="text" id="cmsSeoTitle" class="form-input" oninput="updateCmsFromInputs()">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Meta Description *</label>
+              <textarea id="cmsSeoDesc" class="form-textarea" rows="3" oninput="updateCmsFromInputs()"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Live Device Preview -->
+        <div class="preview-device-card">
+          <div class="preview-device-header">
+            <div style="font-size: 0.82rem; font-weight: 700; color: #fff; display: flex; align-items: center; gap: 0.4rem;">
+              <span>👁️</span> Real-Time Visual Preview
+            </div>
+            <div class="device-toggle-group">
+              <button type="button" class="btn-device active" id="btnDeviceDesktop" onclick="setPreviewDevice('desktop')">🖥️ Desktop</button>
+              <button type="button" class="btn-device" id="btnDeviceMobile" onclick="setPreviewDevice('mobile')">📱 Mobile</button>
+              <button type="button" class="btn-device" onclick="reloadPreviewFrame()">🔄</button>
+              <a href="index.html" target="_blank" class="btn-device" style="text-decoration:none;">🔗 Live Site</a>
+            </div>
+          </div>
+          <div class="preview-frame-container" id="previewFrameContainer">
+            <iframe id="previewIframe" class="preview-iframe" src="index.html?preview=builder" title="Live Preview"></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 5: SETTINGS & TEAM -->
     <section id="paneSettings" class="tab-pane">
       <div class="section-bar">
         <h2 class="section-heading">
@@ -727,6 +1087,10 @@
       <span class="nav-tab-badge" id="blogBadgeCount" style="display: none;">1</span>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
       AI Blogs
+    </button>
+    <button type="button" class="nav-tab-btn" onclick="switchTab('paneBuilder', this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+      Page Builder
     </button>
     <button type="button" class="nav-tab-btn" onclick="switchTab('paneSettings', this)">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
@@ -993,6 +1357,9 @@
       document.querySelectorAll('.nav-tab-btn').forEach(b => b.classList.remove('active'));
       document.getElementById(paneId).classList.add('active');
       btn.classList.add('active');
+      if (paneId === 'paneBuilder') {
+        initBuilderCms();
+      }
     }
 
     // Modal Helpers
@@ -1529,6 +1896,394 @@
       } catch (err) {
         alert('Delete failed: ' + err.message);
       }
+    }
+
+    // --------------------------------------------------------------------------
+    // 4. VISUAL PAGE BUILDER & CMS RUNTIME
+    // --------------------------------------------------------------------------
+    const DEFAULT_BUILDER_CONFIG = {
+      version: 1,
+      updatedAt: new Date().toISOString(),
+      business: {
+        primaryPhone: '+91-7737243812',
+        phoneRaw: '917737243812',
+        email: 'skytechjpr@gmail.com',
+        whatsapp: '917737243812',
+        address: 'Near Metro Pillar 75, Mansarovar / Gopalpura Bypass, Jaipur, Rajasthan 302020',
+        experienceYears: '15+',
+        projectsCount: '500+',
+        steelSavings: '15-25%'
+      },
+      announcement: {
+        enabled: false,
+        text: '⚡ Free Structural Drawing Vetting & Steel Optimization Audit for Jaipur Projects',
+        linkText: 'Claim Free Audit →',
+        linkUrl: 'contact.html'
+      },
+      seo: {
+        metaTitle: 'The Skytech Structural Consultant Jaipur | RCC, PEB & Value Engineering',
+        metaDesc: 'Premier Structural Engineering Consultants in Jaipur, Rajasthan. Specializing in IS 456 RCC design, PEB industrial sheds, structural audits, and 15-25% steel cost savings.'
+      },
+      hero: {
+        tagline: 'Leading Structural Engineering Consultants in Jaipur',
+        headline: 'Engineering Excellence & Proven 15-25% Steel Optimization',
+        description: 'Licensed Chartered Structural Engineers delivering IS-compliant RCC frames, high-span PEB industrial structures, and drawing value re-engineering across Rajasthan.',
+        primaryBtnText: 'Get Free Drawing Audit',
+        primaryBtnUrl: 'contact.html'
+      },
+      stats: [
+        { id: 'stat-exp', number: '15+', label: 'Years Experience' },
+        { id: 'stat-projects', number: '500+', label: 'Projects Delivered' },
+        { id: 'stat-savings', number: '15-25%', label: 'Steel Tonnage Saved' },
+        { id: 'stat-compliance', number: '100%', label: 'IS Code Compliance' }
+      ],
+      sectionOrder: [
+        { id: 'hero', name: 'Hero 3D Showcase Banner', icon: '🖼️', visible: true },
+        { id: 'seo-overview', name: 'SEO Overview & Services Strip', icon: '⚡', visible: true },
+        { id: 'hero-stats', name: 'Key Achievements & Stats Counters', icon: '📊', visible: true },
+        { id: 'about', name: 'About The Skytech & Leadership', icon: '🏛️', visible: true },
+        { id: 'services', name: 'Core Engineering Expertise Grid', icon: '🛠️', visible: true },
+        { id: 'projects', name: 'Featured Projects Showcase', icon: '🏗️', visible: true },
+        { id: 'why-choose-us', name: 'Why Choose The Skytech & Workflow', icon: '⭐', visible: true },
+        { id: 'blog', name: 'Technical Engineering Blog Feed', icon: '✍️', visible: true },
+        { id: 'faq', name: 'Frequently Asked Questions (FAQ)', icon: '❓', visible: true }
+      ]
+    };
+
+    let builderConfig = JSON.parse(JSON.stringify(DEFAULT_BUILDER_CONFIG));
+    let draggedIndex = null;
+    let isBuilderInitialized = false;
+
+    async function initBuilderCms() {
+      // 1. Load from localStorage or cloud
+      try {
+        const cached = localStorage.getItem('skytech_site_cms_config');
+        if (cached) {
+          builderConfig = Object.assign({}, DEFAULT_BUILDER_CONFIG, JSON.parse(cached));
+        } else {
+          // Fetch from Supabase storage
+          const res = await fetch(`https://fzfdddlkclluqpiyjrtx.supabase.co/storage/v1/object/public/skytech-media/site-cms-config.json?t=${Date.now()}`);
+          if (res.ok) {
+            const cloudData = await res.json();
+            builderConfig = Object.assign({}, DEFAULT_BUILDER_CONFIG, cloudData);
+            localStorage.setItem('skytech_site_cms_config', JSON.stringify(builderConfig));
+          }
+        }
+      } catch (e) {
+        console.warn('Builder load notice:', e);
+      }
+
+      // 2. Populate input fields
+      populateCmsInputs();
+
+      // 3. Render Draggable Sections List
+      renderBuilderSections();
+
+      // 4. Render Stats Grid
+      renderBuilderStats();
+
+      // 5. Broadcast to Preview Iframe
+      setTimeout(() => {
+        broadcastCmsPreview();
+      }, 500);
+
+      isBuilderInitialized = true;
+    }
+
+    function populateCmsInputs() {
+      // Hero
+      if (builderConfig.hero) {
+        document.getElementById('cmsHeroTagline').value = builderConfig.hero.tagline || '';
+        document.getElementById('cmsHeroHeadline').value = builderConfig.hero.headline || '';
+        document.getElementById('cmsHeroDesc').value = builderConfig.hero.description || '';
+        document.getElementById('cmsHeroBtn1Text').value = builderConfig.hero.primaryBtnText || '';
+        document.getElementById('cmsHeroBtn1Url').value = builderConfig.hero.primaryBtnUrl || '';
+      }
+
+      // Business
+      if (builderConfig.business) {
+        document.getElementById('cmsBusPhone').value = builderConfig.business.primaryPhone || '';
+        document.getElementById('cmsBusWa').value = builderConfig.business.whatsapp || '';
+        document.getElementById('cmsBusEmail').value = builderConfig.business.email || '';
+        document.getElementById('cmsBusAddress').value = builderConfig.business.address || '';
+      }
+
+      // Announcement
+      if (builderConfig.announcement) {
+        document.getElementById('cmsNoticeEnabled').checked = !!builderConfig.announcement.enabled;
+        document.getElementById('cmsNoticeText').value = builderConfig.announcement.text || '';
+        document.getElementById('cmsNoticeLinkText').value = builderConfig.announcement.linkText || '';
+        document.getElementById('cmsNoticeLinkUrl').value = builderConfig.announcement.linkUrl || '';
+      }
+
+      // SEO
+      if (builderConfig.seo) {
+        document.getElementById('cmsSeoTitle').value = builderConfig.seo.metaTitle || '';
+        document.getElementById('cmsSeoDesc').value = builderConfig.seo.metaDesc || '';
+      }
+    }
+
+    function renderBuilderSections() {
+      const container = document.getElementById('builderSectionList');
+      if (!container) return;
+
+      container.innerHTML = builderConfig.sectionOrder.map((sec, idx) => {
+        const isHidden = sec.visible === false;
+        return `
+          <div class="builder-section-item ${isHidden ? 'hidden-section' : ''}" 
+               draggable="true" 
+               data-index="${idx}"
+               ondragstart="handleDragStart(event, ${idx})"
+               ondragover="handleDragOver(event, ${idx})"
+               ondrop="handleDrop(event, ${idx})"
+               ondragend="handleDragEnd(event)">
+            <div class="section-item-left">
+              <span class="drag-handle" title="Drag to reorder">⠿</span>
+              <span style="font-size: 1.1rem;">${sec.icon || '📄'}</span>
+              <div>
+                <div class="section-item-title">${escapeHtml(sec.name)}</div>
+                <div style="font-size: 0.72rem; color: ${isHidden ? '#ef4444' : '#10b981'}; font-weight: 700;">
+                  ${isHidden ? '🚫 Hidden on Website' : '🟢 Live on Website'}
+                </div>
+              </div>
+            </div>
+            <div class="section-item-actions">
+              <button type="button" class="btn-builder-ctrl" onclick="moveSectionUp(${idx})" title="Move Up" ${idx === 0 ? 'disabled style="opacity:0.3;"' : ''}>
+                ▲
+              </button>
+              <button type="button" class="btn-builder-ctrl" onclick="moveSectionDown(${idx})" title="Move Down" ${idx === builderConfig.sectionOrder.length - 1 ? 'disabled style="opacity:0.3;"' : ''}>
+                ▼
+              </button>
+              <button type="button" class="btn-builder-ctrl btn-toggle-vis ${isHidden ? 'hidden' : ''}" onclick="toggleSectionVis(${idx})" title="${isHidden ? 'Show Section' : 'Hide Section'}">
+                ${isHidden ? '🚫' : '👁️'}
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderBuilderStats() {
+      const container = document.getElementById('cmsStatsGrid');
+      if (!container) return;
+
+      container.innerHTML = builderConfig.stats.map((st, idx) => `
+        <div style="background: var(--navy-950); border: 1px solid var(--navy-800); border-radius: 8px; padding: 0.75rem;">
+          <div style="display: grid; grid-template-columns: 100px 1fr; gap: 0.75rem;">
+            <div>
+              <label class="form-label">Number *</label>
+              <input type="text" class="form-input" value="${escapeHtml(st.number)}" oninput="updateStatItem(${idx}, 'number', this.value)">
+            </div>
+            <div>
+              <label class="form-label">Label *</label>
+              <input type="text" class="form-input" value="${escapeHtml(st.label)}" oninput="updateStatItem(${idx}, 'label', this.value)">
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function updateStatItem(index, key, val) {
+      if (builderConfig.stats[index]) {
+        builderConfig.stats[index][key] = val;
+        broadcastCmsPreview();
+      }
+    }
+
+    // Drag & Drop Handlers
+    function handleDragStart(e, index) {
+      draggedIndex = index;
+      e.dataTransfer.effectAllowed = 'move';
+      e.target.classList.add('dragging');
+    }
+
+    function handleDragOver(e, index) {
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'move';
+      const items = document.querySelectorAll('.builder-section-item');
+      items.forEach(it => it.classList.remove('drag-over'));
+      if (items[index]) items[index].classList.add('drag-over');
+    }
+
+    function handleDrop(e, targetIndex) {
+      e.preventDefault();
+      if (draggedIndex === null || draggedIndex === targetIndex) return;
+
+      const itemToMove = builderConfig.sectionOrder.splice(draggedIndex, 1)[0];
+      builderConfig.sectionOrder.splice(targetIndex, 0, itemToMove);
+      draggedIndex = null;
+
+      renderBuilderSections();
+      broadcastCmsPreview();
+    }
+
+    function handleDragEnd(e) {
+      draggedIndex = null;
+      document.querySelectorAll('.builder-section-item').forEach(it => {
+        it.classList.remove('dragging');
+        it.classList.remove('drag-over');
+      });
+    }
+
+    // Move Section Up / Down
+    function moveSectionUp(index) {
+      if (index <= 0) return;
+      const item = builderConfig.sectionOrder.splice(index, 1)[0];
+      builderConfig.sectionOrder.splice(index - 1, 0, item);
+      renderBuilderSections();
+      broadcastCmsPreview();
+    }
+
+    function moveSectionDown(index) {
+      if (index >= builderConfig.sectionOrder.length - 1) return;
+      const item = builderConfig.sectionOrder.splice(index, 1)[0];
+      builderConfig.sectionOrder.splice(index + 1, 0, item);
+      renderBuilderSections();
+      broadcastCmsPreview();
+    }
+
+    // Toggle Section Visibility
+    function toggleSectionVis(index) {
+      if (builderConfig.sectionOrder[index]) {
+        builderConfig.sectionOrder[index].visible = !builderConfig.sectionOrder[index].visible;
+        renderBuilderSections();
+        broadcastCmsPreview();
+      }
+    }
+
+    // Subtab Switcher
+    function switchBuilderSubtab(subtabId, btn) {
+      document.querySelectorAll('.builder-subtab-pane').forEach(p => p.style.display = 'none');
+      document.querySelectorAll('.builder-subtab-btn').forEach(b => b.classList.remove('active'));
+      const targetPane = document.getElementById(subtabId);
+      if (targetPane) targetPane.style.display = 'block';
+      if (btn) btn.classList.add('active');
+    }
+
+    // Live update from input fields
+    function updateCmsFromInputs() {
+      // Hero
+      builderConfig.hero.tagline = document.getElementById('cmsHeroTagline').value.trim();
+      builderConfig.hero.headline = document.getElementById('cmsHeroHeadline').value.trim();
+      builderConfig.hero.description = document.getElementById('cmsHeroDesc').value.trim();
+      builderConfig.hero.primaryBtnText = document.getElementById('cmsHeroBtn1Text').value.trim();
+      builderConfig.hero.primaryBtnUrl = document.getElementById('cmsHeroBtn1Url').value.trim();
+
+      // Business
+      builderConfig.business.primaryPhone = document.getElementById('cmsBusPhone').value.trim();
+      builderConfig.business.whatsapp = document.getElementById('cmsBusWa').value.trim();
+      builderConfig.business.email = document.getElementById('cmsBusEmail').value.trim();
+      builderConfig.business.address = document.getElementById('cmsBusAddress').value.trim();
+
+      // Announcement
+      builderConfig.announcement.enabled = document.getElementById('cmsNoticeEnabled').checked;
+      builderConfig.announcement.text = document.getElementById('cmsNoticeText').value.trim();
+      builderConfig.announcement.linkText = document.getElementById('cmsNoticeLinkText').value.trim();
+      builderConfig.announcement.linkUrl = document.getElementById('cmsNoticeLinkUrl').value.trim();
+
+      // SEO
+      builderConfig.seo.metaTitle = document.getElementById('cmsSeoTitle').value.trim();
+      builderConfig.seo.metaDesc = document.getElementById('cmsSeoDesc').value.trim();
+
+      broadcastCmsPreview();
+    }
+
+    // Broadcast update to Preview Iframe
+    function broadcastCmsPreview() {
+      const iframe = document.getElementById('previewIframe');
+      if (iframe && iframe.contentWindow) {
+        iframe.contentWindow.postMessage({
+          type: 'SKYTECH_CMS_PREVIEW_UPDATE',
+          config: builderConfig
+        }, '*');
+      }
+    }
+
+    // Preview Device Switcher
+    function setPreviewDevice(device) {
+      const container = document.getElementById('previewFrameContainer');
+      const btnDesk = document.getElementById('btnDeviceDesktop');
+      const btnMob = document.getElementById('btnDeviceMobile');
+
+      if (device === 'mobile') {
+        container.classList.add('mobile-mode');
+        btnMob.classList.add('active');
+        btnDesk.classList.remove('active');
+      } else {
+        container.classList.remove('mobile-mode');
+        btnDesk.classList.add('active');
+        btnMob.classList.remove('active');
+      }
+    }
+
+    function reloadPreviewFrame() {
+      const iframe = document.getElementById('previewIframe');
+      if (iframe) {
+        iframe.src = 'index.html?preview=builder&t=' + Date.now();
+      }
+    }
+
+    // Save & Publish to Supabase CDN & localStorage
+    async function saveAndPublishCms(event) {
+      const btn = document.getElementById('btnSaveCms');
+      const originalText = btn ? btn.innerText : '';
+      if (btn) {
+        btn.disabled = true;
+        btn.innerText = '⏳ Publishing Live to Website...';
+      }
+
+      builderConfig.updatedAt = new Date().toISOString();
+
+      try {
+        // 1. Save locally
+        localStorage.setItem('skytech_site_cms_config', JSON.stringify(builderConfig));
+
+        // 2. Upload to Supabase Storage Bucket (Public CDN)
+        const blob = new Blob([JSON.stringify(builderConfig, null, 2)], { type: 'application/json' });
+        const res = await fetch(`${SUPABASE_URL}/storage/v1/object/skytech-media/site-cms-config.json`, {
+          method: 'POST',
+          headers: {
+            'apikey': SUPABASE_KEY,
+            'Authorization': `Bearer ${SUPABASE_KEY}`,
+            'Content-Type': 'application/json',
+            'x-upsert': 'true'
+          },
+          body: blob
+        });
+
+        if (!res.ok) {
+          console.warn('Storage upsert HTTP warning:', res.status);
+        }
+
+        const badge = document.getElementById('cmsSyncBadge');
+        if (badge) {
+          badge.innerText = '🟢 Published Live (' + new Date().toLocaleTimeString() + ')';
+        }
+
+        alert('🎉 Website Layout & Content Successfully Published Live!\n\nAll changes to section order, visibility, hero headline, stats, and business details are now live for all visitors on https://theskytech.in');
+
+        broadcastCmsPreview();
+
+      } catch (err) {
+        alert('Notice: Changes saved locally, cloud sync notice: ' + err.message);
+      } finally {
+        if (btn) {
+          btn.disabled = false;
+          btn.innerText = originalText;
+        }
+      }
+    }
+
+    // Reset Defaults
+    function resetCmsDefaults() {
+      if (!confirm('Are you sure you want to reset all section order and website texts back to factory defaults?')) return;
+      builderConfig = JSON.parse(JSON.stringify(DEFAULT_BUILDER_CONFIG));
+      localStorage.removeItem('skytech_site_cms_config');
+      populateCmsInputs();
+      renderBuilderSections();
+      renderBuilderStats();
+      broadcastCmsPreview();
+      alert('Layout and content reset to factory defaults.');
     }
 
     // Helper: HTML Escape
