@@ -967,15 +967,54 @@
             </div>
           </div>
 
-          <!-- Subtab 6: Google SEO Tags -->
+          <!-- Subtab 6: Google SEO Tags (Multi-Page Selector) -->
           <div id="subtabSeo" class="builder-subtab-pane" style="display: none;">
             <div class="form-group">
-              <label class="form-label">Homepage Title (&lt;title&gt;) *</label>
-              <input type="text" id="cmsSeoTitle" class="form-input" oninput="updateCmsFromInputs()">
+              <label class="form-label" style="display: flex; align-items: center; justify-content: space-between;">
+                <span>Choose Page to Edit SEO *</span>
+                <span style="font-size: 0.72rem; color: #38bdf8; font-weight: normal;">Live Multi-Page Meta Editor</span>
+              </label>
+              <select id="cmsSeoPageSelector" class="form-select" onchange="onSeoPageSelectChange()">
+                <option value="home">🏠 Homepage (index.html)</option>
+                <option value="services">🛠️ Services Page (services.html)</option>
+                <option value="projects">🏗️ Projects Page (projects.html)</option>
+                <option value="blog">✍️ Blog Hub (blog.html)</option>
+                <option value="contact">📞 Contact Us Page (contact.html)</option>
+              </select>
             </div>
+
             <div class="form-group">
-              <label class="form-label">Meta Description *</label>
-              <textarea id="cmsSeoDesc" class="form-textarea" rows="3" oninput="updateCmsFromInputs()"></textarea>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem;">
+                <label class="form-label" style="margin: 0;">Google Title Tag (&lt;title&gt;) *</label>
+                <span id="seoTitleCounter" style="font-size: 0.72rem; color: var(--slate-400);">0 / 60 chars (Optimal: 50-60)</span>
+              </div>
+              <input type="text" id="cmsSeoTitle" class="form-input" placeholder="e.g. Structural Consultant in Jaipur | The Skytech" oninput="updateCmsFromInputs()">
+            </div>
+
+            <div class="form-group">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem;">
+                <label class="form-label" style="margin: 0;">Meta Description *</label>
+                <span id="seoDescCounter" style="font-size: 0.72rem; color: var(--slate-400);">0 / 160 chars (Optimal: 150-160)</span>
+              </div>
+              <textarea id="cmsSeoDesc" class="form-textarea" rows="3" placeholder="e.g. Licensed Chartered Structural Consultants in Jaipur delivering IS-compliant RCC..." oninput="updateCmsFromInputs()"></textarea>
+            </div>
+
+            <!-- Google Search Snippet Simulator -->
+            <div style="background: #070e18; border: 1px solid rgba(56, 189, 248, 0.25); border-radius: 8px; padding: 0.85rem; margin-top: 1rem;">
+              <div style="font-size: 0.72rem; text-transform: uppercase; color: var(--slate-400); font-weight: 700; margin-bottom: 0.5rem; letter-spacing: 0.5px; display: flex; align-items: center; justify-content: space-between;">
+                <span>🔍 Live Google Search Result Preview</span>
+                <span id="serpDevicePill" style="color: #38bdf8;">Google Snippet</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.3rem;">
+                <img src="assets/images/skytech-logo.svg" style="width: 16px; height: 16px; border-radius: 50%;" alt="The Skytech">
+                <div style="font-size: 0.75rem; color: #94a3b8; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" id="serpUrlPreview">https://theskytech.in</div>
+              </div>
+              <div id="serpTitlePreview" style="font-size: 1rem; font-weight: 600; color: #8ab4f8; margin-bottom: 0.3rem; line-height: 1.3;">
+                The Skytech Structural Consultant Jaipur
+              </div>
+              <div id="serpDescPreview" style="font-size: 0.82rem; color: #bdc1c6; line-height: 1.4;">
+                Premier Structural Engineering Consultants in Jaipur, Rajasthan...
+              </div>
             </div>
           </div>
         </div>
@@ -1921,8 +1960,26 @@
         linkUrl: 'contact.html'
       },
       seo: {
-        metaTitle: 'The Skytech Structural Consultant Jaipur | RCC, PEB & Value Engineering',
-        metaDesc: 'Premier Structural Engineering Consultants in Jaipur, Rajasthan. Specializing in IS 456 RCC design, PEB industrial sheds, structural audits, and 15-25% steel cost savings.'
+        home: {
+          metaTitle: 'The Skytech Structural Consultant Jaipur | RCC, PEB & Value Engineering',
+          metaDesc: 'Premier Structural Engineering Consultants in Jaipur, Rajasthan. Specializing in IS 456 RCC design, PEB industrial sheds, structural audits, and 15-25% steel cost savings.'
+        },
+        services: {
+          metaTitle: 'Structural Engineering Services in Jaipur | RCC, PEB & Stability | The Skytech',
+          metaDesc: 'Comprehensive structural consultancy in Jaipur: 3D ETABS modeling, RCC framing, industrial PEB sheds, forensic NDT audits, and statutory stability certificates per IS codes.'
+        },
+        projects: {
+          metaTitle: 'Structural Engineering Projects Portfolio Jaipur | The Skytech',
+          metaDesc: 'View our delivered commercial high-rises, industrial PEB sheds, luxury residential villas, and infrastructure projects across Jaipur and Rajasthan with 15-25% steel savings.'
+        },
+        blog: {
+          metaTitle: 'Structural Engineering Technical Blog & IS Guides | The Skytech',
+          metaDesc: 'Authoritative structural engineering insights, IS code design parameters (IS 456, IS 1893, IS 2950), value re-engineering case studies, and construction cost reduction.'
+        },
+        contact: {
+          metaTitle: 'Contact The Skytech | Structural Consultants in Jaipur | +91-7737243812',
+          metaDesc: 'Get in touch with licensed Chartered Structural Engineers at The Skytech, Jaipur. Request a free drawing audit, site inspection, or project consultation. Call +91-7737243812.'
+        }
       },
       hero: {
         tagline: 'Leading Structural Engineering Consultants in Jaipur',
@@ -1953,6 +2010,7 @@
     let builderConfig = JSON.parse(JSON.stringify(DEFAULT_BUILDER_CONFIG));
     let draggedIndex = null;
     let isBuilderInitialized = false;
+    let currentSelectedSeoPage = 'home';
 
     async function initBuilderCms() {
       // 1. Load from localStorage or cloud
@@ -2016,11 +2074,89 @@
         document.getElementById('cmsNoticeLinkUrl').value = builderConfig.announcement.linkUrl || '';
       }
 
-      // SEO
+      // SEO (Multi-Page Support)
       if (builderConfig.seo) {
-        document.getElementById('cmsSeoTitle').value = builderConfig.seo.metaTitle || '';
-        document.getElementById('cmsSeoDesc').value = builderConfig.seo.metaDesc || '';
+        // Auto-migrate old single-page structure if detected
+        if (typeof builderConfig.seo.metaTitle === 'string' && !builderConfig.seo.home) {
+          builderConfig.seo = {
+            home: { metaTitle: builderConfig.seo.metaTitle, metaDesc: builderConfig.seo.metaDesc },
+            services: DEFAULT_BUILDER_CONFIG.seo.services,
+            projects: DEFAULT_BUILDER_CONFIG.seo.projects,
+            blog: DEFAULT_BUILDER_CONFIG.seo.blog,
+            contact: DEFAULT_BUILDER_CONFIG.seo.contact
+          };
+        }
+        renderSeoInputsForPage(currentSelectedSeoPage);
       }
+    }
+
+    function onSeoPageSelectChange() {
+      const select = document.getElementById('cmsSeoPageSelector');
+      if (!select) return;
+      currentSelectedSeoPage = select.value;
+      renderSeoInputsForPage(currentSelectedSeoPage);
+
+      // Switch live preview iframe to the selected page
+      const iframe = document.getElementById('previewIframe');
+      if (iframe) {
+        const pageFile = currentSelectedSeoPage === 'home' ? 'index.html' : currentSelectedSeoPage + '.html';
+        iframe.src = pageFile + '?preview=builder&t=' + Date.now();
+      }
+    }
+
+    function renderSeoInputsForPage(pageKey) {
+      if (!builderConfig.seo) builderConfig.seo = {};
+      if (!builderConfig.seo[pageKey]) {
+        builderConfig.seo[pageKey] = (DEFAULT_BUILDER_CONFIG.seo && DEFAULT_BUILDER_CONFIG.seo[pageKey])
+          ? Object.assign({}, DEFAULT_BUILDER_CONFIG.seo[pageKey])
+          : { metaTitle: '', metaDesc: '' };
+      }
+
+      const pageSeo = builderConfig.seo[pageKey];
+      const titleInput = document.getElementById('cmsSeoTitle');
+      const descInput = document.getElementById('cmsSeoDesc');
+
+      if (titleInput) titleInput.value = pageSeo.metaTitle || '';
+      if (descInput) descInput.value = pageSeo.metaDesc || '';
+
+      updateSeoUiCounters();
+    }
+
+    function updateSeoUiCounters() {
+      const pageKey = currentSelectedSeoPage;
+      const title = document.getElementById('cmsSeoTitle') ? document.getElementById('cmsSeoTitle').value : '';
+      const desc = document.getElementById('cmsSeoDesc') ? document.getElementById('cmsSeoDesc').value : '';
+
+      // Update counters
+      const titleCounter = document.getElementById('seoTitleCounter');
+      const descCounter = document.getElementById('seoDescCounter');
+
+      if (titleCounter) {
+        titleCounter.innerText = `${title.length} / 60 chars (Optimal: 50-60)`;
+        titleCounter.style.color = (title.length >= 45 && title.length <= 65) ? '#10b981' : (title.length > 65 ? '#ef4444' : '#f59e0b');
+      }
+
+      if (descCounter) {
+        descCounter.innerText = `${desc.length} / 160 chars (Optimal: 140-160)`;
+        descCounter.style.color = (desc.length >= 130 && desc.length <= 165) ? '#10b981' : (desc.length > 165 ? '#ef4444' : '#f59e0b');
+      }
+
+      // Update SERP Simulator
+      const serpUrl = document.getElementById('serpUrlPreview');
+      const serpTitle = document.getElementById('serpTitlePreview');
+      const serpDesc = document.getElementById('serpDescPreview');
+
+      const urlMap = {
+        home: 'https://theskytech.in',
+        services: 'https://theskytech.in/services.html',
+        projects: 'https://theskytech.in/projects.html',
+        blog: 'https://theskytech.in/blog.html',
+        contact: 'https://theskytech.in/contact.html'
+      };
+
+      if (serpUrl) serpUrl.innerText = urlMap[pageKey] || 'https://theskytech.in';
+      if (serpTitle) serpTitle.innerText = title || 'The Skytech Structural Consultant Jaipur';
+      if (serpDesc) serpDesc.innerText = desc || 'Premier Structural Engineering Consultants in Jaipur, Rajasthan...';
     }
 
     function renderBuilderSections() {
@@ -2181,9 +2317,13 @@
       builderConfig.announcement.linkText = document.getElementById('cmsNoticeLinkText').value.trim();
       builderConfig.announcement.linkUrl = document.getElementById('cmsNoticeLinkUrl').value.trim();
 
-      // SEO
-      builderConfig.seo.metaTitle = document.getElementById('cmsSeoTitle').value.trim();
-      builderConfig.seo.metaDesc = document.getElementById('cmsSeoDesc').value.trim();
+      // SEO (Multi-Page Support)
+      if (!builderConfig.seo) builderConfig.seo = {};
+      if (!builderConfig.seo[currentSelectedSeoPage]) builderConfig.seo[currentSelectedSeoPage] = {};
+      builderConfig.seo[currentSelectedSeoPage].metaTitle = document.getElementById('cmsSeoTitle').value.trim();
+      builderConfig.seo[currentSelectedSeoPage].metaDesc = document.getElementById('cmsSeoDesc').value.trim();
+
+      updateSeoUiCounters();
 
       broadcastCmsPreview();
     }

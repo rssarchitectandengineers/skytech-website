@@ -26,8 +26,26 @@ export const DEFAULT_SITE_CMS_CONFIG = {
     linkUrl: 'contact.html'
   },
   seo: {
-    metaTitle: 'The Skytech Structural Consultant Jaipur | RCC, PEB & Value Engineering',
-    metaDesc: 'Premier Structural Engineering Consultants in Jaipur, Rajasthan. Specializing in IS 456 RCC design, PEB industrial sheds, structural audits, and 15-25% steel cost savings.'
+    home: {
+      metaTitle: 'The Skytech Structural Consultant Jaipur | RCC, PEB & Value Engineering',
+      metaDesc: 'Premier Structural Engineering Consultants in Jaipur, Rajasthan. Specializing in IS 456 RCC design, PEB industrial sheds, structural audits, and 15-25% steel cost savings.'
+    },
+    services: {
+      metaTitle: 'Structural Engineering Services in Jaipur | RCC, PEB & Stability | The Skytech',
+      metaDesc: 'Comprehensive structural consultancy in Jaipur: 3D ETABS modeling, RCC framing, industrial PEB sheds, forensic NDT audits, and statutory stability certificates per IS codes.'
+    },
+    projects: {
+      metaTitle: 'Structural Engineering Projects Portfolio Jaipur | The Skytech',
+      metaDesc: 'View our delivered commercial high-rises, industrial PEB sheds, luxury residential villas, and infrastructure projects across Jaipur and Rajasthan with 15-25% steel savings.'
+    },
+    blog: {
+      metaTitle: 'Structural Engineering Technical Blog & IS Guides | The Skytech',
+      metaDesc: 'Authoritative structural engineering insights, IS code design parameters (IS 456, IS 1893, IS 2950), value re-engineering case studies, and construction cost reduction.'
+    },
+    contact: {
+      metaTitle: 'Contact The Skytech | Structural Consultants in Jaipur | +91-7737243812',
+      metaDesc: 'Get in touch with licensed Chartered Structural Engineers at The Skytech, Jaipur. Request a free drawing audit, site inspection, or project consultation. Call +91-7737243812.'
+    }
   },
   hero: {
     tagline: 'Leading Structural Engineering Consultants in Jaipur',
@@ -166,14 +184,36 @@ export function applySiteCmsConfig(config) {
     }
   }
 
-  // 6. Hydrate SEO Meta Tags
+  // 6. Hydrate SEO Meta Tags per Page
   if (config.seo) {
-    if (config.seo.metaTitle && document.location.pathname.endsWith('index.html') || document.location.pathname === '/') {
-      document.title = config.seo.metaTitle;
-    }
-    if (config.seo.metaDesc) {
-      const mDesc = document.querySelector('meta[name="description"]');
-      if (mDesc) mDesc.setAttribute('content', config.seo.metaDesc);
+    const path = window.location.pathname.toLowerCase();
+    let pageKey = 'home';
+    if (path.includes('services.html')) pageKey = 'services';
+    else if (path.includes('projects.html')) pageKey = 'projects';
+    else if (path.includes('blog.html')) pageKey = 'blog';
+    else if (path.includes('contact.html')) pageKey = 'contact';
+
+    // Support both multi-page structure and legacy single-page fallback
+    const pageSeo = (config.seo[pageKey]) 
+      ? config.seo[pageKey] 
+      : (pageKey === 'home' && config.seo.metaTitle ? { metaTitle: config.seo.metaTitle, metaDesc: config.seo.metaDesc } : null);
+
+    if (pageSeo) {
+      if (pageSeo.metaTitle) {
+        document.title = pageSeo.metaTitle;
+        const ogTitle = document.getElementById('ogTitle') || document.querySelector('meta[property="og:title"]');
+        if (ogTitle) ogTitle.setAttribute('content', pageSeo.metaTitle);
+        const twTitle = document.getElementById('twTitle') || document.querySelector('meta[name="twitter:title"]');
+        if (twTitle) twTitle.setAttribute('content', pageSeo.metaTitle);
+      }
+      if (pageSeo.metaDesc) {
+        const mDesc = document.getElementById('metaDesc') || document.querySelector('meta[name="description"]');
+        if (mDesc) mDesc.setAttribute('content', pageSeo.metaDesc);
+        const ogDesc = document.getElementById('ogDesc') || document.querySelector('meta[property="og:description"]');
+        if (ogDesc) ogDesc.setAttribute('content', pageSeo.metaDesc);
+        const twDesc = document.getElementById('twDesc') || document.querySelector('meta[name="twitter:description"]');
+        if (twDesc) twDesc.setAttribute('content', pageSeo.metaDesc);
+      }
     }
   }
 }
@@ -216,3 +256,4 @@ export async function initSiteCms() {
     }
   });
 }
+
