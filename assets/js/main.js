@@ -828,7 +828,7 @@ function renderProjects(projects) {
       ? `<img src="${p.image}" alt="${p.title} - Structural Design by The Skytech" loading="lazy" width="400" height="200" style="object-fit:cover; width:100%; height:100%;" decoding="async" onerror="this.onerror=null; this.src='${fallbackSrc}';">`
       : `<picture>
           <source srcset="${(p.image || '').replace('.jpg', '.webp')}" type="image/webp">
-          <img src="${p.image}" alt="${p.title} - Structural Design by The Skytech" loading="lazy" width="400" height="200" decoding="async" onerror="this.onerror=null; this.src='${fallbackSrc}';">
+          <img src="${p.image}" alt="${p.title} - Structural Design by The Skytech" loading="lazy" width="400" height="200" decoding="async" onerror="this.onerror=null; const p=this.closest('picture'); if(p){p.querySelectorAll('source').forEach(s=>s.remove());} this.src='${fallbackSrc}';">
         </picture>`;
 
     return `
@@ -887,7 +887,7 @@ function showProjectModalDetails(project) {
     ? `<img src="${project.image}" alt="${project.title}" style="width: 100%; height: 100%; object-fit: cover;" decoding="async" onerror="this.onerror=null; this.src='${fallbackSrc}';">`
     : `<picture>
         <source srcset="${(project.image || '').replace('.jpg', '.webp')}" type="image/webp">
-        <img src="${project.image}" alt="${project.title}" style="width: 100%; height: 100%; object-fit: cover;" decoding="async" onerror="this.onerror=null; this.src='${fallbackSrc}';">
+        <img src="${project.image}" alt="${project.title}" style="width: 100%; height: 100%; object-fit: cover;" decoding="async" onerror="this.onerror=null; const p=this.closest('picture'); if(p){p.querySelectorAll('source').forEach(s=>s.remove());} this.src='${fallbackSrc}';">
       </picture>`;
 
   container.innerHTML = `
